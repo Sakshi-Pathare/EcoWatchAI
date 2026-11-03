@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    color: #1E293B;
+    background-color: #FAFBF7;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+}
+
+/* Custom leaflet map controls styling to match EcoWatch brand */
+.leaflet-container {
+  font-family: inherit;
+  z-index: 10;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 0.75rem;
+  padding: 0;
+  box-shadow: 0 10px 25px -5px rgba(24, 71, 48, 0.15), 0 8px 10px -6px rgba(24, 71, 48, 0.1);
+  border: 1px solid #E8EDE7;
+}
+
+.leaflet-popup-content {
+  margin: 0;
+  line-height: inherit;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #F4F5ED;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBDBC9;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94AC90;
+}
+

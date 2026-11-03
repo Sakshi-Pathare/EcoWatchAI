@@ -1,0 +1,82 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        forest: {
+          50: '#F0F6F3',
+          100: '#DCEBE3',
+          200: '#BCD8C9',
+          300: '#92BEA7',
+          400: '#5F9F7E',
+          500: '#2A724E',
+          600: '#1F5A3D',
+          700: '#184730',
+          800: '#133927',
+          900: '#0C2419',
+          DEFAULT: '#184730',
+        },
+        sage: {
+          50: '#F5F7F5',
+          100: '#E8EDE7',
+          200: '#D2DDD0',
+          300: '#B5C7B2',
+          400: '#94AC90',
+          500: '#758F71',
+          600: '#5C7359',
+          700: '#475945',
+          800: '#384636',
+          900: '#252F24',
+          DEFAULT: '#758F71',
+        },
+        offwhite: {
+          50: '#FFFFFF',
+          100: '#FAFBF7',
+          200: '#F4F5ED',
+          300: '#EBECE1',
+          400: '#DEDFD2',
+          DEFAULT: '#FAFBF7',
+        },
+        charcoal: {
+          50: '#F8F9FA',
+          100: '#F1F3F5',
+          200: '#E2E6EA',
+          300: '#CFD4DC',
+          400: '#9AA3AF',
+          500: '#64748B',
+          600: '#475569',
+          700: '#334155',
+          800: '#1E293B',
+          900: '#0F172A',
+          DEFAULT: '#1E293B',
+        },
+        limeaccent: {
+          50: '#F7FEE7',
+          100: '#ECFCCB',
+          200: '#D9F99D',
+          300: '#BEF264',
+          400: '#A3E635',
+          500: '#84CC16',
+          600: '#65A30D',
+          700: '#4D7C0F',
+          DEFAULT: '#65A30D',
+        },
+      },
+      fontFamily: {
+        sans: ['Inter', 'Manrope', 'system-ui', '-apple-system', 'sans-serif'],
+      },
+      boxShadow: {
+        'soft-sm': '0 1px 3px 0 rgba(24, 71, 48, 0.05)',
+        'soft': '0 4px 12px 0 rgba(24, 71, 48, 0.06), 0 1px 3px 0 rgba(24, 71, 48, 0.04)',
+        'soft-md': '0 8px 24px -4px rgba(24, 71, 48, 0.08), 0 2px 6px -1px rgba(24, 71, 48, 0.04)',
+        'soft-lg': '0 16px 36px -6px rgba(24, 71, 48, 0.12), 0 4px 12px -2px rgba(24, 71, 48, 0.06)',
+      },
+    },
+  },
+  plugins: [],
+}
+
