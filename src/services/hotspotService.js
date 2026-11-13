@@ -1,4 +1,4 @@
-import { initialMockHotspots } from '../data/mockHotspots';
+import { initialMockHotspots } from '../data/mockHotspots.js';
 
 const STORAGE_KEY = 'ecowatch_hotspots_v1';
 

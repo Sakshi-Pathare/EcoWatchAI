@@ -44,13 +44,39 @@ export function ReportLitterPage() {
     setImagePreview(null);
   };
 
-  const handleLocationChange = (lat, lng) => {
+  const handleLocationChange = async (lat, lng) => {
+    const fallbackAddr = `GPS Pin: ${lat.toFixed(4)}°, ${lng.toFixed(4)}°`;
     setFormData((prev) => ({
       ...prev,
       latitude: lat,
       longitude: lng,
-      address: `Selected GPS Coordinates: ${lat.toFixed(4)}, ${lng.toFixed(4)}`,
+      address: prev.address && !prev.address.startsWith('GPS Pin:') && !prev.address.startsWith('Selected GPS')
+        ? prev.address
+        : fallbackAddr,
     }));
+
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`,
+        { headers: { Accept: 'application/json' } }
+      );
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.display_name) {
+          const parts = [];
+          if (data.address?.road) parts.push(data.address.road);
+          if (data.address?.suburb || data.address?.neighbourhood) parts.push(data.address.suburb || data.address.neighbourhood);
+          if (data.address?.city || data.address?.town) parts.push(data.address.city || data.address.town);
+          const resolved = parts.length > 0 ? parts.join(', ') : data.display_name.split(',').slice(0, 3).join(',');
+          setFormData((prev) => ({
+            ...prev,
+            address: resolved.trim(),
+          }));
+        }
+      }
+    } catch (err) {
+      // Gracefully fall back to coordinates if offline or network restricted
+    }
   };
 
   const handleSubmit = async (e) => {
