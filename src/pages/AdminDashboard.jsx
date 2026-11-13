@@ -33,6 +33,7 @@ import { LoadingSkeleton } from '../components/common/LoadingSkeleton';
 import { analyticsService } from '../services/analyticsService';
 import { reportService } from '../services/reportService';
 import { hotspotService } from '../services/hotspotService';
+import { cleanupService } from '../services/cleanupService';
 import { getSeverityBadgeProps, getStatusBadgeProps, getCategoryLabel } from '../utils/formatters';
 import { formatDate } from '../utils/dateUtils';
 
@@ -84,8 +85,23 @@ export function AdminDashboard() {
 
   const handleScheduleCleanup = async (reportId) => {
     try {
-      await reportService.updateReportStatus(reportId, 'scheduled');
+      const updated = await reportService.updateReportStatus(reportId, 'scheduled');
+      await cleanupService.createTaskFromReport(updated);
       setActionSuccess(`Report ${reportId} dispatched for scheduled sanitation.`);
+      loadAllData();
+      setTimeout(() => setActionSuccess(null), 3000);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleDeleteReport = async (reportId) => {
+    if (!window.confirm(`Are you sure you want to permanently remove report ${reportId}?`)) {
+      return;
+    }
+    try {
+      await reportService.deleteReport(reportId);
+      setActionSuccess(`Report ${reportId} deleted successfully.`);
       loadAllData();
       setTimeout(() => setActionSuccess(null), 3000);
     } catch (e) {
@@ -333,7 +349,7 @@ export function AdminDashboard() {
                             {statProps.label}
                           </span>
                         </td>
-                        <td className="py-3 px-4 text-right whitespace-nowrap space-x-2">
+                        <td className="py-3 px-4 text-right whitespace-nowrap space-x-1.5">
                           {r.status === 'pending' && (
                             <Button
                               variant="outline"
@@ -354,6 +370,14 @@ export function AdminDashboard() {
                               Schedule
                             </Button>
                           )}
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-[11px] py-1 px-2 text-rose-600 hover:text-rose-800 hover:bg-rose-50"
+                            onClick={() => handleDeleteReport(r.id)}
+                          >
+                            Delete
+                          </Button>
                         </td>
                       </tr>
                     );
