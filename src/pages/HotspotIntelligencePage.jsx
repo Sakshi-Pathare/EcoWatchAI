@@ -11,9 +11,16 @@ import {
   ShieldAlert,
   SlidersHorizontal,
   Compass,
+  Sparkles,
+  Zap,
+  Activity,
+  CheckCircle2,
+  Sliders,
+  ChevronRight,
 } from 'lucide-react';
 import { Button } from '../components/common/Button';
 import { Card, CardHeader, CardBody } from '../components/common/Card';
+import { Badge } from '../components/common/Badge';
 import { LoadingSkeleton } from '../components/common/LoadingSkeleton';
 import { hotspotService } from '../services/hotspotService';
 import { getSeverityBadgeProps, getCategoryLabel } from '../utils/formatters';
@@ -23,6 +30,8 @@ export function HotspotIntelligencePage() {
   const [hotspots, setHotspots] = useState([]);
   const [sortBy, setSortBy] = useState('priority'); // 'priority' | 'recurrence' | 'date'
   const [loading, setLoading] = useState(true);
+  const [simulationActive, setSimulationActive] = useState(false);
+  const [filterMode, setFilterMode] = useState('all'); // 'all' | 'critical' | 'waterway'
 
   useEffect(() => {
     loadHotspots();
@@ -40,195 +49,271 @@ export function HotspotIntelligencePage() {
     }
   };
 
+  const filteredHotspots = hotspots.filter((h) => {
+    if (filterMode === 'critical') return h.priorityScore >= 80;
+    if (filterMode === 'waterway') return h.environmentalRisk?.toLowerCase().includes('waterway') || h.environmentalRisk?.toLowerCase().includes('bay');
+    return true;
+  });
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 font-sans">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-sage-200">
         <div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-md bg-rose-100 text-rose-800 mb-1.5">
-            <Flame className="w-3.5 h-3.5 text-rose-600" />
-            <span>Algorithmic Hotspot Clustering</span>
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-rose-100 text-rose-900 mb-2 border border-rose-200 shadow-xs">
+            <Flame className="w-3.5 h-3.5 text-rose-600 animate-pulse" />
+            <span>Algorithmic Hotspot Clustering Engine</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-charcoal-900 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-charcoal-900 tracking-tight">
             Hotspot Intelligence & Priority Ranking
           </h1>
-          <p className="text-xs sm:text-sm text-charcoal-500 mt-1 max-w-2xl">
-            Automated geospatial recurrence clustering. High-frequency dumping zones ranked by calculated Cleanup Priority Score.
+          <p className="text-xs sm:text-sm text-charcoal-500 mt-1 max-w-2xl leading-relaxed">
+            Automated geospatial recurrence clustering. High-frequency dumping corridors ranked by dynamic multi-parameter Cleanup Priority Score.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            onClick={() => setSimulationActive(!simulationActive)}
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-2 border shadow-xs ${
+              simulationActive
+                ? 'bg-limeaccent-100 text-forest-950 border-limeaccent-400 ring-2 ring-limeaccent-400/40'
+                : 'bg-white text-charcoal-700 border-sage-300 hover:bg-offwhite-100'
+            }`}
+          >
+            <Zap className={`w-3.5 h-3.5 ${simulationActive ? 'text-forest-900' : 'text-amber-500'}`} />
+            <span>Remediation Simulator {simulationActive ? 'ACTIVE' : 'OFF'}</span>
+          </button>
+
           <Link to="/map">
             <Button variant="outline" size="sm" icon={Compass}>
               View on GIS Map
             </Button>
           </Link>
           <Link to="/cleanups">
-            <Button variant="primary" size="sm" icon={ShieldAlert}>
-              Dispatch Cleanups
+            <Button variant="primary" size="sm" icon={ShieldAlert} glow>
+              Dispatch Squads
             </Button>
           </Link>
         </div>
       </div>
 
       {/* Algorithmic Methodology Banner */}
-      <div className="p-4 rounded-2xl bg-gradient-to-r from-forest-900 to-forest-800 text-white shadow-soft flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div className="space-y-1 max-w-2xl text-xs">
-          <span className="font-bold text-limeaccent-300 text-sm flex items-center gap-1.5">
-            <Layers className="w-4 h-4" /> Priority Scoring Formula (0 - 100 Scale)
-          </span>
-          <p className="text-sage-200 leading-relaxed text-[11px]">
-            Score is computed via: <code className="bg-forest-950 px-1.5 py-0.5 rounded text-limeaccent-300 font-mono">Priority = (Recurrence × 3.5) + (Material Hazard × 2.0) + (Waterway Proximity × 1.5)</code>.
-            Clusters exceeding score 80 trigger urgent municipal remediation dispatch.
-          </p>
-        </div>
+      <div className="relative rounded-3xl p-6 sm:p-7 bg-gradient-to-r from-forest-950 via-forest-900 to-forest-950 text-white shadow-soft-lg overflow-hidden border border-forest-800">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-limeaccent-400/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="flex items-center gap-2 bg-forest-950/60 px-3 py-2 rounded-xl border border-forest-700 text-xs text-sage-200 shrink-0">
-          <Flame className="w-4 h-4 text-rose-400" />
-          <span><b>{hotspots.filter((h) => h.priorityScore >= 80).length}</b> Critical Zones Requiring Action</span>
+        <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div className="space-y-2 max-w-3xl text-xs">
+            <span className="font-extrabold text-limeaccent-300 text-sm flex items-center gap-2 font-mono">
+              <Layers className="w-4 h-4 text-limeaccent-400" />
+              PRIORITY SCORING METRIC (0 - 100 NORMALIZED SCALE)
+            </span>
+            <p className="text-sage-200 leading-relaxed text-xs">
+              Autonomous score weighting: <code className="bg-forest-950/90 px-2 py-0.5 rounded text-limeaccent-300 font-mono text-[11px] border border-forest-800">Score = (Recurrence × 3.5) + (Material Hazard × 2.0) + (Waterway Runoff Buffer × 1.5)</code>.
+              Clusters with scores $\ge 80$ automatically trigger mandatory municipal contractor dispatch.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 bg-forest-900/90 px-4 py-2.5 rounded-2xl border border-forest-700 text-xs text-sage-200 shrink-0 shadow-soft-xs">
+            <Flame className="w-5 h-5 text-rose-400 animate-pulse" />
+            <div>
+              <span className="text-[10px] uppercase font-bold text-sage-300 block">Critical Action Threshold</span>
+              <span className="text-sm font-extrabold text-white">
+                {hotspots.filter((h) => h.priorityScore >= 80).length} High-Risk Corridors
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Sorting & Filter Controls */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-2 text-xs font-medium text-charcoal-700">
-          <ArrowUpDown className="w-4 h-4 text-forest-700" />
-          <span>Sort Ranked Zones By:</span>
-          <div className="inline-flex rounded-lg border border-sage-300 bg-white p-0.5">
+      {/* Filter Chips & Sorting Control Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 glass-panel p-4 rounded-2xl border border-sage-200 shadow-soft">
+        {/* Preset filter chips */}
+        <div className="flex flex-wrap items-center gap-2 text-xs">
+          <span className="font-bold text-charcoal-500 text-[11px] uppercase mr-1">Filter Clusters:</span>
+          <button
+            onClick={() => setFilterMode('all')}
+            className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
+              filterMode === 'all'
+                ? 'bg-forest-800 text-white shadow-xs'
+                : 'bg-white text-charcoal-700 border border-sage-200 hover:bg-offwhite-100'
+            }`}
+          >
+            All Clusters ({hotspots.length})
+          </button>
+          <button
+            onClick={() => setFilterMode('critical')}
+            className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
+              filterMode === 'critical'
+                ? 'bg-rose-600 text-white shadow-xs'
+                : 'bg-white text-rose-800 border border-rose-200 hover:bg-rose-50'
+            }`}
+          >
+            Critical Score $\ge 80$ ({hotspots.filter(h => h.priorityScore >= 80).length})
+          </button>
+          <button
+            onClick={() => setFilterMode('waterway')}
+            className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
+              filterMode === 'waterway'
+                ? 'bg-blue-600 text-white shadow-xs'
+                : 'bg-white text-blue-800 border border-blue-200 hover:bg-blue-50'
+            }`}
+          >
+            Waterway Runoff Risk
+          </button>
+        </div>
+
+        {/* Sorting buttons */}
+        <div className="flex items-center gap-2 text-xs font-semibold text-charcoal-700 shrink-0">
+          <ArrowUpDown className="w-3.5 h-3.5 text-forest-700" />
+          <span className="text-[11px] text-charcoal-400">Sort:</span>
+          <div className="inline-flex rounded-xl border border-sage-300 bg-white p-0.5 shadow-xs">
             <button
               onClick={() => setSortBy('priority')}
-              className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${
+              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
                 sortBy === 'priority'
                   ? 'bg-forest text-white'
                   : 'text-charcoal-600 hover:text-forest-900'
               }`}
             >
-              Priority Score
+              Priority
             </button>
             <button
               onClick={() => setSortBy('recurrence')}
-              className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${
+              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
                 sortBy === 'recurrence'
                   ? 'bg-forest text-white'
                   : 'text-charcoal-600 hover:text-forest-900'
               }`}
             >
-              Report Recurrence
+              Recurrence
             </button>
             <button
               onClick={() => setSortBy('date')}
-              className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${
+              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
                 sortBy === 'date'
                   ? 'bg-forest text-white'
                   : 'text-charcoal-600 hover:text-forest-900'
               }`}
             >
-              Most Recent Incident
+              Recent
             </button>
           </div>
         </div>
-
-        <span className="text-xs text-charcoal-500 font-medium">
-          Showing <b>{hotspots.length}</b> detected urban clusters
-        </span>
       </div>
 
       {/* Hotspots Grid */}
       {loading ? (
-        <LoadingSkeleton count={3} height="h-44" />
+        <LoadingSkeleton count={3} height="h-48" />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {hotspots.map((hotspot, idx) => {
-            const isCritical = hotspot.priorityScore >= 80;
+          {filteredHotspots.map((hotspot, idx) => {
+            const rawScore = hotspot.priorityScore;
+            const simulatedScore = simulationActive ? Math.max(30, rawScore - 32) : rawScore;
+            const isCritical = simulatedScore >= 80;
             const sevProps = getSeverityBadgeProps(hotspot.severity);
 
             return (
               <Card
                 key={hotspot.id}
-                className={`p-6 space-y-4 border transition-all ${
-                  isCritical ? 'border-l-4 border-l-rose-500 hover:border-rose-300' : 'hover:border-sage-300'
+                className={`p-6 space-y-4 border transition-all duration-300 shadow-soft hover:shadow-soft-md group ${
+                  isCritical
+                    ? 'border-l-4 border-l-rose-500 hover:border-rose-400'
+                    : 'border-l-4 border-l-amber-500 hover:border-amber-400'
                 }`}
               >
-                {/* Card Header */}
+                {/* Header */}
                 <div className="flex items-start justify-between gap-4">
-                  <div className="space-y-1">
+                  <div className="space-y-1.5">
                     <div className="flex items-center gap-2">
-                      <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-sage-100 text-charcoal-700">
-                        #{idx + 1} • {hotspot.id}
+                      <span className="font-mono text-xs font-extrabold px-2 py-0.5 rounded-md bg-sage-100 text-charcoal-800">
+                        RANK #{idx + 1} • {hotspot.id}
                       </span>
-                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${sevProps.bg}`}>
+                      <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full border ${sevProps.bg}`}>
                         {sevProps.label}
                       </span>
                     </div>
 
-                    <h3 className="font-bold text-base text-charcoal-900">{hotspot.name}</h3>
+                    <h3 className="font-extrabold text-base text-charcoal-900 group-hover:text-forest-900 transition-colors">
+                      {hotspot.name}
+                    </h3>
 
                     <div className="flex items-center gap-1.5 text-xs text-charcoal-500">
                       <MapPin className="w-3.5 h-3.5 text-forest-700 shrink-0" />
-                      <span>{hotspot.district}</span>
+                      <span className="font-medium">{hotspot.district}</span>
                       <span className="text-charcoal-300">•</span>
-                      <span>Radius: ~{hotspot.radiusMeters}m</span>
+                      <span className="font-mono text-[11px]">Radius: ~{hotspot.radiusMeters}m</span>
                     </div>
                   </div>
 
                   {/* Priority Gauge Badge */}
-                  <div className="text-center p-2.5 rounded-xl bg-offwhite-200 border border-sage-200 shrink-0 min-w-[70px]">
-                    <span className="text-[10px] uppercase font-bold text-charcoal-400 block">Score</span>
+                  <div className="text-center p-3 rounded-2xl bg-offwhite-200 border border-sage-200 shrink-0 min-w-[76px] shadow-xs">
+                    <span className="text-[9px] uppercase font-bold text-charcoal-400 block tracking-wider">Priority</span>
                     <span
-                      className={`text-2xl font-black ${
+                      className={`text-2xl font-black font-mono transition-all duration-500 ${
                         isCritical ? 'text-rose-600' : 'text-amber-600'
                       }`}
                     >
-                      {hotspot.priorityScore}
+                      {simulatedScore}
                     </span>
-                    <span className="text-[9px] text-charcoal-400 block">/ 100</span>
+                    <span className="text-[9px] text-charcoal-400 block font-mono">/ 100</span>
+
+                    {simulationActive && (
+                      <span className="text-[10px] font-bold text-emerald-700 font-mono block mt-0.5">
+                        -32 pts
+                      </span>
+                    )}
                   </div>
                 </div>
 
                 {/* Key Metrics Breakdown */}
-                <div className="grid grid-cols-3 gap-2 p-3 rounded-xl bg-offwhite-100 border border-sage-200 text-xs">
+                <div className="grid grid-cols-3 gap-2 p-3 rounded-xl bg-offwhite-100 border border-sage-200/90 text-xs">
                   <div>
-                    <span className="text-[10px] text-charcoal-400 font-medium block">Recurrence</span>
-                    <span className="font-bold text-charcoal-900">{hotspot.recurrenceCount} Reports</span>
+                    <span className="text-[10px] text-charcoal-400 font-bold uppercase tracking-wider block">Recurrence</span>
+                    <span className="font-extrabold text-charcoal-900 font-mono text-xs">{hotspot.recurrenceCount} Reports</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-charcoal-400 font-medium block">Primary Waste</span>
-                    <span className="font-bold text-forest-800">{getCategoryLabel(hotspot.dominantCategory)}</span>
+                    <span className="text-[10px] text-charcoal-400 font-bold uppercase tracking-wider block">Primary Material</span>
+                    <span className="font-bold text-forest-900 text-xs truncate block">{getCategoryLabel(hotspot.dominantCategory)}</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-charcoal-400 font-medium block">Trend</span>
-                    <span className="font-bold text-rose-600">{hotspot.trend}</span>
+                    <span className="text-[10px] text-charcoal-400 font-bold uppercase tracking-wider block">Trend</span>
+                    <span className="font-extrabold text-rose-600 font-mono text-xs">{hotspot.trend}</span>
                   </div>
                 </div>
 
                 {/* Environmental Risk & Recommended Action */}
                 <div className="space-y-2 text-xs">
                   <div>
-                    <span className="font-semibold text-charcoal-700">Ecological Risk:</span>
-                    <p className="text-charcoal-600 text-[11px] mt-0.5">{hotspot.environmentalRisk}</p>
+                    <span className="font-bold text-charcoal-800">Ecological Vulnerability:</span>
+                    <p className="text-charcoal-600 text-[11px] mt-0.5 leading-relaxed font-medium">
+                      {hotspot.environmentalRisk}
+                    </p>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-forest-50 border border-forest-200 text-forest-900">
-                    <span className="font-bold text-[11px] flex items-center gap-1.5">
+                  <div className="p-3.5 rounded-xl bg-forest-50/90 border border-forest-200 text-forest-950 space-y-1">
+                    <span className="font-extrabold text-[11px] flex items-center gap-1.5 text-forest-900">
                       <ShieldAlert className="w-3.5 h-3.5 text-forest-700" />
                       Recommended Municipal Intervention:
                     </span>
-                    <p className="text-[11px] text-forest-800 mt-1">{hotspot.suggestedAction}</p>
+                    <p className="text-[11px] text-forest-800 leading-relaxed font-medium">
+                      {hotspot.suggestedAction}
+                    </p>
                   </div>
                 </div>
 
                 {/* Footer Coordinates & Date */}
                 <div className="pt-3 border-t border-sage-100 flex items-center justify-between text-xs text-charcoal-500">
-                  <span className="flex items-center gap-1">
-                    <Calendar className="w-3 h-3 text-charcoal-400" />
-                    Last incident: {formatDate(hotspot.lastReportedDate)} ({formatRelativeTime(hotspot.lastReportedDate)})
+                  <span className="flex items-center gap-1 font-mono text-[11px]">
+                    <Calendar className="w-3.5 h-3.5 text-charcoal-400" />
+                    Last logged: {formatDate(hotspot.lastReportedDate)}
                   </span>
 
                   <Link
                     to="/map"
-                    className="text-forest-700 hover:text-forest-900 font-semibold inline-flex items-center gap-1"
+                    className="text-forest-800 hover:text-forest-950 font-bold inline-flex items-center gap-1 transition-colors text-xs"
                   >
-                    Locate on Map
+                    Locate on GIS Map <ChevronRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               </Card>
@@ -239,4 +324,3 @@ export function HotspotIntelligencePage() {
     </div>
   );
 }
-

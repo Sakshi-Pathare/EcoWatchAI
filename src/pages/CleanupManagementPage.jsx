@@ -13,9 +13,15 @@ import {
   Filter,
   Check,
   AlertCircle,
+  Sparkles,
+  Sliders,
+  ShieldCheck,
+  UploadCloud,
+  ChevronRight,
 } from 'lucide-react';
 import { Button } from '../components/common/Button';
 import { Card, CardHeader, CardBody } from '../components/common/Card';
+import { Badge } from '../components/common/Badge';
 import { Modal } from '../components/common/Modal';
 import { EmptyState } from '../components/common/EmptyState';
 import { LoadingSkeleton } from '../components/common/LoadingSkeleton';
@@ -28,6 +34,7 @@ export function CleanupManagementPage() {
   const [activeTab, setActiveTab] = useState('all'); // 'all' | 'pending' | 'in_progress' | 'completed'
   const [loading, setLoading] = useState(true);
   const [selectedTask, setSelectedTask] = useState(null);
+  const [sliderPosition, setSliderPosition] = useState(50); // 0 to 100 for before/after comparison
   const [assignModalTask, setAssignModalTask] = useState(null);
   const [assignedTeamInput, setAssignedTeamInput] = useState('');
   const [scheduledDateInput, setScheduledDateInput] = useState('');
@@ -80,20 +87,25 @@ export function CleanupManagementPage() {
     }
   };
 
+  const totalTasks = cleanups.length;
+  const completedTasks = cleanups.filter(c => c.status === 'completed').length;
+  const inProgressTasks = cleanups.filter(c => c.status === 'in_progress').length;
+  const pendingTasks = cleanups.filter(c => c.status === 'pending').length;
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 font-sans">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-sage-200">
         <div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-md bg-forest-100 text-forest-800 mb-1.5">
-            <CheckSquare className="w-3.5 h-3.5" />
-            <span>Operational Dispatch Hub</span>
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-forest-100 text-forest-800 mb-2 border border-forest-200 shadow-xs">
+            <Truck className="w-3.5 h-3.5 text-forest-700" />
+            <span>Municipal Dispatch Command</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-charcoal-900 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-charcoal-900 tracking-tight">
             Cleanup Operations & Verification
           </h1>
-          <p className="text-xs sm:text-sm text-charcoal-500 mt-1 max-w-2xl">
-            Coordinate sanitation crew dispatch, certify site restorations with before-and-after photographic comparisons, and audit completed tasks.
+          <p className="text-xs sm:text-sm text-charcoal-500 mt-1 max-w-2xl leading-relaxed">
+            Coordinate municipal contractor squads, inspect work orders, and certify public space clearance using interactive before-and-after audit comparisons.
           </p>
         </div>
 
@@ -102,6 +114,7 @@ export function CleanupManagementPage() {
             variant="outline"
             size="sm"
             onClick={loadCleanups}
+            className="shadow-xs"
           >
             Refresh Queue
           </Button>
@@ -109,11 +122,35 @@ export function CleanupManagementPage() {
       </div>
 
       {statusNotification && (
-        <div className="p-3.5 rounded-xl bg-forest-50 border border-forest-200 text-forest-800 text-xs font-medium flex items-center gap-2 shadow-soft">
+        <div className="p-4 rounded-2xl bg-forest-50 border border-forest-200 text-forest-900 text-xs font-bold flex items-center gap-2.5 shadow-soft animate-fadeIn">
           <CheckCircle className="w-4 h-4 text-forest-600 shrink-0" />
           <span>{statusNotification}</span>
         </div>
       )}
+
+      {/* Top Operations KPI Strip */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="p-4 rounded-2xl bg-white border border-sage-200 shadow-soft">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-charcoal-400 block">Total Work Orders</span>
+          <span className="text-2xl font-black text-charcoal-900 font-mono mt-0.5 block">{totalTasks}</span>
+          <span className="text-[11px] text-charcoal-500 font-medium">In municipal registry</span>
+        </div>
+        <div className="p-4 rounded-2xl bg-white border border-sage-200 shadow-soft">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-charcoal-400 block">Awaiting Dispatch</span>
+          <span className="text-2xl font-black text-amber-600 font-mono mt-0.5 block">{pendingTasks}</span>
+          <span className="text-[11px] text-amber-700 font-medium">Crew unassigned</span>
+        </div>
+        <div className="p-4 rounded-2xl bg-white border border-sage-200 shadow-soft">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-charcoal-400 block">Squads Deployed</span>
+          <span className="text-2xl font-black text-blue-600 font-mono mt-0.5 block">{inProgressTasks}</span>
+          <span className="text-[11px] text-blue-700 font-medium">Active remediation</span>
+        </div>
+        <div className="p-4 rounded-2xl bg-white border border-sage-200 shadow-soft">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-charcoal-400 block">Restored & Audited</span>
+          <span className="text-2xl font-black text-forest-700 font-mono mt-0.5 block">{completedTasks}</span>
+          <span className="text-[11px] text-forest-700 font-medium">Photographically certified</span>
+        </div>
+      </div>
 
       {/* Tabs */}
       <div className="flex items-center justify-between border-b border-sage-200">
@@ -127,9 +164,9 @@ export function CleanupManagementPage() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`py-3 px-3 text-xs sm:text-sm font-semibold border-b-2 transition-all cursor-pointer ${
+              className={`py-3.5 px-3.5 text-xs sm:text-sm font-bold border-b-2 transition-all cursor-pointer ${
                 activeTab === tab.id
-                  ? 'border-forest text-forest-900 font-bold'
+                  ? 'border-forest text-forest-950 font-black'
                   : 'border-transparent text-charcoal-500 hover:text-charcoal-800'
               }`}
             >
@@ -138,14 +175,14 @@ export function CleanupManagementPage() {
           ))}
         </div>
 
-        <span className="text-xs text-charcoal-400 font-medium hidden sm:inline">
-          {cleanups.length} Tasks in current view
+        <span className="text-xs text-charcoal-400 font-mono font-bold hidden sm:inline">
+          {cleanups.length} Operations in view
         </span>
       </div>
 
-      {/* Tasks Grid */}
+      {/* Tasks List */}
       {loading ? (
-        <LoadingSkeleton count={3} height="h-40" />
+        <LoadingSkeleton count={3} height="h-44" />
       ) : cleanups.length === 0 ? (
         <EmptyState
           icon={CheckSquare}
@@ -161,25 +198,25 @@ export function CleanupManagementPage() {
             const isInProgress = task.status === 'in_progress';
 
             return (
-              <Card key={task.id} className="p-5 space-y-4">
+              <Card key={task.id} className="p-5 sm:p-6 space-y-4 shadow-soft hover:shadow-soft-md transition-all duration-300 border-sage-200/90">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                  <div className="space-y-1">
+                  <div className="space-y-1.5">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-mono text-xs font-bold text-charcoal-400">
+                      <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-sage-100 text-charcoal-700">
                         {task.id}
                       </span>
                       <span className="text-xs text-charcoal-300">•</span>
-                      <span className="font-mono text-xs text-forest-700 font-medium">
-                        Ref: {task.reportId}
+                      <span className="font-mono text-xs text-forest-700 font-bold">
+                        Incident Ref: {task.reportId}
                       </span>
                       <span className="text-xs text-charcoal-300">•</span>
                       <span
-                        className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${
+                        className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border ${
                           isCompleted
-                            ? 'bg-forest-50 text-forest-800 border-forest-200'
+                            ? 'bg-forest-50 text-forest-800 border-forest-200 shadow-xs'
                             : isInProgress
-                            ? 'bg-blue-50 text-blue-800 border-blue-200'
-                            : 'bg-amber-50 text-amber-800 border-amber-200'
+                            ? 'bg-blue-50 text-blue-800 border-blue-200 shadow-xs'
+                            : 'bg-amber-50 text-amber-800 border-amber-200 shadow-xs'
                         }`}
                       >
                         {isCompleted
@@ -190,22 +227,26 @@ export function CleanupManagementPage() {
                       </span>
                     </div>
 
-                    <h3 className="font-bold text-base text-charcoal-900">{task.taskName}</h3>
+                    <h3 className="font-extrabold text-base text-charcoal-900">{task.taskName}</h3>
 
                     <div className="flex items-center gap-1.5 text-xs text-charcoal-500">
                       <MapPin className="w-3.5 h-3.5 text-forest-700 shrink-0" />
-                      <span>{task.location}</span>
+                      <span className="font-medium">{task.location}</span>
                     </div>
                   </div>
 
                   {/* Actions / Status changer */}
-                  <div className="flex flex-wrap items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2.5 shrink-0">
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => setSelectedTask(task)}
+                      onClick={() => {
+                        setSelectedTask(task);
+                        setSliderPosition(50);
+                      }}
+                      className="shadow-xs font-bold"
                     >
-                      {task.afterImageUrl ? 'Compare Before & After' : 'Inspect Task'}
+                      {task.afterImageUrl ? 'Compare Before & After' : 'Inspect Work Order'}
                     </Button>
 
                     {!isCompleted && (
@@ -227,6 +268,7 @@ export function CleanupManagementPage() {
                         variant="primary"
                         size="sm"
                         icon={Check}
+                        glow
                         onClick={() => handleStatusChange(task.id, isCompleted ? 'in_progress' : 'completed')}
                       >
                         Mark Completed
@@ -236,26 +278,26 @@ export function CleanupManagementPage() {
                 </div>
 
                 {/* Details Bar */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3 rounded-xl bg-offwhite-100 border border-sage-200 text-xs">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3.5 rounded-2xl bg-offwhite-100 border border-sage-200/90 text-xs">
                   <div>
-                    <span className="text-[10px] text-charcoal-400 font-medium block">Assigned Crew</span>
-                    <span className="font-semibold text-charcoal-900 truncate block">
+                    <span className="text-[10px] text-charcoal-400 font-bold uppercase tracking-wider block">Assigned Crew</span>
+                    <span className="font-bold text-charcoal-900 truncate block mt-0.5">
                       {task.assignedTeam || 'Unassigned'}
                     </span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-charcoal-400 font-medium block">Lead Contact</span>
-                    <span className="font-semibold text-charcoal-800 truncate block">{task.contactLead}</span>
+                    <span className="text-[10px] text-charcoal-400 font-bold uppercase tracking-wider block">Lead Supervisor</span>
+                    <span className="font-bold text-charcoal-800 truncate block mt-0.5">{task.contactLead}</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-charcoal-400 font-medium block">Scheduled Date</span>
-                    <span className="font-semibold text-charcoal-800 block">
+                    <span className="text-[10px] text-charcoal-400 font-bold uppercase tracking-wider block">Target Execution</span>
+                    <span className="font-bold text-charcoal-800 font-mono block mt-0.5">
                       {formatDate(task.scheduledDate)}
                     </span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-charcoal-400 font-medium block">Volume Estimate</span>
-                    <span className="font-semibold text-forest-800 block">
+                    <span className="text-[10px] text-charcoal-400 font-bold uppercase tracking-wider block">Volume Estimate</span>
+                    <span className="font-extrabold text-forest-800 font-mono block mt-0.5">
                       {task.wasteVolumeEstimate}
                     </span>
                   </div>
@@ -266,7 +308,7 @@ export function CleanupManagementPage() {
         </div>
       )}
 
-      {/* Before & After Photo Viewer Modal */}
+      {/* Before & After Interactive Comparison Modal */}
       <Modal
         isOpen={!!selectedTask}
         onClose={() => setSelectedTask(null)}
@@ -274,97 +316,113 @@ export function CleanupManagementPage() {
         maxWidth="max-w-4xl"
       >
         {selectedTask && (
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Before Photo */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-rose-800 flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-rose-600" />
-                    Before: Public Report Incident
+          <div className="space-y-6 font-sans">
+            {/* Interactive Split / Side-by-Side Comparison */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-bold text-charcoal-800 flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-forest-700" />
+                  Site Verification Comparison
+                </span>
+                {selectedTask.afterImageUrl && (
+                  <span className="text-[11px] font-mono text-forest-800 bg-forest-50 px-2.5 py-0.5 rounded-full border border-forest-200 font-bold">
+                    ✓ Both Photographs Certified
                   </span>
-                  <span className="text-[11px] text-charcoal-400 font-mono">Original Capture</span>
-                </div>
-                <div className="h-64 rounded-xl overflow-hidden bg-sage-100 border border-sage-200">
-                  {selectedTask.beforeImageUrl ? (
-                    <img
-                      src={selectedTask.beforeImageUrl}
-                      alt="Before Cleanup"
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="h-full flex items-center justify-center text-xs text-charcoal-400">
-                      No before photo recorded
-                    </div>
-                  )}
-                </div>
+                )}
               </div>
 
-              {/* After Photo */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-forest-800 flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-forest-600" />
-                    After: Municipal Crew Certification
-                  </span>
-                  <span className="text-[11px] text-charcoal-400 font-mono">
-                    {selectedTask.completedAt ? formatDate(selectedTask.completedAt) : 'Pending clearance'}
-                  </span>
-                </div>
-                <div className="h-64 rounded-xl overflow-hidden bg-sage-100 border border-sage-200">
-                  {selectedTask.afterImageUrl ? (
-                    <img
-                      src={selectedTask.afterImageUrl}
-                      alt="After Cleanup Restored Site"
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="h-full flex flex-col items-center justify-center text-xs text-charcoal-400 p-6 text-center space-y-3">
-                      <Camera className="w-8 h-8 text-charcoal-300" />
-                      <div>
-                        <p className="font-semibold text-charcoal-700">Pending Photographic Resolution</p>
-                        <p className="text-[11px] text-charcoal-400 mt-0.5">
-                          Sanitation crews can capture or upload physical site clearance proof.
-                        </p>
+              {/* Side-by-Side Images Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Before Photo */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-black text-rose-800 flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-rose-600" />
+                      BEFORE: Public Litter Incident
+                    </span>
+                    <span className="text-[11px] text-charcoal-400 font-mono">Original Capture</span>
+                  </div>
+                  <div className="h-64 rounded-2xl overflow-hidden bg-sage-100 border-2 border-rose-200 shadow-soft relative group">
+                    {selectedTask.beforeImageUrl ? (
+                      <img
+                        src={selectedTask.beforeImageUrl}
+                        alt="Before Cleanup"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="h-full flex items-center justify-center text-xs text-charcoal-400">
+                        No before photo recorded
                       </div>
-                      <label className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-forest text-white text-xs font-semibold hover:bg-forest-700 transition-colors shadow-sm">
-                        <Camera className="w-3.5 h-3.5" />
-                        <span>{uploadingPhoto ? 'Processing Photo...' : 'Upload Restored Photo & Complete'}</span>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          disabled={uploadingPhoto}
-                          onChange={async (e) => {
-                            const file = e.target.files?.[0];
-                            if (!file) return;
-                            setUploadingPhoto(true);
-                            try {
-                              const { dataUrl } = await compressImageFile(file, 1200, 1200, 0.72);
-                              await handleStatusChange(selectedTask.id, 'completed', dataUrl);
-                              setSelectedTask((prev) => ({
-                                ...prev,
-                                afterImageUrl: dataUrl,
-                                status: 'completed',
-                                completedAt: new Date().toISOString(),
-                              }));
-                            } catch (err) {
-                              console.error('Failed to upload after photo', err);
-                            } finally {
-                              setUploadingPhoto(false);
-                            }
-                          }}
-                        />
-                      </label>
-                    </div>
-                  )}
+                    )}
+                  </div>
+                </div>
+
+                {/* After Photo */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-black text-forest-800 flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-forest-600" />
+                      AFTER: Municipal Clearance
+                    </span>
+                    <span className="text-[11px] text-charcoal-400 font-mono">
+                      {selectedTask.completedAt ? formatDate(selectedTask.completedAt) : 'Pending clearance'}
+                    </span>
+                  </div>
+                  <div className="h-64 rounded-2xl overflow-hidden bg-sage-100 border-2 border-forest-200 shadow-soft relative group">
+                    {selectedTask.afterImageUrl ? (
+                      <img
+                        src={selectedTask.afterImageUrl}
+                        alt="After Cleanup Restored Site"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="h-full flex flex-col items-center justify-center text-xs text-charcoal-400 p-6 text-center space-y-3 bg-offwhite-100">
+                        <Camera className="w-8 h-8 text-charcoal-300" />
+                        <div>
+                          <p className="font-bold text-charcoal-800">Pending Photographic Resolution</p>
+                          <p className="text-[11px] text-charcoal-500 mt-0.5">
+                            Sanitation crews upload physical site clearance proof to close the loop.
+                          </p>
+                        </div>
+                        <label className="cursor-pointer inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-forest text-white text-xs font-bold hover:bg-forest-700 transition-colors shadow-sm">
+                          <Camera className="w-3.5 h-3.5" />
+                          <span>{uploadingPhoto ? 'Processing Photo...' : 'Upload Restored Photo & Complete'}</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            disabled={uploadingPhoto}
+                            onChange={async (e) => {
+                              const file = e.target.files?.[0];
+                              if (!file) return;
+                              setUploadingPhoto(true);
+                              try {
+                                const { dataUrl } = await compressImageFile(file, 1200, 1200, 0.72);
+                                await handleStatusChange(selectedTask.id, 'completed', dataUrl);
+                                setSelectedTask((prev) => ({
+                                  ...prev,
+                                  afterImageUrl: dataUrl,
+                                  status: 'completed',
+                                  completedAt: new Date().toISOString(),
+                                }));
+                              } catch (err) {
+                                console.error('Failed to upload after photo', err);
+                              } finally {
+                                setUploadingPhoto(false);
+                              }
+                            }}
+                          />
+                        </label>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Task Operational Notes */}
-            <div className="p-4 rounded-xl bg-offwhite-100 border border-sage-200 space-y-1 text-xs">
-              <span className="font-bold text-charcoal-900">Sanitation Field Notes:</span>
+            <div className="p-4 rounded-2xl bg-offwhite-100 border border-sage-200 space-y-1 text-xs">
+              <span className="font-bold text-charcoal-900 block">Sanitation Crew Field Notes:</span>
               <p className="text-charcoal-600 leading-relaxed">{selectedTask.notes}</p>
             </div>
 
@@ -387,15 +445,15 @@ export function CleanupManagementPage() {
         title="Assign Cleanup Crew & Schedule"
         maxWidth="max-w-md"
       >
-        <form onSubmit={handleAssignSave} className="space-y-4 text-xs">
+        <form onSubmit={handleAssignSave} className="space-y-4 text-xs font-sans">
           <div>
-            <label className="block font-semibold text-charcoal-700 mb-1">
-              Sanitation Crew / Team
+            <label className="block font-bold text-charcoal-800 mb-1">
+              Sanitation Crew / Squad
             </label>
             <select
               value={assignedTeamInput}
               onChange={(e) => setAssignedTeamInput(e.target.value)}
-              className="w-full p-2.5 rounded-lg border border-sage-300 focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white"
+              className="w-full p-2.5 rounded-xl border border-sage-300 focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white font-semibold"
             >
               <option value="Metro Rapid Response - Squad A">Metro Rapid Response - Squad A</option>
               <option value="Urban Estuary Cleanup Crew">Urban Estuary Cleanup Crew</option>
@@ -406,18 +464,18 @@ export function CleanupManagementPage() {
           </div>
 
           <div>
-            <label className="block font-semibold text-charcoal-700 mb-1">
+            <label className="block font-bold text-charcoal-800 mb-1">
               Target Execution Date
             </label>
             <input
               type="date"
               value={scheduledDateInput}
               onChange={(e) => setScheduledDateInput(e.target.value)}
-              className="w-full p-2.5 rounded-lg border border-sage-300 focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white"
+              className="w-full p-2.5 rounded-xl border border-sage-300 focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white font-mono font-semibold"
             />
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-3 border-t border-sage-200">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-sage-200">
             <Button
               type="button"
               variant="outline"
@@ -426,8 +484,8 @@ export function CleanupManagementPage() {
             >
               Cancel
             </Button>
-            <Button type="submit" variant="primary" size="sm">
-              Save & Dispatch
+            <Button type="submit" variant="primary" size="sm" glow>
+              Save & Dispatch Crew
             </Button>
           </div>
         </form>
@@ -435,4 +493,3 @@ export function CleanupManagementPage() {
     </div>
   );
 }
-

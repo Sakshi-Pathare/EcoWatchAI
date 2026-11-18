@@ -9,9 +9,16 @@ import {
   Info,
   CheckCircle,
   HelpCircle,
+  ShieldAlert,
+  Clock,
+  Layers,
+  Flame,
+  ArrowRight,
+  Compass,
 } from 'lucide-react';
 import { Button } from '../components/common/Button';
 import { Card, CardHeader, CardBody } from '../components/common/Card';
+import { Badge } from '../components/common/Badge';
 import { ImageUploader } from '../components/forms/ImageUploader';
 import { LocationPickerMap } from '../components/map/LocationPickerMap';
 import { reportService } from '../services/reportService';
@@ -75,21 +82,69 @@ export function ReportLitterPage() {
         }
       }
     } catch (err) {
-      // Gracefully fall back to coordinates if offline or network restricted
+      // Gracefully fall back to coordinates
     }
   };
+
+  // Environmental impact details based on material category
+  const materialImpacts = {
+    plastic: {
+      degradation: '~450 Years',
+      danger: 'High Marine & Microplastic Hazard',
+      badge: 'bg-rose-50 text-rose-800 border-rose-200',
+      recommendation: 'Targeted for municipal plastic baling and circular polymer recycling.',
+    },
+    glass: {
+      degradation: '1,000,000+ Years',
+      danger: 'Severe Physical Injury & Fire Risk',
+      badge: 'bg-amber-50 text-amber-800 border-amber-200',
+      recommendation: 'Requires motorized vacuum collector to eliminate micro-shards.',
+    },
+    metal: {
+      degradation: '~80-100 Years',
+      danger: 'Sharp Debris & Soil Oxidation',
+      badge: 'bg-blue-50 text-blue-800 border-blue-200',
+      recommendation: 'High scrap value; routed to scrap metal processing facility.',
+    },
+    hazardous: {
+      degradation: 'Permanent Chemical Residue',
+      danger: 'Groundwater Contamination & Toxicity',
+      badge: 'bg-rose-100 text-rose-900 border-rose-300',
+      recommendation: 'Priority HazMat dispatch with sealed containment drums.',
+    },
+    paper: {
+      degradation: '~2-6 Weeks',
+      danger: 'Storm Drain Clogging & Clutter',
+      badge: 'bg-slate-100 text-slate-800 border-slate-200',
+      recommendation: 'Street sweeper sweep before rainstorms.',
+    },
+    organic: {
+      degradation: '~1-6 Months',
+      danger: 'Pest Vector & Odor Hazard',
+      badge: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+      recommendation: 'Municipal green-bin compost collection.',
+    },
+    mixed: {
+      degradation: 'Decades to Centuries',
+      danger: 'Public Sanitation Degradation',
+      badge: 'bg-sage-100 text-sage-900 border-sage-200',
+      recommendation: 'General municipal crew sorting and disposal.',
+    },
+  };
+
+  const currentImpact = materialImpacts[formData.category] || materialImpacts.mixed;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormError(null);
 
     if (!formData.title.trim()) {
-      setFormError('Please enter a brief title for the litter report.');
+      setFormError('Please enter a descriptive title for this litter report.');
       return;
     }
 
     if (!imagePreview) {
-      setFormError('Please attach a photograph of the litter for municipal verification.');
+      setFormError('Please attach photographic evidence for verification.');
       return;
     }
 
@@ -105,52 +160,72 @@ export function ReportLitterPage() {
         navigate('/my-reports');
       }, 1500);
     } catch (err) {
-      setFormError('Failed to record report. Please verify connection and try again.');
+      setFormError('Failed to record report. Please check storage capacity and try again.');
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 space-y-8 font-sans">
       {/* Header */}
-      <div className="mb-8 text-center sm:text-left">
-        <div className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-md bg-forest-100 text-forest-800 mb-2">
-          <Camera className="w-3.5 h-3.5" />
-          <span>Civic Pollution Registry</span>
-        </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-charcoal-900 tracking-tight">
-          Report Public Litter
+      <div className="text-center sm:text-left space-y-2 pb-6 border-b border-sage-200">
+        <Badge variant="lime" dot pulse dotColor="bg-forest-900">
+          Civic Sanitation Pipeline
+        </Badge>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-charcoal-900 tracking-tight">
+          Report Public Litter Incident
         </h1>
-        <p className="text-xs sm:text-sm text-charcoal-600 mt-1 max-w-2xl">
-          Submit photographic evidence and geolocated coordinates to notify municipal sanitation crews and update hotspot intelligence.
+        <p className="text-xs sm:text-sm text-charcoal-500 max-w-2xl leading-relaxed">
+          Submit photographic evidence and geocoded coordinates to alert municipal sanitation squads and feed the algorithmic hotspot recurrence engine.
         </p>
       </div>
 
+      {/* Progress Steps Indicator */}
+      <div className="grid grid-cols-3 gap-3 p-2 bg-offwhite-200 rounded-2xl border border-sage-200 text-xs font-semibold">
+        <div className={`p-2.5 rounded-xl flex items-center gap-2 transition-all ${
+          imagePreview ? 'bg-forest-800 text-white shadow-xs' : 'bg-white text-forest-950 font-bold'
+        }`}>
+          <Camera className="w-4 h-4 shrink-0 text-limeaccent-400" />
+          <span className="truncate">1. Photo Evidence</span>
+        </div>
+        <div className="p-2.5 rounded-xl flex items-center gap-2 bg-white text-forest-950 font-bold shadow-xs">
+          <MapPin className="w-4 h-4 shrink-0 text-forest-700" />
+          <span className="truncate">2. Location Pin</span>
+        </div>
+        <div className="p-2.5 rounded-xl flex items-center gap-2 bg-white text-forest-950 font-bold shadow-xs">
+          <Layers className="w-4 h-4 shrink-0 text-forest-700" />
+          <span className="truncate">3. Classification</span>
+        </div>
+      </div>
+
       {success && (
-        <div className="mb-6 p-4 rounded-xl bg-forest-50 border border-forest-200 text-forest-900 flex items-center gap-3 animate-fade-in shadow-soft">
-          <CheckCircle className="w-6 h-6 text-forest-600 shrink-0" />
+        <div className="p-5 rounded-2xl bg-forest-50 border-2 border-forest-300 text-forest-950 flex items-center gap-4 animate-fadeIn shadow-soft">
+          <div className="w-10 h-10 rounded-full bg-forest-700 text-white flex items-center justify-center shrink-0">
+            <CheckCircle className="w-6 h-6 text-limeaccent-300" />
+          </div>
           <div>
-            <h4 className="font-bold text-sm">Report Logged Successfully!</h4>
-            <p className="text-xs text-forest-700 mt-0.5">
-              Your submission has been queued for municipal verification. Redirecting to your reports...
+            <h4 className="font-extrabold text-base">Report Submitted & Verified!</h4>
+            <p className="text-xs text-forest-800 mt-0.5">
+              Your submission has been queued for municipal crew assignment. Redirecting to your personal reports ledger...
             </p>
           </div>
         </div>
       )}
 
       {formError && (
-        <div className="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 flex items-center gap-3 shadow-soft">
+        <div className="p-4 rounded-2xl bg-rose-50 border border-rose-300 text-rose-900 flex items-center gap-3 shadow-soft">
           <AlertTriangle className="w-5 h-5 text-rose-600 shrink-0" />
-          <p className="text-xs font-medium">{formError}</p>
+          <p className="text-xs font-bold">{formError}</p>
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-8">
-        {/* Step 1: Photographic Evidence */}
-        <Card>
+        {/* Step 1: Photographic Evidence with AI Vision preview */}
+        <Card className="border-sage-300/90 shadow-soft">
           <CardHeader
             title="1. Photographic Evidence"
-            subtitle="Clear photos help classification algorithms and sanitation teams assess severity."
+            subtitle="Clear photographs enable accurate waste material detection and volume estimation."
+            icon={Camera}
           />
           <CardBody className="space-y-4">
             <ImageUploader
@@ -159,22 +234,22 @@ export function ReportLitterPage() {
               onImageClear={handleImageClear}
             />
 
-            {/* AI Computer Vision Staging Placeholder */}
-            <div className="p-4 rounded-xl bg-forest-50/70 border border-forest-200/90 flex items-start gap-3">
-              <div className="w-7 h-7 rounded-lg bg-forest-700 text-limeaccent-300 flex items-center justify-center shrink-0 mt-0.5">
+            {/* AI Staging Notice Card */}
+            <div className="p-4 rounded-2xl bg-gradient-to-r from-forest-50 to-sage-50 border border-forest-200/90 flex items-start gap-3.5 shadow-xs">
+              <div className="w-8 h-8 rounded-xl bg-forest-800 text-limeaccent-300 flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
                 <Sparkles className="w-4 h-4" />
               </div>
               <div className="text-xs space-y-1">
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-forest-900">
+                  <span className="font-extrabold text-forest-950">
                     Computer Vision Inference Pipeline (Phase 2 Preview)
                   </span>
-                  <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-forest-200 text-forest-800 font-semibold">
-                    YOLOv8 Staging
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-forest-200 text-forest-900 font-bold">
+                    YOLOv8 Ready
                   </span>
                 </div>
-                <p className="text-charcoal-600 leading-relaxed">
-                  Upon submission, the image will be staged for automated object detection to classify litter materials (plastics, glass, metals, bio-waste) and predict volume density without manual labeling.
+                <p className="text-charcoal-600 leading-relaxed text-[11px]">
+                  Upon backend integration, every upload is processed through a YOLOv8 waste classification model to tag bounding boxes, estimate volume, and calculate degradation urgency automatically.
                 </p>
               </div>
             </div>
@@ -182,10 +257,11 @@ export function ReportLitterPage() {
         </Card>
 
         {/* Step 2: Location Selection */}
-        <Card>
+        <Card className="border-sage-300/90 shadow-soft">
           <CardHeader
-            title="2. Geospatial Location"
-            subtitle="Click on the interactive map or use browser GPS to pinpoint the exact litter coordinates."
+            title="2. Geospatial Pin & Address"
+            subtitle="Click or drag pin to the exact litter location. Browser GPS can locate you automatically."
+            icon={MapPin}
           />
           <CardBody className="space-y-4">
             <LocationPickerMap
@@ -196,40 +272,40 @@ export function ReportLitterPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div>
-                <label className="block text-xs font-semibold text-charcoal-700 mb-1">
-                  Street / Area Description
+                <label className="block text-xs font-bold text-charcoal-800 mb-1">
+                  Location / Landmark Name
                 </label>
                 <div className="relative">
-                  <MapPin className="w-4 h-4 text-charcoal-400 absolute left-3 top-2.5" />
+                  <MapPin className="w-4 h-4 text-forest-700 absolute left-3.5 top-3" />
                   <input
                     type="text"
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    className="w-full pl-9 pr-3 py-2 text-xs rounded-lg border border-sage-300 focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white"
-                    placeholder="e.g. Near Civic Center fountain bench"
+                    className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-sage-300 focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white font-medium"
+                    placeholder="e.g. Near Civic Center Plaza fountain bench"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div>
-                  <label className="block font-semibold text-charcoal-700 mb-1">Latitude</label>
+                  <label className="block font-bold text-charcoal-800 mb-1">Latitude</label>
                   <input
                     type="number"
                     step="any"
                     value={formData.latitude}
                     onChange={(e) => setFormData({ ...formData, latitude: Number(e.target.value) })}
-                    className="w-full px-3 py-2 rounded-lg border border-sage-300 font-mono focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white"
+                    className="w-full px-3 py-2.5 rounded-xl border border-sage-300 font-mono focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white font-semibold"
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold text-charcoal-700 mb-1">Longitude</label>
+                  <label className="block font-bold text-charcoal-800 mb-1">Longitude</label>
                   <input
                     type="number"
                     step="any"
                     value={formData.longitude}
                     onChange={(e) => setFormData({ ...formData, longitude: Number(e.target.value) })}
-                    className="w-full px-3 py-2 rounded-lg border border-sage-300 font-mono focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white"
+                    className="w-full px-3 py-2.5 rounded-xl border border-sage-300 font-mono focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white font-semibold"
                   />
                 </div>
               </div>
@@ -237,36 +313,37 @@ export function ReportLitterPage() {
           </CardBody>
         </Card>
 
-        {/* Step 3: Litter Details & Severity */}
-        <Card>
+        {/* Step 3: Incident Classification & Ecological Impact */}
+        <Card className="border-sage-300/90 shadow-soft">
           <CardHeader
-            title="3. Incident Classification"
-            subtitle="Specify category and estimated environmental urgency."
+            title="3. Material Classification & Urgency"
+            subtitle="Categorize the dominant waste type to compute priority scores and crew equipment."
+            icon={Layers}
           />
-          <CardBody className="space-y-4">
+          <CardBody className="space-y-5">
             <div>
-              <label className="block text-xs font-semibold text-charcoal-700 mb-1">
-                Report Title *
+              <label className="block text-xs font-bold text-charcoal-800 mb-1">
+                Incident Title *
               </label>
               <input
                 type="text"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="w-full px-3 py-2 text-xs rounded-lg border border-sage-300 focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white"
-                placeholder="e.g. Overflowing beverage containers along walking trail"
+                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-sage-300 focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white font-semibold"
+                placeholder="e.g. Broken glass and plastic beverage bottles strewn on public lawn"
                 required
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-charcoal-700 mb-1">
-                  Primary Litter Material
+                <label className="block text-xs font-bold text-charcoal-800 mb-1">
+                  Dominant Waste Category
                 </label>
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-sage-300 focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-sage-300 focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white font-semibold"
                 >
                   <option value="plastic">Plastics & Packaging</option>
                   <option value="glass">Glass Bottles & Shards</option>
@@ -279,23 +356,23 @@ export function ReportLitterPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-charcoal-700 mb-1">
-                  Perceived Severity
+                <label className="block text-xs font-bold text-charcoal-800 mb-1">
+                  Urgency / Severity
                 </label>
                 <select
                   value={formData.severity}
                   onChange={(e) => setFormData({ ...formData, severity: e.target.value })}
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-sage-300 focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-sage-300 focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white font-semibold"
                 >
-                  <option value="low">Low (Scattered minor litter)</option>
-                  <option value="medium">Medium (Substantial accumulation)</option>
-                  <option value="high">High (Severe dump / safety risk)</option>
+                  <option value="low">Low (Light scattered debris)</option>
+                  <option value="medium">Medium (Moderate dump accumulation)</option>
+                  <option value="high">Critical (Severe dump / hazard risk)</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-charcoal-700 mb-1">
-                  Approx. Volume / Weight (kg)
+                <label className="block text-xs font-bold text-charcoal-800 mb-1">
+                  Est. Waste Mass (kg)
                 </label>
                 <input
                   type="number"
@@ -303,21 +380,37 @@ export function ReportLitterPage() {
                   max="500"
                   value={formData.estimatedKg}
                   onChange={(e) => setFormData({ ...formData, estimatedKg: Number(e.target.value) })}
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-sage-300 focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-sage-300 focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white font-mono font-semibold"
                 />
               </div>
             </div>
 
+            {/* Material Environmental Impact Capsule */}
+            <div className="p-4 rounded-2xl bg-offwhite-200 border border-sage-200/90 space-y-2 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-charcoal-900 flex items-center gap-1.5">
+                  <ShieldAlert className="w-4 h-4 text-forest-700" />
+                  Ecological Impact Assessment
+                </span>
+                <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border ${currentImpact.badge}`}>
+                  Decomposition: {currentImpact.degradation}
+                </span>
+              </div>
+              <p className="text-charcoal-600 text-[11px] leading-relaxed">
+                <b>Threat Profile:</b> {currentImpact.danger}. {currentImpact.recommendation}
+              </p>
+            </div>
+
             <div>
-              <label className="block text-xs font-semibold text-charcoal-700 mb-1">
-                Field Observations & Context
+              <label className="block text-xs font-bold text-charcoal-800 mb-1">
+                Field Observations & Context Notes
               </label>
               <textarea
                 rows="3"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full px-3 py-2 text-xs rounded-lg border border-sage-300 focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white"
-                placeholder="Include details regarding proximity to storm drains, wildlife, schools, or accessibility for sanitation trucks..."
+                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-sage-300 focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white leading-relaxed"
+                placeholder="Include proximity to storm drains, wildlife habitat, school crossings, or truck accessibility..."
               />
             </div>
           </CardBody>
@@ -340,7 +433,8 @@ export function ReportLitterPage() {
             size="md"
             icon={Send}
             loading={isSubmitting}
-            className="shadow-sm"
+            glow
+            className="shadow-soft-md"
           >
             Submit Verified Report
           </Button>
@@ -349,4 +443,3 @@ export function ReportLitterPage() {
     </div>
   );
 }
-

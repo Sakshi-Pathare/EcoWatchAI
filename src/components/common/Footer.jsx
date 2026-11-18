@@ -1,64 +1,79 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Leaf, Shield, Globe, Award, Heart } from 'lucide-react';
+import { Leaf, Shield, Globe, Award, Sparkles, Heart, Activity } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer className="bg-forest-900 text-offwhite-200 border-t border-forest-800 mt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12">
-          {/* Brand Info */}
-          <div className="md:col-span-1 space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-forest-700 flex items-center justify-center text-limeaccent-300">
-                <Leaf className="w-5 h-5" />
+    <footer className="relative bg-gradient-to-b from-forest-950 via-forest-900 to-forest-950 text-offwhite-200 border-t border-forest-800/80 mt-28 overflow-hidden">
+      {/* Background ambient glow effects */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-limeaccent-500/10 rounded-full blur-3xl pointer-events-none -translate-y-1/2" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-forest-600/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-10 lg:gap-12">
+          {/* Brand & Mission */}
+          <div className="md:col-span-2 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-forest-700 to-forest-800 flex items-center justify-center text-limeaccent-300 shadow-glow-forest border border-forest-600/60">
+                <Leaf className="w-5 h-5 text-limeaccent-300" />
               </div>
-              <span className="font-bold text-lg text-white">EcoWatch AI</span>
+              <div>
+                <span className="font-extrabold text-xl text-white tracking-tight">EcoWatch AI</span>
+                <span className="block text-[10px] text-sage-300 font-mono tracking-wider uppercase">Environmental Intelligence</span>
+              </div>
             </div>
-            <p className="text-xs text-sage-300 leading-relaxed">
-              Empowering municipal councils, environmental stewards, and civic volunteers with actionable geospatial pollution intelligence.
+
+            <p className="text-xs text-sage-300 leading-relaxed max-w-sm">
+              Empowering civic volunteers, environmental NGOs, and municipal authorities with high-precision GIS mapping, automated litter clustering, and verified cleanup workflows.
             </p>
-            <div className="flex items-center gap-2 text-xs text-sage-400">
-              <Shield className="w-4 h-4 text-limeaccent-400" />
-              <span>Municipal Grade Security & Integrity</span>
+
+            <div className="pt-2 flex flex-wrap items-center gap-4 text-xs text-sage-300">
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-forest-800/80 border border-forest-700 text-limeaccent-300">
+                <Activity className="w-3.5 h-3.5 animate-pulse" />
+                <span className="font-mono text-[11px]">GIS Feed: Normal (99.9% Up)</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-forest-800/80 border border-forest-700 text-sage-200">
+                <Shield className="w-3.5 h-3.5 text-limeaccent-400" />
+                <span className="text-[11px]">Audited Data Pipeline</span>
+              </div>
             </div>
           </div>
 
-          {/* Platform Links */}
+          {/* Platform Navigation */}
           <div>
-            <h4 className="text-xs font-semibold text-limeaccent-300 uppercase tracking-wider mb-3">
-              Platform Features
+            <h4 className="text-xs font-bold text-limeaccent-300 uppercase tracking-widest mb-4">
+              Intelligence Grid
             </h4>
-            <ul className="space-y-2 text-xs">
+            <ul className="space-y-2.5 text-xs text-sage-200">
               <li>
-                <Link to="/map" className="hover:text-white transition-colors">
-                  Interactive GIS Pollution Map
+                <Link to="/map" className="hover:text-white transition-colors flex items-center gap-1.5">
+                  <span>Interactive GIS Map</span>
                 </Link>
               </li>
               <li>
-                <Link to="/hotspots" className="hover:text-white transition-colors">
-                  Hotspot Intelligence Engine
+                <Link to="/hotspots" className="hover:text-white transition-colors flex items-center gap-1.5">
+                  <span>Hotspot Scoring Engine</span>
                 </Link>
               </li>
               <li>
-                <Link to="/cleanups" className="hover:text-white transition-colors">
-                  Municipal Dispatch & Cleanups
+                <Link to="/cleanups" className="hover:text-white transition-colors flex items-center gap-1.5">
+                  <span>Sanitation Dispatch Hub</span>
                 </Link>
               </li>
               <li>
-                <Link to="/report" className="hover:text-white transition-colors">
-                  Litter Reporting Portal
+                <Link to="/report" className="hover:text-white transition-colors flex items-center gap-1.5">
+                  <span>Submit Litter Report</span>
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Operational Portals */}
+          {/* Portals */}
           <div>
-            <h4 className="text-xs font-semibold text-limeaccent-300 uppercase tracking-wider mb-3">
+            <h4 className="text-xs font-bold text-limeaccent-300 uppercase tracking-widest mb-4">
               Stakeholder Portals
             </h4>
-            <ul className="space-y-2 text-xs">
+            <ul className="space-y-2.5 text-xs text-sage-200">
               <li>
                 <Link to="/dashboard" className="hover:text-white transition-colors">
                   Citizen Volunteer Portal
@@ -66,44 +81,47 @@ export function Footer() {
               </li>
               <li>
                 <Link to="/admin" className="hover:text-white transition-colors">
-                  Municipal Command Dashboard
+                  Municipal Command Center
                 </Link>
               </li>
               <li>
                 <Link to="/my-reports" className="hover:text-white transition-colors">
-                  Submission History & Verification
+                  Submission Verification History
                 </Link>
               </li>
               <li>
-                <span className="text-sage-400 cursor-not-allowed">FastAPI Integration (Phase 2)</span>
+                <span className="text-sage-400 text-[11px] font-mono">FastAPI Endpoints (Phase 2)</span>
               </li>
             </ul>
           </div>
 
-          {/* Architecture & Compliance */}
+          {/* Architecture Badge */}
           <div className="space-y-3">
-            <h4 className="text-xs font-semibold text-limeaccent-300 uppercase tracking-wider mb-2">
-              System Architecture
+            <h4 className="text-xs font-bold text-limeaccent-300 uppercase tracking-widest mb-3">
+              Zero-Hardware Architecture
             </h4>
-            <div className="p-3 rounded-lg bg-forest-800/80 border border-forest-700 text-xs text-sage-200">
-              <p className="font-semibold text-white mb-1">Pure Software Intelligence</p>
-              <p className="text-[11px] text-sage-300 leading-normal">
-                Zero physical hardware dependencies. Powered by OpenStreetMap GIS, modular REST services, and upcoming YOLOv8 computer vision classification.
+            <div className="p-4 rounded-2xl bg-forest-800/60 border border-forest-700/80 backdrop-blur-sm space-y-2 text-xs">
+              <div className="flex items-center gap-2 text-white font-bold">
+                <Sparkles className="w-4 h-4 text-limeaccent-400" />
+                <span>Pure Software Model</span>
+              </div>
+              <p className="text-[11px] text-sage-300 leading-relaxed">
+                No physical sensors needed. Powered by crowdsourced photographic audits, OpenStreetMap coordinates, and upcoming YOLOv8 inference.
               </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-forest-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-sage-400">
-          <p>© 2026 EcoWatch AI. Designed for sustainable civic intelligence.</p>
-          <div className="flex items-center gap-6">
-            <span>OpenStreetMap GIS</span>
-            <span>FastAPI-Ready Client</span>
-            <span>Phase 1 Frontend</span>
+        {/* Bottom copyright & attribution */}
+        <div className="mt-14 pt-8 border-t border-forest-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-sage-400 font-mono">
+          <p>© 2026 EcoWatch AI. Environmental Intelligence & Civic Sanitation.</p>
+          <div className="flex items-center gap-6 text-[11px]">
+            <span className="text-sage-300">OpenStreetMap Data</span>
+            <span className="text-sage-300">FastAPI Ready</span>
+            <span className="text-limeaccent-400 font-bold">Phase 1 Operational</span>
           </div>
         </div>
       </div>
     </footer>
   );
 }
-

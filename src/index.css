@@ -14,6 +14,56 @@
   }
 }
 
+/* Atmospheric Mesh Gradients and Dot Grids */
+.bg-grid-pattern {
+  background-image: radial-gradient(#CBDBC9 1.1px, transparent 1.1px);
+  background-size: 20px 20px;
+}
+
+.bg-dot-pattern-dense {
+  background-image: radial-gradient(#A9C2A6 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+/* Frosted glass utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 32px 0 rgba(24, 71, 48, 0.05);
+}
+
+.glass-panel-dark {
+  background: rgba(12, 36, 25, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(146, 190, 167, 0.2);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.35);
+}
+
+.glass-card-hover {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px -4px rgba(24, 71, 48, 0.1), 0 4px 12px -2px rgba(24, 71, 48, 0.05);
+  border-color: rgba(95, 159, 126, 0.45);
+}
+
+/* Gradient text utility */
+.text-gradient-forest {
+  background: linear-gradient(135deg, #0C2419 0%, #184730 40%, #2A724E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-lime {
+  background: linear-gradient(135deg, #184730 0%, #2A724E 50%, #65A30D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* Custom leaflet map controls styling to match EcoWatch brand */
 .leaflet-container {
   font-family: inherit;
@@ -21,15 +71,34 @@
 }
 
 .leaflet-popup-content-wrapper {
-  border-radius: 0.75rem;
+  border-radius: 1rem;
   padding: 0;
-  box-shadow: 0 10px 25px -5px rgba(24, 71, 48, 0.15), 0 8px 10px -6px rgba(24, 71, 48, 0.1);
-  border: 1px solid #E8EDE7;
+  box-shadow: 0 20px 45px -10px rgba(12, 36, 25, 0.22), 0 8px 16px -4px rgba(12, 36, 25, 0.12);
+  border: 1px solid #D2DDD0;
+  overflow: hidden;
+  background: #FFFFFF;
 }
 
 .leaflet-popup-content {
   margin: 0;
   line-height: inherit;
+}
+
+.leaflet-bar {
+  border: 1px solid #CBDBC9 !important;
+  box-shadow: 0 4px 12px rgba(24, 71, 48, 0.08) !important;
+  border-radius: 0.65rem !important;
+  overflow: hidden;
+}
+
+.leaflet-bar a {
+  background-color: #FFFFFF !important;
+  color: #184730 !important;
+  border-bottom: 1px solid #E8EDE7 !important;
+}
+.leaflet-bar a:hover {
+  background-color: #F0F6F3 !important;
+  color: #0C2419 !important;
 }
 
 /* Custom scrollbars */
@@ -42,9 +111,8 @@
 }
 ::-webkit-scrollbar-thumb {
   background: #CBDBC9;
-  border-radius: 4px;
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #94AC90;
 }
-

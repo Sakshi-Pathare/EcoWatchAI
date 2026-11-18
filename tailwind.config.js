@@ -18,6 +18,7 @@ export default {
           700: '#184730',
           800: '#133927',
           900: '#0C2419',
+          950: '#06160F',
           DEFAULT: '#184730',
         },
         sage: {
@@ -70,13 +71,49 @@ export default {
         sans: ['Inter', 'Manrope', 'system-ui', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
-        'soft-sm': '0 1px 3px 0 rgba(24, 71, 48, 0.05)',
-        'soft': '0 4px 12px 0 rgba(24, 71, 48, 0.06), 0 1px 3px 0 rgba(24, 71, 48, 0.04)',
-        'soft-md': '0 8px 24px -4px rgba(24, 71, 48, 0.08), 0 2px 6px -1px rgba(24, 71, 48, 0.04)',
-        'soft-lg': '0 16px 36px -6px rgba(24, 71, 48, 0.12), 0 4px 12px -2px rgba(24, 71, 48, 0.06)',
+        'soft-xs': '0 1px 2px 0 rgba(24, 71, 48, 0.04)',
+        'soft-sm': '0 2px 4px 0 rgba(24, 71, 48, 0.05)',
+        'soft': '0 4px 16px -2px rgba(24, 71, 48, 0.06), 0 2px 6px -1px rgba(24, 71, 48, 0.03)',
+        'soft-md': '0 10px 25px -4px rgba(24, 71, 48, 0.08), 0 4px 10px -2px rgba(24, 71, 48, 0.04)',
+        'soft-lg': '0 20px 40px -8px rgba(24, 71, 48, 0.12), 0 8px 16px -4px rgba(24, 71, 48, 0.06)',
+        'soft-xl': '0 25px 50px -12px rgba(24, 71, 48, 0.18)',
+        'glow-lime': '0 0 25px -5px rgba(132, 204, 22, 0.35)',
+        'glow-forest': '0 0 30px -5px rgba(24, 71, 48, 0.25)',
+        'glow-crimson': '0 0 25px -5px rgba(225, 29, 72, 0.35)',
+        'glass': '0 8px 32px 0 rgba(24, 71, 48, 0.06)',
+      },
+      animation: {
+        'radar-ping': 'radarPing 2.5s cubic-bezier(0, 0, 0.2, 1) infinite',
+        'laser-scan': 'laserScan 2.4s ease-in-out infinite',
+        'float-slow': 'floatSlow 4s ease-in-out infinite',
+        'pulse-subtle': 'pulseSubtle 3s ease-in-out infinite',
+        'shimmer': 'shimmer 2.5s linear infinite',
+      },
+      keyframes: {
+        radarPing: {
+          '0%': { transform: 'scale(0.95)', opacity: '0.8' },
+          '70%': { transform: 'scale(2.2)', opacity: '0' },
+          '100%': { transform: 'scale(2.4)', opacity: '0' },
+        },
+        laserScan: {
+          '0%': { top: '0%' },
+          '50%': { top: '95%' },
+          '100%': { top: '0%' },
+        },
+        floatSlow: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-6px)' },
+        },
+        pulseSubtle: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.6' },
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
       },
     },
   },
   plugins: [],
 }
-
