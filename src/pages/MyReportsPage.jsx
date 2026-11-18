@@ -10,6 +10,7 @@ import {
   CheckCircle,
   Clock,
   Sparkles,
+  Trash2,
 } from 'lucide-react';
 import { Button } from '../components/common/Button';
 import { Card, CardBody } from '../components/common/Card';
@@ -25,6 +26,7 @@ export function MyReportsPage() {
   const [loading, setLoading] = useState(true);
   const [selectedReport, setSelectedReport] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [deleteSuccess, setDeleteSuccess] = useState(null);
 
   useEffect(() => {
     loadReports();
@@ -39,6 +41,19 @@ export function MyReportsPage() {
       console.error(e);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDeleteReport = async (id) => {
+    if (!window.confirm(`Are you sure you want to remove report ${id}?`)) return;
+    try {
+      await reportService.deleteReport(id);
+      setSelectedReport(null);
+      setDeleteSuccess(`Report ${id} removed successfully.`);
+      loadReports();
+      setTimeout(() => setDeleteSuccess(null), 3000);
+    } catch (e) {
+      console.error(e);
     }
   };
 
@@ -72,6 +87,13 @@ export function MyReportsPage() {
           </Button>
         </Link>
       </div>
+
+      {deleteSuccess && (
+        <div className="p-3.5 rounded-xl bg-forest-50 border border-forest-200 text-forest-800 text-xs font-medium flex items-center gap-2 shadow-soft">
+          <CheckCircle className="w-4 h-4 text-forest-600 shrink-0" />
+          <span>{deleteSuccess}</span>
+        </div>
+      )}
 
       {/* Filter / Search Bar */}
       <div className="flex items-center justify-between gap-4">
@@ -247,13 +269,23 @@ export function MyReportsPage() {
               </p>
             </div>
 
-            <div className="flex items-center justify-between pt-3 border-t border-sage-200">
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-sage-200">
               <span className="text-charcoal-500 font-mono text-[11px]">
                 GPS: {selectedReport.latitude.toFixed(4)}, {selectedReport.longitude.toFixed(4)}
               </span>
-              <Button variant="primary" size="sm" onClick={() => setSelectedReport(null)}>
-                Done
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="danger"
+                  size="sm"
+                  icon={Trash2}
+                  onClick={() => handleDeleteReport(selectedReport.id)}
+                >
+                  Delete Submission
+                </Button>
+                <Button variant="primary" size="sm" onClick={() => setSelectedReport(null)}>
+                  Done
+                </Button>
+              </div>
             </div>
           </div>
         )}

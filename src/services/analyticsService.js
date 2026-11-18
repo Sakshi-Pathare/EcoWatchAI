@@ -1,5 +1,5 @@
-import { mockPollutionTrends, mockCategoryBreakdown, mockImpactMetrics } from '../data/mockAnalytics';
-import { reportService } from './reportService';
+import { mockPollutionTrends, mockCategoryBreakdown, mockImpactMetrics } from '../data/mockAnalytics.js';
+import { reportService } from './reportService.js';
 
 export const analyticsService = {
   async getDashboardMetrics() {

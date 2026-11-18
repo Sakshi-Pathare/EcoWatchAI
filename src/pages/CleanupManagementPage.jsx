@@ -21,6 +21,7 @@ import { EmptyState } from '../components/common/EmptyState';
 import { LoadingSkeleton } from '../components/common/LoadingSkeleton';
 import { cleanupService } from '../services/cleanupService';
 import { formatDate } from '../utils/dateUtils';
+import { compressImageFile } from '../utils/imageStorage';
 
 export function CleanupManagementPage() {
   const [cleanups, setCleanups] = useState([]);
@@ -31,6 +32,7 @@ export function CleanupManagementPage() {
   const [assignedTeamInput, setAssignedTeamInput] = useState('');
   const [scheduledDateInput, setScheduledDateInput] = useState('');
   const [statusNotification, setStatusNotification] = useState(null);
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
 
   useEffect(() => {
     loadCleanups();
@@ -48,9 +50,9 @@ export function CleanupManagementPage() {
     }
   };
 
-  const handleStatusChange = async (taskId, newStatus) => {
+  const handleStatusChange = async (taskId, newStatus, afterImageUrl = null) => {
     try {
-      await cleanupService.updateTaskStatus(taskId, newStatus);
+      await cleanupService.updateTaskStatus(taskId, newStatus, afterImageUrl);
       setStatusNotification(`Task ${taskId} status updated to: ${newStatus.replace('_', ' ').toUpperCase()}`);
       loadCleanups();
       setTimeout(() => setStatusNotification(null), 3000);
@@ -317,12 +319,43 @@ export function CleanupManagementPage() {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="h-full flex flex-col items-center justify-center text-xs text-charcoal-400 p-6 text-center space-y-2">
+                    <div className="h-full flex flex-col items-center justify-center text-xs text-charcoal-400 p-6 text-center space-y-3">
                       <Camera className="w-8 h-8 text-charcoal-300" />
-                      <p className="font-semibold text-charcoal-600">Pending Photographic Resolution</p>
-                      <p className="text-[11px] text-charcoal-400">
-                        Crew will upload proof upon physical clearance.
-                      </p>
+                      <div>
+                        <p className="font-semibold text-charcoal-700">Pending Photographic Resolution</p>
+                        <p className="text-[11px] text-charcoal-400 mt-0.5">
+                          Sanitation crews can capture or upload physical site clearance proof.
+                        </p>
+                      </div>
+                      <label className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-forest text-white text-xs font-semibold hover:bg-forest-700 transition-colors shadow-sm">
+                        <Camera className="w-3.5 h-3.5" />
+                        <span>{uploadingPhoto ? 'Processing Photo...' : 'Upload Restored Photo & Complete'}</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          disabled={uploadingPhoto}
+                          onChange={async (e) => {
+                            const file = e.target.files?.[0];
+                            if (!file) return;
+                            setUploadingPhoto(true);
+                            try {
+                              const { dataUrl } = await compressImageFile(file, 1200, 1200, 0.72);
+                              await handleStatusChange(selectedTask.id, 'completed', dataUrl);
+                              setSelectedTask((prev) => ({
+                                ...prev,
+                                afterImageUrl: dataUrl,
+                                status: 'completed',
+                                completedAt: new Date().toISOString(),
+                              }));
+                            } catch (err) {
+                              console.error('Failed to upload after photo', err);
+                            } finally {
+                              setUploadingPhoto(false);
+                            }
+                          }}
+                        />
+                      </label>
                     </div>
                   )}
                 </div>

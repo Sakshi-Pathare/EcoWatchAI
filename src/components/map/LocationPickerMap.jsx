@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
+import React, { useState, useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-leaflet';
 import { createPickerIcon } from './mapIcons';
-import { Navigation, MapPin } from 'lucide-react';
+import { Navigation, MapPin, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { Button } from '../common/Button';
 
 function MapClickHandler({ onLocationSelect }) {
@@ -13,6 +13,16 @@ function MapClickHandler({ onLocationSelect }) {
   return null;
 }
 
+function MapPanController({ target }) {
+  const map = useMap();
+  useEffect(() => {
+    if (target && target.lat && target.lng) {
+      map.flyTo([target.lat, target.lng], 15, { duration: 1.2 });
+    }
+  }, [target, map]);
+  return null;
+}
+
 export function LocationPickerMap({
   latitude,
   longitude,
@@ -21,6 +31,8 @@ export function LocationPickerMap({
 }) {
   const [geoLoading, setGeoLoading] = useState(false);
   const [geoError, setGeoError] = useState(null);
+  const [geoSuccess, setGeoSuccess] = useState(false);
+  const [flyTarget, setFlyTarget] = useState(null);
 
   const currentLat = latitude || 37.7749;
   const currentLng = longitude || -122.4194;
@@ -36,17 +48,31 @@ export function LocationPickerMap({
     }
     setGeoLoading(true);
     setGeoError(null);
+    setGeoSuccess(false);
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setGeoLoading(false);
-        handleLocationSelect(position.coords.latitude, position.coords.longitude);
+        const lat = Number(position.coords.latitude.toFixed(6));
+        const lng = Number(position.coords.longitude.toFixed(6));
+        handleLocationSelect(lat, lng);
+        setFlyTarget({ lat, lng, id: Date.now() });
+        setGeoSuccess(true);
+        setTimeout(() => setGeoSuccess(false), 3500);
       },
       (err) => {
         setGeoLoading(false);
-        setGeoError('Could not retrieve GPS coordinates. Please select manually on the map.');
+        let errorMsg = 'Could not retrieve GPS coordinates. Please select manually on the map.';
+        if (err.code === 1) { // PERMISSION_DENIED
+          errorMsg = 'Location permission was denied. Please allow location access in your browser or click on the map to set your report location.';
+        } else if (err.code === 2) { // POSITION_UNAVAILABLE
+          errorMsg = 'GPS signal unavailable. Please ensure location services are enabled or click directly on the map.';
+        } else if (err.code === 3) { // TIMEOUT
+          errorMsg = 'GPS location request timed out. Please try again or click directly on the map.';
+        }
+        setGeoError(errorMsg);
       },
-      { timeout: 10000, enableHighAccuracy: true }
+      { timeout: 12000, enableHighAccuracy: true, maximumAge: 0 }
     );
   };
 
@@ -67,6 +93,7 @@ export function LocationPickerMap({
           />
 
           <MapClickHandler onLocationSelect={handleLocationSelect} />
+          <MapPanController target={flyTarget} />
 
           <Marker
             position={[currentLat, currentLng]}
@@ -83,7 +110,13 @@ export function LocationPickerMap({
         </MapContainer>
 
         {/* Floating Geo Button */}
-        <div className="absolute top-3 right-3 z-[1000]">
+        <div className="absolute top-3 right-3 z-[1000] flex items-center gap-2">
+          {geoSuccess && (
+            <span className="bg-forest-800 text-white text-[11px] font-semibold px-2.5 py-1 rounded-lg shadow-md flex items-center gap-1 animate-fade-in">
+              <CheckCircle2 className="w-3.5 h-3.5 text-limeaccent-300" />
+              <span>Location Locked</span>
+            </span>
+          )}
           <Button
             type="button"
             variant="outline"
@@ -110,9 +143,10 @@ export function LocationPickerMap({
       </div>
 
       {geoError && (
-        <p className="text-xs text-rose-600 bg-rose-50 p-2 rounded-lg border border-rose-200">
-          {geoError}
-        </p>
+        <div className="flex items-center gap-2 p-2.5 rounded-lg bg-rose-50 text-rose-700 text-xs border border-rose-200">
+          <AlertCircle className="w-4 h-4 shrink-0" />
+          <span>{geoError}</span>
+        </div>
       )}
     </div>
   );
