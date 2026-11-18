@@ -117,16 +117,16 @@ export function AdminDashboard() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 font-sans">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-sage-200">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-beige-300/80">
         <div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-forest-100 text-forest-800 mb-2 border border-forest-200 shadow-xs">
-            <ShieldCheck className="w-3.5 h-3.5 text-forest-700" />
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-sage-100 text-darkgreen-900 mb-2 border border-sage-300 shadow-xs">
+            <ShieldCheck className="w-3.5 h-3.5 text-darkgreen-700" />
             <span>Municipal Sanitation Command Center</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-charcoal-900 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-darkgreen-950 tracking-tight">
             City Environmental Intelligence Overview
           </h1>
-          <p className="text-xs sm:text-sm text-charcoal-500 mt-1 max-w-xl">
+          <p className="text-xs sm:text-sm text-sage-700 mt-1 max-w-xl font-medium">
             Supervise incoming litter reports, verify photographic evidence, monitor algorithmic recurrence corridors, and dispatch sanitation squads.
           </p>
         </div>
@@ -200,32 +200,33 @@ export function AdminDashboard() {
                   <AreaChart data={trends} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                     <defs>
                       <linearGradient id="colorReports" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#184730" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="#184730" stopOpacity={0} />
+                        <stop offset="5%" stopColor="#183D2B" stopOpacity={0.8} />
+                        <stop offset="95%" stopColor="#183D2B" stopOpacity={0.05} />
                       </linearGradient>
                       <linearGradient id="colorResolved" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#84CC16" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="#84CC16" stopOpacity={0} />
+                        <stop offset="5%" stopColor="#2B774C" stopOpacity={0.8} />
+                        <stop offset="95%" stopColor="#2B774C" stopOpacity={0.05} />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
-                    <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#64748B', fontWeight: 600 }} />
-                    <YAxis tick={{ fontSize: 11, fill: '#64748B', fontWeight: 600 }} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#DFD5C4" />
+                    <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#597057', fontWeight: 600 }} />
+                    <YAxis tick={{ fontSize: 11, fill: '#597057', fontWeight: 600 }} />
                     <Tooltip
                       contentStyle={{
-                        backgroundColor: '#FFFFFF',
-                        borderColor: '#CBDBC9',
+                        backgroundColor: '#FAF8F5',
+                        borderColor: '#DFD5C4',
                         borderRadius: '0.75rem',
                         fontSize: '12px',
-                        boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1)',
+                        boxShadow: '0 10px 25px -5px rgba(24,61,43,0.1)',
                         fontWeight: 600,
+                        color: '#122B1E',
                       }}
                     />
                     <Area
                       type="monotone"
                       dataKey="reports"
                       name="Reports Logged"
-                      stroke="#184730"
+                      stroke="#183D2B"
                       strokeWidth={2.5}
                       fillOpacity={1}
                       fill="url(#colorReports)"
@@ -234,7 +235,7 @@ export function AdminDashboard() {
                       type="monotone"
                       dataKey="resolved"
                       name="Cleaned Sites"
-                      stroke="#65A30D"
+                      stroke="#2B774C"
                       strokeWidth={2.5}
                       fillOpacity={1}
                       fill="url(#colorResolved)"
@@ -243,13 +244,13 @@ export function AdminDashboard() {
                 </ResponsiveContainer>
               </div>
 
-              <div className="flex items-center justify-center gap-6 mt-4 pt-3 border-t border-sage-100 text-xs font-bold text-charcoal-700">
+              <div className="flex items-center justify-center gap-6 mt-4 pt-3 border-t border-beige-200 text-xs font-bold text-darkgreen-950">
                 <div className="flex items-center gap-2">
-                  <span className="w-3.5 h-3.5 rounded bg-forest shadow-xs" />
+                  <span className="w-3.5 h-3.5 rounded bg-darkgreen-800 shadow-xs" />
                   <span>Public Litter Reports Logged</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="w-3.5 h-3.5 rounded bg-limeaccent-600 shadow-xs" />
+                  <span className="w-3.5 h-3.5 rounded bg-botanical-600 shadow-xs" />
                   <span>Verified Cleanups Completed</span>
                 </div>
               </div>
@@ -322,10 +323,10 @@ export function AdminDashboard() {
             </Link>
           </div>
 
-          <Card className="border-sage-200/90 shadow-soft overflow-hidden">
+          <Card className="border-beige-300/90 shadow-soft overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-offwhite-200 text-charcoal-700 font-bold border-b border-sage-200">
+                <thead className="bg-beige-200/80 text-darkgreen-950 font-bold border-b border-beige-300">
                   <tr>
                     <th className="py-3.5 px-4">Incident</th>
                     <th className="py-3.5 px-4">Severity</th>
@@ -334,13 +335,13 @@ export function AdminDashboard() {
                     <th className="py-3.5 px-4 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-sage-100">
+                <tbody className="divide-y divide-beige-200/80">
                   {recentReports.slice(0, 5).map((r) => {
                     const sevProps = getSeverityBadgeProps(r.severity);
                     const statProps = getStatusBadgeProps(r.status);
 
                     return (
-                      <tr key={r.id} className="hover:bg-offwhite-50/80 transition-colors">
+                      <tr key={r.id} className="hover:bg-beige-100/60 transition-colors">
                         <td className="py-3.5 px-4">
                           <div className="font-extrabold text-charcoal-900">{r.title}</div>
                           <div className="text-[11px] text-charcoal-500 truncate max-w-xs">{r.address}</div>

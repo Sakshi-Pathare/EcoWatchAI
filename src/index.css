@@ -8,38 +8,38 @@
   }
   
   body {
-    color: #1E293B;
-    background-color: #FAFBF7;
+    color: #232C26;
+    background-color: #F5F1EB; /* Warm Sand Beige */
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
 }
 
-/* Atmospheric Mesh Gradients and Dot Grids */
+/* Atmospheric Botanical Mesh Gradients and Dot Grids */
 .bg-grid-pattern {
-  background-image: radial-gradient(#CBDBC9 1.1px, transparent 1.1px);
+  background-image: radial-gradient(#D1DDD0 1.1px, transparent 1.1px);
   background-size: 20px 20px;
 }
 
 .bg-dot-pattern-dense {
-  background-image: radial-gradient(#A9C2A6 1px, transparent 1px);
+  background-image: radial-gradient(#B3C5B1 1px, transparent 1px);
   background-size: 14px 14px;
 }
 
-/* Frosted glass utilities */
+/* Frosted glass utilities with warm beige undertone */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(253, 251, 247, 0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 8px 32px 0 rgba(24, 71, 48, 0.05);
+  border: 1px solid rgba(223, 213, 196, 0.7);
+  box-shadow: 0 8px 32px 0 rgba(24, 61, 43, 0.05);
 }
 
 .glass-panel-dark {
-  background: rgba(12, 36, 25, 0.88);
+  background: rgba(18, 43, 30, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(146, 190, 167, 0.2);
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(148, 186, 166, 0.25);
+  box-shadow: 0 12px 40px 0 rgba(10, 28, 19, 0.45);
 }
 
 .glass-card-hover {
@@ -47,24 +47,24 @@
 }
 .glass-card-hover:hover {
   transform: translateY(-3px);
-  box-shadow: 0 16px 36px -4px rgba(24, 71, 48, 0.1), 0 4px 12px -2px rgba(24, 71, 48, 0.05);
-  border-color: rgba(95, 159, 126, 0.45);
+  box-shadow: 0 16px 36px -4px rgba(24, 61, 43, 0.1), 0 4px 12px -2px rgba(24, 61, 43, 0.05);
+  border-color: rgba(94, 153, 126, 0.55);
 }
 
-/* Gradient text utility */
+/* Gradient text utilities */
 .text-gradient-forest {
-  background: linear-gradient(135deg, #0C2419 0%, #184730 40%, #2A724E 100%);
+  background: linear-gradient(135deg, #0A1C13 0%, #183D2B 45%, #2B774C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-gradient-lime {
-  background: linear-gradient(135deg, #184730 0%, #2A724E 50%, #65A30D 100%);
+  background: linear-gradient(135deg, #183D2B 0%, #2B774C 50%, #719416 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Custom leaflet map controls styling to match EcoWatch brand */
+/* Leaflet map controls styling */
 .leaflet-container {
   font-family: inherit;
   z-index: 10;
@@ -73,10 +73,10 @@
 .leaflet-popup-content-wrapper {
   border-radius: 1rem;
   padding: 0;
-  box-shadow: 0 20px 45px -10px rgba(12, 36, 25, 0.22), 0 8px 16px -4px rgba(12, 36, 25, 0.12);
-  border: 1px solid #D2DDD0;
+  box-shadow: 0 20px 45px -10px rgba(10, 28, 19, 0.22), 0 8px 16px -4px rgba(10, 28, 19, 0.12);
+  border: 1px solid #D1DDD0;
   overflow: hidden;
-  background: #FFFFFF;
+  background: #FAF8F5;
 }
 
 .leaflet-popup-content {
@@ -85,34 +85,34 @@
 }
 
 .leaflet-bar {
-  border: 1px solid #CBDBC9 !important;
-  box-shadow: 0 4px 12px rgba(24, 71, 48, 0.08) !important;
+  border: 1px solid #D1DDD0 !important;
+  box-shadow: 0 4px 12px rgba(24, 61, 43, 0.08) !important;
   border-radius: 0.65rem !important;
   overflow: hidden;
 }
 
 .leaflet-bar a {
-  background-color: #FFFFFF !important;
-  color: #184730 !important;
-  border-bottom: 1px solid #E8EDE7 !important;
+  background-color: #FAF8F5 !important;
+  color: #183D2B !important;
+  border-bottom: 1px solid #E7ECE6 !important;
 }
 .leaflet-bar a:hover {
-  background-color: #F0F6F3 !important;
-  color: #0C2419 !important;
+  background-color: #E7ECE6 !important;
+  color: #0A1C13 !important;
 }
 
-/* Custom scrollbars */
+/* Custom scrollbars with sage & beige tones */
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #F4F5ED;
+  background: #ECE5DA;
 }
 ::-webkit-scrollbar-thumb {
-  background: #CBDBC9;
+  background: #B3C5B1;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94AC90;
+  background: #90A88E;
 }

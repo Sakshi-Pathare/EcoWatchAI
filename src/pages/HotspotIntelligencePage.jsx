@@ -58,16 +58,16 @@ export function HotspotIntelligencePage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 font-sans">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-sage-200">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-beige-300/80">
         <div>
           <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-rose-100 text-rose-900 mb-2 border border-rose-200 shadow-xs">
             <Flame className="w-3.5 h-3.5 text-rose-600 animate-pulse" />
             <span>Algorithmic Hotspot Clustering Engine</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-charcoal-900 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-darkgreen-950 tracking-tight">
             Hotspot Intelligence & Priority Ranking
           </h1>
-          <p className="text-xs sm:text-sm text-charcoal-500 mt-1 max-w-2xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-sage-700 mt-1 max-w-2xl leading-relaxed font-medium">
             Automated geospatial recurrence clustering. High-frequency dumping corridors ranked by dynamic multi-parameter Cleanup Priority Score.
           </p>
         </div>
@@ -77,11 +77,11 @@ export function HotspotIntelligencePage() {
             onClick={() => setSimulationActive(!simulationActive)}
             className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-2 border shadow-xs ${
               simulationActive
-                ? 'bg-limeaccent-100 text-forest-950 border-limeaccent-400 ring-2 ring-limeaccent-400/40'
-                : 'bg-white text-charcoal-700 border-sage-300 hover:bg-offwhite-100'
+                ? 'bg-sage-200 text-darkgreen-950 border-sage-400 ring-2 ring-sage-400/40'
+                : 'bg-beige-50 text-charcoal-700 border-beige-300 hover:bg-beige-100'
             }`}
           >
-            <Zap className={`w-3.5 h-3.5 ${simulationActive ? 'text-forest-900' : 'text-amber-500'}`} />
+            <Zap className={`w-3.5 h-3.5 ${simulationActive ? 'text-darkgreen-900' : 'text-amber-500'}`} />
             <span>Remediation Simulator {simulationActive ? 'ACTIVE' : 'OFF'}</span>
           </button>
 
@@ -247,7 +247,7 @@ export function HotspotIntelligencePage() {
                   </div>
 
                   {/* Priority Gauge Badge */}
-                  <div className="text-center p-3 rounded-2xl bg-offwhite-200 border border-sage-200 shrink-0 min-w-[76px] shadow-xs">
+                  <div className="text-center p-3 rounded-2xl bg-beige-100/90 border border-beige-300 shrink-0 min-w-[76px] shadow-xs">
                     <span className="text-[9px] uppercase font-bold text-charcoal-400 block tracking-wider">Priority</span>
                     <span
                       className={`text-2xl font-black font-mono transition-all duration-500 ${
@@ -259,7 +259,7 @@ export function HotspotIntelligencePage() {
                     <span className="text-[9px] text-charcoal-400 block font-mono">/ 100</span>
 
                     {simulationActive && (
-                      <span className="text-[10px] font-bold text-emerald-700 font-mono block mt-0.5">
+                      <span className="text-[10px] font-bold text-botanical-700 font-mono block mt-0.5">
                         -32 pts
                       </span>
                     )}
@@ -267,14 +267,14 @@ export function HotspotIntelligencePage() {
                 </div>
 
                 {/* Key Metrics Breakdown */}
-                <div className="grid grid-cols-3 gap-2 p-3 rounded-xl bg-offwhite-100 border border-sage-200/90 text-xs">
+                <div className="grid grid-cols-3 gap-2 p-3 rounded-xl bg-beige-100/70 border border-beige-200/90 text-xs">
                   <div>
                     <span className="text-[10px] text-charcoal-400 font-bold uppercase tracking-wider block">Recurrence</span>
                     <span className="font-extrabold text-charcoal-900 font-mono text-xs">{hotspot.recurrenceCount} Reports</span>
                   </div>
                   <div>
                     <span className="text-[10px] text-charcoal-400 font-bold uppercase tracking-wider block">Primary Material</span>
-                    <span className="font-bold text-forest-900 text-xs truncate block">{getCategoryLabel(hotspot.dominantCategory)}</span>
+                    <span className="font-bold text-darkgreen-900 text-xs truncate block">{getCategoryLabel(hotspot.dominantCategory)}</span>
                   </div>
                   <div>
                     <span className="text-[10px] text-charcoal-400 font-bold uppercase tracking-wider block">Trend</span>

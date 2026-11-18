@@ -14,16 +14,16 @@ export function Button({
   glow = false,
   ...props
 }) {
-  const baseStyles = 'inline-flex items-center justify-center font-semibold transition-all duration-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer select-none relative overflow-hidden group active:scale-[0.98]';
+  const baseStyles = 'inline-flex items-center justify-center font-bold transition-all duration-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer select-none relative overflow-hidden group active:scale-[0.98] font-sans';
 
   const variants = {
-    primary: 'bg-gradient-to-r from-forest-800 to-forest-700 text-white hover:from-forest-900 hover:to-forest-800 focus:ring-forest-500 shadow-soft-sm hover:shadow-soft-md border border-forest-600/40',
-    secondary: 'bg-sage-100/80 text-forest-900 hover:bg-sage-200 active:bg-sage-300 focus:ring-sage-400 border border-sage-200/80 shadow-soft-xs',
-    outline: 'border border-sage-300/90 text-charcoal-800 bg-white/80 backdrop-blur-sm hover:bg-offwhite-100 hover:border-forest-400 active:bg-offwhite-200 focus:ring-forest-500 shadow-soft-xs hover:shadow-soft-sm',
-    ghost: 'text-forest-800 hover:bg-forest-50/80 active:bg-forest-100 focus:ring-forest-400',
+    primary: 'bg-gradient-to-r from-darkgreen-900 via-darkgreen-800 to-darkgreen-800 text-beige-50 hover:from-darkgreen-950 hover:to-darkgreen-900 focus:ring-darkgreen-600 shadow-soft-sm hover:shadow-soft-md border border-darkgreen-700/60',
+    secondary: 'bg-sage-100 text-darkgreen-950 hover:bg-sage-200 active:bg-sage-300 focus:ring-sage-400 border border-sage-300/80 shadow-soft-xs',
+    outline: 'border border-beige-400/90 text-darkgreen-950 bg-beige-50/90 backdrop-blur-sm hover:bg-beige-100 hover:border-darkgreen-600 active:bg-beige-200 focus:ring-darkgreen-600 shadow-soft-xs hover:shadow-soft-sm',
+    ghost: 'text-darkgreen-900 hover:bg-sage-100/70 active:bg-sage-200 focus:ring-darkgreen-500',
     danger: 'bg-gradient-to-r from-rose-600 to-rose-700 text-white hover:from-rose-700 hover:to-rose-800 focus:ring-rose-500 shadow-soft-sm hover:shadow-soft-md border border-rose-500/40',
-    lime: 'bg-gradient-to-r from-limeaccent-600 to-limeaccent-500 text-forest-950 font-bold hover:from-limeaccent-500 hover:to-limeaccent-400 focus:ring-limeaccent-400 shadow-soft hover:shadow-glow-lime border border-limeaccent-400/50',
-    glass: 'bg-white/70 backdrop-blur-md text-forest-900 border border-white/80 hover:bg-white hover:border-forest-300 shadow-glass',
+    lime: 'bg-gradient-to-r from-botanical-600 to-botanical-700 text-white font-bold hover:from-botanical-700 hover:to-botanical-800 focus:ring-botanical-500 shadow-soft hover:shadow-soft-md border border-botanical-500/60',
+    glass: 'bg-beige-50/80 backdrop-blur-md text-darkgreen-950 border border-beige-300 hover:bg-white hover:border-darkgreen-400 shadow-glass',
   };
 
   const sizes = {
@@ -40,7 +40,7 @@ export function Button({
           baseStyles,
           variants[variant],
           sizes[size],
-          glow && 'shadow-glow-forest hover:shadow-glow-lime',
+          glow && 'shadow-glow-forest',
           className
         )
       )}

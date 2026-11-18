@@ -74,16 +74,16 @@ export function PollutionMapPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       {/* Top Controls Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-sage-200">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-beige-300/80">
         <div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-forest-100 text-forest-800 mb-2 border border-forest-200/80 shadow-xs">
-            <Compass className="w-3.5 h-3.5 text-forest-700 animate-spin-slow" />
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-sage-100 text-darkgreen-900 mb-2 border border-sage-300 shadow-xs">
+            <Compass className="w-3.5 h-3.5 text-darkgreen-700 animate-spin-slow" />
             <span>GIS Geospatial Cartography Engine</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-charcoal-900 tracking-tight font-sans">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-darkgreen-950 tracking-tight font-sans">
             Pollution & Hotspot GIS Map
           </h1>
-          <p className="text-xs sm:text-sm text-charcoal-500 mt-1 max-w-xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-sage-700 mt-1 max-w-xl leading-relaxed font-medium">
             Real-time geospatial intelligence, recurrence buffer zones, and active municipal cleanup coordinates.
           </p>
         </div>
@@ -95,7 +95,7 @@ export function PollutionMapPage() {
             className={`px-3.5 py-2 text-xs font-bold rounded-xl border transition-all inline-flex items-center gap-2 shadow-xs ${
               showHotspotLayers
                 ? 'bg-rose-50 border-rose-300 text-rose-800 ring-2 ring-rose-400/20'
-                : 'bg-white border-sage-300 text-charcoal-600 hover:bg-offwhite-100'
+                : 'bg-beige-50 border-beige-300 text-charcoal-700 hover:bg-beige-100'
             }`}
             title="Toggle Hotspot Risk Zones"
           >
@@ -103,13 +103,13 @@ export function PollutionMapPage() {
             <span>Hotspots Overlay {showHotspotLayers ? 'ON' : 'OFF'}</span>
           </button>
 
-          <div className="bg-sage-100/90 p-1 rounded-2xl flex items-center border border-sage-200 shadow-xs">
+          <div className="bg-beige-200/80 p-1 rounded-2xl flex items-center border border-beige-300 shadow-xs">
             <button
               onClick={() => setViewMode('map')}
               className={`px-4 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
                 viewMode === 'map'
-                  ? 'bg-white text-forest-950 shadow-soft-sm font-extrabold'
-                  : 'text-charcoal-600 hover:text-forest-900'
+                  ? 'bg-darkgreen-900 text-beige-50 shadow-soft-sm font-extrabold'
+                  : 'text-charcoal-700 hover:text-darkgreen-950'
               }`}
             >
               <MapPin className="w-3.5 h-3.5" /> Map View
@@ -118,8 +118,8 @@ export function PollutionMapPage() {
               onClick={() => setViewMode('list')}
               className={`px-4 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
                 viewMode === 'list'
-                  ? 'bg-white text-forest-950 shadow-soft-sm font-extrabold'
-                  : 'text-charcoal-600 hover:text-forest-900'
+                  ? 'bg-darkgreen-900 text-beige-50 shadow-soft-sm font-extrabold'
+                  : 'text-charcoal-700 hover:text-darkgreen-950'
               }`}
             >
               <List className="w-3.5 h-3.5" /> List View ({reports.length})
@@ -129,7 +129,7 @@ export function PollutionMapPage() {
       </div>
 
       {/* Filter Bar with Quick Metrics */}
-      <div className="glass-panel p-4 sm:p-5 rounded-2xl border border-sage-200/90 shadow-soft space-y-3.5">
+      <div className="glass-panel p-4 sm:p-5 rounded-2xl border border-beige-300/90 shadow-soft space-y-3.5">
         <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
           {/* Search box */}
           <div className="flex flex-1 items-center min-w-[240px] relative">
@@ -139,7 +139,7 @@ export function PollutionMapPage() {
               placeholder="Search by neighborhood, street, description or report ID..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 text-xs rounded-xl border border-sage-300 focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white/95 placeholder:text-charcoal-400"
+              className="w-full pl-10 pr-4 py-2 text-xs rounded-xl border border-sage-300 focus:outline-none focus:ring-2 focus:ring-darkgreen-700 bg-beige-50/90 placeholder:text-charcoal-400 text-charcoal-900 font-medium"
             />
           </div>
 
@@ -148,7 +148,7 @@ export function PollutionMapPage() {
             <select
               value={severityFilter}
               onChange={(e) => setSeverityFilter(e.target.value)}
-              className="text-xs py-2 px-3.5 rounded-xl border border-sage-300 bg-white text-charcoal-800 font-semibold focus:outline-none focus:ring-2 focus:ring-forest-500 shadow-xs"
+              className="text-xs py-2 px-3.5 rounded-xl border border-sage-300 bg-beige-50 text-charcoal-800 font-semibold focus:outline-none focus:ring-2 focus:ring-darkgreen-700 shadow-xs"
             >
               <option value="all">All Severities</option>
               <option value="high">Critical Impact Only</option>
@@ -159,7 +159,7 @@ export function PollutionMapPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="text-xs py-2 px-3.5 rounded-xl border border-sage-300 bg-white text-charcoal-800 font-semibold focus:outline-none focus:ring-2 focus:ring-forest-500 shadow-xs"
+              className="text-xs py-2 px-3.5 rounded-xl border border-sage-300 bg-beige-50 text-charcoal-800 font-semibold focus:outline-none focus:ring-2 focus:ring-darkgreen-700 shadow-xs"
             >
               <option value="all">All Statuses</option>
               <option value="pending">Under Review</option>
@@ -171,7 +171,7 @@ export function PollutionMapPage() {
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
-              className="text-xs py-2 px-3.5 rounded-xl border border-sage-300 bg-white text-charcoal-800 font-semibold focus:outline-none focus:ring-2 focus:ring-forest-500 shadow-xs"
+              className="text-xs py-2 px-3.5 rounded-xl border border-sage-300 bg-beige-50 text-charcoal-800 font-semibold focus:outline-none focus:ring-2 focus:ring-darkgreen-700 shadow-xs"
             >
               <option value="all">All Material Types</option>
               <option value="plastic">Plastics & Packaging</option>
@@ -199,12 +199,12 @@ export function PollutionMapPage() {
         </div>
 
         {/* Quick Filter Presets Chips */}
-        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-sage-200/70 text-xs">
-          <span className="text-[11px] font-bold text-charcoal-400 uppercase tracking-wider">Quick Presets:</span>
+        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-beige-300/80 text-xs">
+          <span className="text-[11px] font-bold text-sage-600 uppercase tracking-wider">Quick Presets:</span>
           <button
             onClick={() => { setSeverityFilter('high'); }}
             className={`px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all ${
-              severityFilter === 'high' ? 'bg-rose-600 text-white shadow-xs' : 'bg-white text-rose-800 border border-rose-200 hover:bg-rose-50'
+              severityFilter === 'high' ? 'bg-rose-600 text-white shadow-xs' : 'bg-beige-50 text-rose-800 border border-rose-200 hover:bg-rose-50'
             }`}
           >
             🔥 High Priority Dumps ({highSeverityCount})
@@ -212,7 +212,7 @@ export function PollutionMapPage() {
           <button
             onClick={() => { setStatusFilter('cleaned'); }}
             className={`px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all ${
-              statusFilter === 'cleaned' ? 'bg-forest text-white shadow-xs' : 'bg-white text-forest-800 border border-forest-200 hover:bg-forest-50'
+              statusFilter === 'cleaned' ? 'bg-darkgreen-900 text-beige-50 shadow-xs' : 'bg-beige-50 text-darkgreen-800 border border-sage-300 hover:bg-sage-100'
             }`}
           >
             ✓ Certified Restored ({reports.filter(r => r.status === 'cleaned').length})
@@ -220,7 +220,7 @@ export function PollutionMapPage() {
           <button
             onClick={() => { setCategoryFilter('plastic'); }}
             className={`px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all ${
-              categoryFilter === 'plastic' ? 'bg-forest text-white shadow-xs' : 'bg-white text-charcoal-700 border border-sage-200 hover:bg-offwhite-100'
+              categoryFilter === 'plastic' ? 'bg-darkgreen-900 text-beige-50 shadow-xs' : 'bg-beige-50 text-charcoal-700 border border-beige-300 hover:bg-beige-100'
             }`}
           >
             Plastics Only
@@ -240,9 +240,9 @@ export function PollutionMapPage() {
           />
 
           {/* Map Legend Banner */}
-          <div className="glass-panel p-4 rounded-2xl border border-sage-200 flex flex-wrap items-center justify-between gap-4 text-xs shadow-soft">
+          <div className="glass-panel p-4 rounded-2xl border border-beige-300/90 flex flex-wrap items-center justify-between gap-4 text-xs shadow-soft">
             <div className="flex flex-wrap items-center gap-6">
-              <span className="font-bold text-charcoal-800 text-[11px] uppercase tracking-wider">Map Legend:</span>
+              <span className="font-bold text-darkgreen-950 text-[11px] uppercase tracking-wider">Map Legend:</span>
               <div className="flex items-center gap-2">
                 <span className="w-3.5 h-3.5 rounded-full bg-rose-600 shadow-[0_0_8px_#e11d48]" />
                 <span className="font-semibold text-charcoal-700">Critical / High Severity</span>
@@ -252,7 +252,7 @@ export function PollutionMapPage() {
                 <span className="font-semibold text-charcoal-700">Moderate Impact</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="w-3.5 h-3.5 rounded-full bg-emerald-600 shadow-[0_0_8px_#059669]" />
+                <span className="w-3.5 h-3.5 rounded-full bg-botanical-600 shadow-[0_0_8px_#2B774C]" />
                 <span className="font-semibold text-charcoal-700">Low Impact</span>
               </div>
               <div className="flex items-center gap-2">
@@ -261,7 +261,7 @@ export function PollutionMapPage() {
               </div>
             </div>
 
-            <span className="font-mono text-xs text-charcoal-500 font-bold">
+            <span className="font-mono text-xs text-sage-700 font-bold">
               Showing {reports.length} live incident pins
             </span>
           </div>

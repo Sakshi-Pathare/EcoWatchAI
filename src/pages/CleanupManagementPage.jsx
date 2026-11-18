@@ -95,16 +95,16 @@ export function CleanupManagementPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 font-sans">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-sage-200">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-beige-300/80">
         <div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-forest-100 text-forest-800 mb-2 border border-forest-200 shadow-xs">
-            <Truck className="w-3.5 h-3.5 text-forest-700" />
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-sage-100 text-darkgreen-900 mb-2 border border-sage-300 shadow-xs">
+            <Truck className="w-3.5 h-3.5 text-darkgreen-700" />
             <span>Municipal Dispatch Command</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-charcoal-900 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-darkgreen-950 tracking-tight">
             Cleanup Operations & Verification
           </h1>
-          <p className="text-xs sm:text-sm text-charcoal-500 mt-1 max-w-2xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-sage-700 mt-1 max-w-2xl leading-relaxed font-medium">
             Coordinate municipal contractor squads, inspect work orders, and certify public space clearance using interactive before-and-after audit comparisons.
           </p>
         </div>
@@ -122,33 +122,33 @@ export function CleanupManagementPage() {
       </div>
 
       {statusNotification && (
-        <div className="p-4 rounded-2xl bg-forest-50 border border-forest-200 text-forest-900 text-xs font-bold flex items-center gap-2.5 shadow-soft animate-fadeIn">
-          <CheckCircle className="w-4 h-4 text-forest-600 shrink-0" />
+        <div className="p-4 rounded-2xl bg-sage-50 border border-sage-300 text-darkgreen-950 text-xs font-bold flex items-center gap-2.5 shadow-soft animate-fadeIn">
+          <CheckCircle className="w-4 h-4 text-botanical-600 shrink-0" />
           <span>{statusNotification}</span>
         </div>
       )}
 
       {/* Top Operations KPI Strip */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-4 rounded-2xl bg-white border border-sage-200 shadow-soft">
+        <div className="p-4 rounded-2xl bg-beige-50/90 border border-beige-300 shadow-soft">
           <span className="text-[10px] font-bold uppercase tracking-wider text-charcoal-400 block">Total Work Orders</span>
-          <span className="text-2xl font-black text-charcoal-900 font-mono mt-0.5 block">{totalTasks}</span>
-          <span className="text-[11px] text-charcoal-500 font-medium">In municipal registry</span>
+          <span className="text-2xl font-black text-darkgreen-950 font-mono mt-0.5 block">{totalTasks}</span>
+          <span className="text-[11px] text-sage-700 font-medium">In municipal registry</span>
         </div>
-        <div className="p-4 rounded-2xl bg-white border border-sage-200 shadow-soft">
+        <div className="p-4 rounded-2xl bg-beige-50/90 border border-beige-300 shadow-soft">
           <span className="text-[10px] font-bold uppercase tracking-wider text-charcoal-400 block">Awaiting Dispatch</span>
           <span className="text-2xl font-black text-amber-600 font-mono mt-0.5 block">{pendingTasks}</span>
           <span className="text-[11px] text-amber-700 font-medium">Crew unassigned</span>
         </div>
-        <div className="p-4 rounded-2xl bg-white border border-sage-200 shadow-soft">
+        <div className="p-4 rounded-2xl bg-beige-50/90 border border-beige-300 shadow-soft">
           <span className="text-[10px] font-bold uppercase tracking-wider text-charcoal-400 block">Squads Deployed</span>
           <span className="text-2xl font-black text-blue-600 font-mono mt-0.5 block">{inProgressTasks}</span>
           <span className="text-[11px] text-blue-700 font-medium">Active remediation</span>
         </div>
-        <div className="p-4 rounded-2xl bg-white border border-sage-200 shadow-soft">
+        <div className="p-4 rounded-2xl bg-beige-50/90 border border-beige-300 shadow-soft">
           <span className="text-[10px] font-bold uppercase tracking-wider text-charcoal-400 block">Restored & Audited</span>
-          <span className="text-2xl font-black text-forest-700 font-mono mt-0.5 block">{completedTasks}</span>
-          <span className="text-[11px] text-forest-700 font-medium">Photographically certified</span>
+          <span className="text-2xl font-black text-botanical-700 font-mono mt-0.5 block">{completedTasks}</span>
+          <span className="text-[11px] text-botanical-700 font-medium">Photographically certified</span>
         </div>
       </div>
 
@@ -278,7 +278,7 @@ export function CleanupManagementPage() {
                 </div>
 
                 {/* Details Bar */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3.5 rounded-2xl bg-offwhite-100 border border-sage-200/90 text-xs">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3.5 rounded-2xl bg-beige-100/80 border border-beige-300/80 text-xs">
                   <div>
                     <span className="text-[10px] text-charcoal-400 font-bold uppercase tracking-wider block">Assigned Crew</span>
                     <span className="font-bold text-charcoal-900 truncate block mt-0.5">

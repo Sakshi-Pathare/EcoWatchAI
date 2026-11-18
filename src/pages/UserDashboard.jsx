@@ -61,16 +61,16 @@ export function UserDashboard() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 font-sans">
       {/* Top Header & Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-sage-200">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-beige-300/80">
         <div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-forest-100 text-forest-800 mb-2 border border-forest-200 shadow-xs">
-            <Award className="w-3.5 h-3.5 text-forest-700" />
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-sage-100 text-darkgreen-900 mb-2 border border-sage-300 shadow-xs">
+            <Award className="w-3.5 h-3.5 text-darkgreen-700" />
             <span>Civic Environmental Contributor • Tier 2</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-charcoal-900 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-darkgreen-950 tracking-tight">
             Reporter Command Dashboard
           </h1>
-          <p className="text-xs sm:text-sm text-charcoal-500 mt-1 max-w-xl">
+          <p className="text-xs sm:text-sm text-sage-700 mt-1 max-w-xl font-medium">
             Track your submitted pollution incidents, municipal verification status, and cleanup progress in real time.
           </p>
         </div>
@@ -90,33 +90,33 @@ export function UserDashboard() {
       </div>
 
       {/* Citizen Eco-Reputation Hero Capsule */}
-      <div className="glass-panel p-6 rounded-3xl border border-sage-300 shadow-soft flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
+      <div className="glass-panel p-6 rounded-3xl border border-beige-300/90 shadow-soft flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
         <div className="space-y-1.5">
           <div className="flex items-center gap-2">
-            <span className="font-extrabold text-lg text-charcoal-900">Alex Mercer</span>
-            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-limeaccent-100 text-limeaccent-900 border border-limeaccent-300">
+            <span className="font-extrabold text-lg text-darkgreen-950">Alex Mercer</span>
+            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-sage-200 text-darkgreen-900 border border-sage-300">
               ECO SENTINEL
             </span>
           </div>
-          <p className="text-xs text-charcoal-600">
-            You are in the <b>top 8%</b> of civic reporters in the San Francisco Municipal District.
+          <p className="text-xs text-charcoal-700 font-medium">
+            You are in the <b className="text-darkgreen-900">top 8%</b> of civic reporters in the San Francisco Municipal District.
           </p>
           <div className="pt-2 flex items-center gap-4 text-xs font-mono">
-            <span className="text-forest-800 font-bold">{ecoPoints} Eco Points</span>
-            <span className="text-charcoal-400">•</span>
-            <span className="text-charcoal-500">{nextTierPoints - ecoPoints} pts to Tier 3 Guardian</span>
+            <span className="text-darkgreen-800 font-bold">{ecoPoints} Eco Points</span>
+            <span className="text-sage-400">•</span>
+            <span className="text-sage-600 font-medium">{nextTierPoints - ecoPoints} pts to Tier 3 Guardian</span>
           </div>
         </div>
 
         {/* Level Progress Bar */}
         <div className="w-full md:w-72 space-y-2">
           <div className="flex justify-between text-xs font-bold">
-            <span className="text-charcoal-700">Tier 2 Progress</span>
-            <span className="text-forest-800 font-mono">{tierProgress}%</span>
+            <span className="text-darkgreen-900">Tier 2 Progress</span>
+            <span className="text-botanical-700 font-mono">{tierProgress}%</span>
           </div>
-          <div className="w-full h-3 bg-sage-200 rounded-full overflow-hidden p-0.5 border border-sage-300">
+          <div className="w-full h-3 bg-beige-200 rounded-full overflow-hidden p-0.5 border border-beige-300">
             <div
-              className="h-full bg-gradient-to-r from-forest-600 to-limeaccent-500 rounded-full transition-all duration-700"
+              className="h-full bg-gradient-to-r from-darkgreen-800 via-botanical-600 to-sage-500 rounded-full transition-all duration-700"
               style={{ width: `${tierProgress}%` }}
             />
           </div>
@@ -243,19 +243,19 @@ export function UserDashboard() {
 
         {/* Right Column: Progress & Hotspot Advisory */}
         <div className="lg:col-span-4 space-y-6">
-          <Card className="border-sage-200/90 shadow-soft">
+          <Card className="border-beige-300/90 shadow-soft">
             <CardHeader title="Sanitation Progress" subtitle="Civic response in your district" icon={Activity} />
             <CardBody className="space-y-4">
               <div>
-                <div className="flex items-center justify-between text-xs font-bold text-charcoal-700 mb-1.5">
+                <div className="flex items-center justify-between text-xs font-bold text-darkgreen-950 mb-1.5">
                   <span>Cleanup Resolution Ratio</span>
-                  <span className="font-mono font-black text-forest-800">
+                  <span className="font-mono font-black text-botanical-700">
                     {totalReports > 0 ? Math.round((cleanedReports / totalReports) * 100) : 0}%
                   </span>
                 </div>
-                <div className="w-full h-2.5 bg-sage-100 rounded-full overflow-hidden p-0.5 border border-sage-200">
+                <div className="w-full h-2.5 bg-beige-200 rounded-full overflow-hidden p-0.5 border border-beige-300">
                   <div
-                    className="h-full bg-forest-600 rounded-full transition-all duration-700"
+                    className="h-full bg-gradient-to-r from-darkgreen-700 to-botanical-500 rounded-full transition-all duration-700"
                     style={{
                       width: `${totalReports > 0 ? (cleanedReports / totalReports) * 100 : 0}%`,
                     }}
@@ -263,18 +263,18 @@ export function UserDashboard() {
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-offwhite-200 border border-sage-200/80 text-xs space-y-2.5 font-medium">
+              <div className="p-4 rounded-2xl bg-beige-100/90 border border-beige-300/80 text-xs space-y-2.5 font-medium">
                 <div className="flex items-center justify-between">
                   <span className="text-charcoal-600">Pending Review:</span>
                   <span className="font-bold text-charcoal-900">{pendingReports} reports</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-charcoal-600">Dispatched Crews:</span>
-                  <span className="font-bold text-forest-800">{inProgressReports} squads</span>
+                  <span className="font-bold text-darkgreen-800">{inProgressReports} squads</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-charcoal-600">Completed Sweeps:</span>
-                  <span className="font-bold text-forest-800">{cleanedReports} sites certified</span>
+                  <span className="font-bold text-botanical-700">{cleanedReports} sites certified</span>
                 </div>
               </div>
 
@@ -289,17 +289,17 @@ export function UserDashboard() {
           </Card>
 
           {/* Quick Hotspot Advisory Card */}
-          <Card className="bg-gradient-to-br from-forest-50 to-white border-2 border-forest-200 shadow-soft">
+          <Card className="bg-gradient-to-br from-beige-100 via-beige-50 to-sage-50/60 border-2 border-sage-300 shadow-soft">
             <CardBody className="space-y-3">
-              <div className="flex items-center gap-2 text-forest-950 font-bold text-sm">
+              <div className="flex items-center gap-2 text-darkgreen-950 font-bold text-sm">
                 <Flame className="w-4 h-4 text-rose-600 animate-pulse" />
                 <span>Nearby Priority Hotspot Alert</span>
               </div>
-              <p className="text-xs text-charcoal-600 leading-relaxed font-medium">
-                <b>Mission Creek Drainage Corridor</b> is currently registering elevated plastic accumulation. Extra volunteer reporting is requested.
+              <p className="text-xs text-charcoal-700 leading-relaxed font-medium">
+                <b className="text-darkgreen-950">Mission Creek Drainage Corridor</b> is currently registering elevated plastic accumulation. Extra volunteer reporting is requested.
               </p>
               <Link to="/hotspots" className="block pt-1">
-                <span className="text-xs font-bold text-forest-800 hover:text-forest-950 inline-flex items-center gap-1">
+                <span className="text-xs font-bold text-darkgreen-800 hover:text-darkgreen-950 inline-flex items-center gap-1">
                   Explore Hotspot Analytics <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </Link>

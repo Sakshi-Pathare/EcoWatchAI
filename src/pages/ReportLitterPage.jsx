@@ -181,19 +181,19 @@ export function ReportLitterPage() {
       </div>
 
       {/* Progress Steps Indicator */}
-      <div className="grid grid-cols-3 gap-3 p-2 bg-offwhite-200 rounded-2xl border border-sage-200 text-xs font-semibold">
+      <div className="grid grid-cols-3 gap-3 p-2 bg-beige-200/80 rounded-2xl border border-beige-300/90 text-xs font-semibold">
         <div className={`p-2.5 rounded-xl flex items-center gap-2 transition-all ${
-          imagePreview ? 'bg-forest-800 text-white shadow-xs' : 'bg-white text-forest-950 font-bold'
+          imagePreview ? 'bg-darkgreen-900 text-beige-50 shadow-xs' : 'bg-beige-50 text-darkgreen-950 font-bold border border-beige-300/60'
         }`}>
-          <Camera className="w-4 h-4 shrink-0 text-limeaccent-400" />
+          <Camera className="w-4 h-4 shrink-0 text-limeaccent-300" />
           <span className="truncate">1. Photo Evidence</span>
         </div>
-        <div className="p-2.5 rounded-xl flex items-center gap-2 bg-white text-forest-950 font-bold shadow-xs">
-          <MapPin className="w-4 h-4 shrink-0 text-forest-700" />
+        <div className="p-2.5 rounded-xl flex items-center gap-2 bg-beige-50 text-darkgreen-950 font-bold shadow-xs border border-beige-300/60">
+          <MapPin className="w-4 h-4 shrink-0 text-botanical-700" />
           <span className="truncate">2. Location Pin</span>
         </div>
-        <div className="p-2.5 rounded-xl flex items-center gap-2 bg-white text-forest-950 font-bold shadow-xs">
-          <Layers className="w-4 h-4 shrink-0 text-forest-700" />
+        <div className="p-2.5 rounded-xl flex items-center gap-2 bg-beige-50 text-darkgreen-950 font-bold shadow-xs border border-beige-300/60">
+          <Layers className="w-4 h-4 shrink-0 text-botanical-700" />
           <span className="truncate">3. Classification</span>
         </div>
       </div>
@@ -235,20 +235,20 @@ export function ReportLitterPage() {
             />
 
             {/* AI Staging Notice Card */}
-            <div className="p-4 rounded-2xl bg-gradient-to-r from-forest-50 to-sage-50 border border-forest-200/90 flex items-start gap-3.5 shadow-xs">
-              <div className="w-8 h-8 rounded-xl bg-forest-800 text-limeaccent-300 flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+            <div className="p-4 rounded-2xl bg-gradient-to-r from-beige-100 via-sage-50 to-beige-100 border border-sage-300 flex items-start gap-3.5 shadow-xs">
+              <div className="w-8 h-8 rounded-xl bg-darkgreen-900 text-limeaccent-300 flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
                 <Sparkles className="w-4 h-4" />
               </div>
               <div className="text-xs space-y-1">
                 <div className="flex items-center gap-2">
-                  <span className="font-extrabold text-forest-950">
+                  <span className="font-extrabold text-darkgreen-950">
                     Computer Vision Inference Pipeline (Phase 2 Preview)
                   </span>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-forest-200 text-forest-900 font-bold">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-sage-200 text-darkgreen-900 font-bold border border-sage-300">
                     YOLOv8 Ready
                   </span>
                 </div>
-                <p className="text-charcoal-600 leading-relaxed text-[11px]">
+                <p className="text-charcoal-700 leading-relaxed text-[11px] font-medium">
                   Upon backend integration, every upload is processed through a YOLOv8 waste classification model to tag bounding boxes, estimate volume, and calculate degradation urgency automatically.
                 </p>
               </div>
@@ -386,18 +386,18 @@ export function ReportLitterPage() {
             </div>
 
             {/* Material Environmental Impact Capsule */}
-            <div className="p-4 rounded-2xl bg-offwhite-200 border border-sage-200/90 space-y-2 text-xs">
+            <div className="p-4 rounded-2xl bg-beige-100/90 border border-beige-300/80 space-y-2 text-xs">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-charcoal-900 flex items-center gap-1.5">
-                  <ShieldAlert className="w-4 h-4 text-forest-700" />
+                <span className="font-bold text-darkgreen-950 flex items-center gap-1.5">
+                  <ShieldAlert className="w-4 h-4 text-botanical-700" />
                   Ecological Impact Assessment
                 </span>
                 <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border ${currentImpact.badge}`}>
                   Decomposition: {currentImpact.degradation}
                 </span>
               </div>
-              <p className="text-charcoal-600 text-[11px] leading-relaxed">
-                <b>Threat Profile:</b> {currentImpact.danger}. {currentImpact.recommendation}
+              <p className="text-charcoal-700 text-[11px] leading-relaxed font-medium">
+                <b className="text-darkgreen-950">Threat Profile:</b> {currentImpact.danger}. {currentImpact.recommendation}
               </p>
             </div>
 
