@@ -75,22 +75,22 @@ export function MyReportsPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 font-sans">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-beige-300/80">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-[#1B4332]/10">
         <div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-sage-100 text-darkgreen-900 mb-2 border border-sage-300 shadow-xs">
-            <Layers className="w-3.5 h-3.5 text-darkgreen-700" />
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-[#DEF5F1] text-[#092421] mb-2 border border-[#98E0D5] shadow-xs">
+            <Layers className="w-3.5 h-3.5 text-[#1B4A45]" />
             <span>Civic Incident Ledger</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-darkgreen-950 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#10241B] tracking-tight">
             My Submissions & History
           </h1>
-          <p className="text-xs sm:text-sm text-sage-700 mt-1 max-w-xl font-medium">
+          <p className="text-xs sm:text-sm text-[#556E55] mt-1 max-w-xl font-medium">
             Review your uploaded pollution reports, municipal inspection notes, and verified cleanup resolution timelines.
           </p>
         </div>
 
         <Link to="/report">
-          <Button variant="primary" size="md" icon={Camera} glow className="shadow-md">
+          <Button variant="pista" size="md" icon={Camera} glow className="shadow-lg rounded-full px-5 py-2.5 font-black hover:scale-105 active:scale-95 transition-all">
             Submit New Report
           </Button>
         </Link>
@@ -119,7 +119,7 @@ export function MyReportsPage() {
               onClick={() => setStatusFilter(tab.id)}
               className={`px-3 py-1.5 rounded-xl transition-all ${
                 statusFilter === tab.id
-                  ? 'bg-darkgreen-900 text-beige-50 font-bold shadow-xs'
+                  ? 'bg-[#092421] text-[#74D7CB] font-bold shadow-xs border border-[#27403C]'
                   : 'text-charcoal-700 hover:text-darkgreen-950 hover:bg-beige-200/70'
               }`}
             >

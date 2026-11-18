@@ -74,16 +74,16 @@ export function PollutionMapPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       {/* Top Controls Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-beige-300/80">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#1B4332]/10">
         <div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-sage-100 text-darkgreen-900 mb-2 border border-sage-300 shadow-xs">
-            <Compass className="w-3.5 h-3.5 text-darkgreen-700 animate-spin-slow" />
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-[#DEF5F1] text-[#092421] mb-2 border border-[#98E0D5] shadow-xs">
+            <Compass className="w-3.5 h-3.5 text-[#1B4A45] animate-spin-slow" />
             <span>GIS Geospatial Cartography Engine</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-darkgreen-950 tracking-tight font-sans">
+          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#10241B] tracking-tight">
             Pollution & Hotspot GIS Map
           </h1>
-          <p className="text-xs sm:text-sm text-sage-700 mt-1 max-w-xl leading-relaxed font-medium">
+          <p className="text-xs sm:text-sm text-[#556E55] mt-1 max-w-xl leading-relaxed font-medium">
             Real-time geospatial intelligence, recurrence buffer zones, and active municipal cleanup coordinates.
           </p>
         </div>
@@ -92,10 +92,10 @@ export function PollutionMapPage() {
         <div className="flex flex-wrap items-center gap-3">
           <button
             onClick={() => setShowHotspotLayers(!showHotspotLayers)}
-            className={`px-3.5 py-2 text-xs font-bold rounded-xl border transition-all inline-flex items-center gap-2 shadow-xs ${
+            className={`px-4 py-2 text-xs font-bold rounded-full border transition-all inline-flex items-center gap-2 shadow-xs ${
               showHotspotLayers
                 ? 'bg-rose-50 border-rose-300 text-rose-800 ring-2 ring-rose-400/20'
-                : 'bg-beige-50 border-beige-300 text-charcoal-700 hover:bg-beige-100'
+                : 'bg-white border-[#1B4332]/15 text-[#242D2B] hover:bg-[#FAF8F3]'
             }`}
             title="Toggle Hotspot Risk Zones"
           >
@@ -103,23 +103,23 @@ export function PollutionMapPage() {
             <span>Hotspots Overlay {showHotspotLayers ? 'ON' : 'OFF'}</span>
           </button>
 
-          <div className="bg-beige-200/80 p-1 rounded-2xl flex items-center border border-beige-300 shadow-xs">
+          <div className="bg-[#102D27] p-1 rounded-full flex items-center border border-[#23584E] shadow-inner">
             <button
               onClick={() => setViewMode('map')}
-              className={`px-4 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
+              className={`px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 transition-all ${
                 viewMode === 'map'
-                  ? 'bg-darkgreen-900 text-beige-50 shadow-soft-sm font-extrabold'
-                  : 'text-charcoal-700 hover:text-darkgreen-950'
+                  ? 'bg-gradient-to-r from-[#1E5247] to-[#16433A] text-[#74D7CB] shadow-sm border border-[#74D7CB]/60'
+                  : 'text-white hover:text-[#74D7CB]'
               }`}
             >
               <MapPin className="w-3.5 h-3.5" /> Map View
             </button>
             <button
               onClick={() => setViewMode('list')}
-              className={`px-4 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
+              className={`px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 transition-all ${
                 viewMode === 'list'
-                  ? 'bg-darkgreen-900 text-beige-50 shadow-soft-sm font-extrabold'
-                  : 'text-charcoal-700 hover:text-darkgreen-950'
+                  ? 'bg-gradient-to-r from-[#1E5247] to-[#16433A] text-[#74D7CB] shadow-sm border border-[#74D7CB]/60'
+                  : 'text-white hover:text-[#74D7CB]'
               }`}
             >
               <List className="w-3.5 h-3.5" /> List View ({reports.length})
@@ -129,7 +129,7 @@ export function PollutionMapPage() {
       </div>
 
       {/* Filter Bar with Quick Metrics */}
-      <div className="glass-panel p-4 sm:p-5 rounded-2xl border border-beige-300/90 shadow-soft space-y-3.5">
+      <div className="card-paper p-4 sm:p-5 rounded-[1.75rem] border border-[#1B4332]/15 shadow-soft space-y-3.5">
         <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
           {/* Search box */}
           <div className="flex flex-1 items-center min-w-[240px] relative">
@@ -212,7 +212,7 @@ export function PollutionMapPage() {
           <button
             onClick={() => { setStatusFilter('cleaned'); }}
             className={`px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all ${
-              statusFilter === 'cleaned' ? 'bg-darkgreen-900 text-beige-50 shadow-xs' : 'bg-beige-50 text-darkgreen-800 border border-sage-300 hover:bg-sage-100'
+              statusFilter === 'cleaned' ? 'bg-[#092421] text-[#74D7CB] shadow-xs' : 'bg-beige-50 text-darkgreen-800 border border-sage-300 hover:bg-pista-100'
             }`}
           >
             ✓ Certified Restored ({reports.filter(r => r.status === 'cleaned').length})
@@ -220,7 +220,7 @@ export function PollutionMapPage() {
           <button
             onClick={() => { setCategoryFilter('plastic'); }}
             className={`px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all ${
-              categoryFilter === 'plastic' ? 'bg-darkgreen-900 text-beige-50 shadow-xs' : 'bg-beige-50 text-charcoal-700 border border-beige-300 hover:bg-beige-100'
+              categoryFilter === 'plastic' ? 'bg-[#092421] text-[#74D7CB] shadow-xs' : 'bg-beige-50 text-charcoal-700 border border-beige-300 hover:bg-beige-100'
             }`}
           >
             Plastics Only
@@ -237,31 +237,36 @@ export function PollutionMapPage() {
             height="640px"
             showHotspotOverlays={showHotspotLayers}
             onSelectReport={(r) => setSelectedReport(r)}
+            autoLocate={true}
           />
 
           {/* Map Legend Banner */}
-          <div className="glass-panel p-4 rounded-2xl border border-beige-300/90 flex flex-wrap items-center justify-between gap-4 text-xs shadow-soft">
+          <div className="card-paper p-4 rounded-[1.75rem] border border-[#1B4332]/15 flex flex-wrap items-center justify-between gap-4 text-xs shadow-soft">
             <div className="flex flex-wrap items-center gap-6">
-              <span className="font-bold text-darkgreen-950 text-[11px] uppercase tracking-wider">Map Legend:</span>
+              <span className="font-bold text-[#10241B] text-[11px] uppercase tracking-wider">Map Legend:</span>
+              <div className="flex items-center gap-2">
+                <span className="w-3.5 h-3.5 rounded-full bg-[#74D7CB] border-2 border-[#092421] shadow-[0_0_8px_#74D7CB] animate-pulse" />
+                <span className="font-bold text-[#10241B]">Your Live Location</span>
+              </div>
               <div className="flex items-center gap-2">
                 <span className="w-3.5 h-3.5 rounded-full bg-rose-600 shadow-[0_0_8px_#e11d48]" />
-                <span className="font-semibold text-charcoal-700">Critical / High Severity</span>
+                <span className="font-semibold text-[#242D2B]">Critical Severity</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-3.5 h-3.5 rounded-full bg-amber-500 shadow-[0_0_8px_#d97706]" />
-                <span className="font-semibold text-charcoal-700">Moderate Impact</span>
+                <span className="font-semibold text-[#242D2B]">Moderate Impact</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="w-3.5 h-3.5 rounded-full bg-botanical-600 shadow-[0_0_8px_#2B774C]" />
-                <span className="font-semibold text-charcoal-700">Low Impact</span>
+                <span className="w-3.5 h-3.5 rounded-full bg-[#34D399] shadow-[0_0_8px_#34D399]" />
+                <span className="font-semibold text-[#242D2B]">Low Impact</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-3.5 h-3.5 rounded-full border-2 border-dashed border-rose-600 bg-rose-100" />
-                <span className="font-semibold text-charcoal-700">Hotspot Risk Radius</span>
+                <span className="font-semibold text-[#242D2B]">Hotspot Buffer</span>
               </div>
             </div>
 
-            <span className="font-mono text-xs text-sage-700 font-bold">
+            <span className="font-mono text-xs text-[#556E55] font-bold">
               Showing {reports.length} live incident pins
             </span>
           </div>

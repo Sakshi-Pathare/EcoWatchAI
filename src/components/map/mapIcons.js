@@ -61,3 +61,21 @@ export function createPickerIcon() {
     popupAnchor: [0, -44],
   });
 }
+
+export function createUserLocationIcon() {
+  const html = `
+    <div style="position: relative; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; pointer-events: none;">
+      <div style="position: absolute; width: 40px; height: 40px; border-radius: 50%; background: rgba(116, 215, 203, 0.4); animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;"></div>
+      <div style="position: absolute; width: 24px; height: 24px; border-radius: 50%; background: rgba(18, 54, 50, 0.4); border: 2px solid #74D7CB; box-shadow: 0 0 8px rgba(116, 215, 203, 0.6);"></div>
+      <div style="position: relative; width: 14px; height: 14px; border-radius: 50%; background: #74D7CB; border: 3px solid #092421; box-shadow: 0 0 10px #74D7CB;"></div>
+    </div>
+  `;
+
+  return L.divIcon({
+    html,
+    className: 'user-live-location-beacon',
+    iconSize: [44, 44],
+    iconAnchor: [22, 22],
+    popupAnchor: [0, -24],
+  });
+}

@@ -64,9 +64,9 @@ export function LandingPage() {
               </div>
 
               {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-darkgreen-950 tracking-tight leading-[1.1] font-sans">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-[#10241B] tracking-tight leading-[1.1]">
                 Turn Public Litter into{' '}
-                <span className="text-gradient-forest underline decoration-sage-500 decoration-wavy decoration-2">
+                <span className="text-gradient-forest underline decoration-[#74D7CB] decoration-wavy decoration-2">
                   Actionable Hotspot
                 </span>{' '}
                 Intelligence.
@@ -131,27 +131,27 @@ export function LandingPage() {
                 {/* Visual glow backdrop in darkgreen & sage */}
                 <div className="absolute -inset-1 bg-gradient-to-r from-darkgreen-800 via-botanical-600 to-sage-600 rounded-3xl blur-xl opacity-25 group-hover:opacity-50 transition duration-1000 animate-pulse-subtle" />
 
-                <div className="relative bg-[#FAF8F5] rounded-3xl border border-beige-300 shadow-soft-xl overflow-hidden backdrop-blur-xl">
-                  {/* Card Telemetry Header (Deep Dark Green) */}
-                  <div className="px-5 py-3.5 bg-gradient-to-r from-darkgreen-950 via-darkgreen-900 to-darkgreen-950 text-beige-100 flex items-center justify-between text-xs border-b border-darkgreen-800">
+                <div className="relative bg-[#FFFDF9] rounded-3xl border border-beige-300 shadow-soft-xl overflow-hidden backdrop-blur-xl">
+                  {/* Card Telemetry Header (Deep Dark Spruce #092421 + Pista #74D7CB) */}
+                  <div className="px-5 py-3.5 bg-[#092421] text-beige-100 flex items-center justify-between text-xs border-b border-[#27403C]">
                     <div className="flex items-center gap-2">
-                      <Radio className="w-3.5 h-3.5 text-limeaccent-400 animate-pulse" />
-                      <span className="font-bold tracking-wide uppercase font-mono text-[11px]">
+                      <Radio className="w-3.5 h-3.5 text-[#74D7CB] animate-pulse" />
+                      <span className="font-bold tracking-wide uppercase font-mono text-[11px] text-white">
                         Live Municipal Telemetry
                       </span>
                     </div>
-                    <span className="text-[10px] font-mono text-limeaccent-300 font-bold bg-darkgreen-800/80 px-2 py-0.5 rounded-full border border-darkgreen-700">
+                    <span className="text-[10px] font-mono text-[#74D7CB] font-bold bg-[#123632] px-2 py-0.5 rounded-full border border-[#27403C]">
                       GRID: SF-37.77N
                     </span>
                   </div>
 
-                  {/* Telemetry Tabs (Warm Beige Container) */}
+                  {/* Telemetry Tabs (Warm Skin-Beige Container) */}
                   <div className="grid grid-cols-3 bg-beige-200/90 p-1 border-b border-beige-300 text-xs font-bold">
                     <button
                       onClick={() => setActiveTelemetryTab('hotspot')}
                       className={`py-1.5 px-2 rounded-xl text-[11px] transition-all ${
                         activeTelemetryTab === 'hotspot'
-                          ? 'bg-white text-darkgreen-950 shadow-xs'
+                          ? 'bg-[#092421] text-[#74D7CB] shadow-xs font-extrabold'
                           : 'text-sage-700 hover:text-darkgreen-900'
                       }`}
                     >
@@ -161,7 +161,7 @@ export function LandingPage() {
                       onClick={() => setActiveTelemetryTab('detection')}
                       className={`py-1.5 px-2 rounded-xl text-[11px] transition-all ${
                         activeTelemetryTab === 'detection'
-                          ? 'bg-white text-darkgreen-950 shadow-xs'
+                          ? 'bg-[#092421] text-[#74D7CB] shadow-xs font-extrabold'
                           : 'text-sage-700 hover:text-darkgreen-900'
                       }`}
                     >
@@ -171,7 +171,7 @@ export function LandingPage() {
                       onClick={() => setActiveTelemetryTab('dispatch')}
                       className={`py-1.5 px-2 rounded-xl text-[11px] transition-all ${
                         activeTelemetryTab === 'dispatch'
-                          ? 'bg-white text-darkgreen-950 shadow-xs'
+                          ? 'bg-[#092421] text-[#74D7CB] shadow-xs font-extrabold'
                           : 'text-sage-700 hover:text-darkgreen-900'
                       }`}
                     >
@@ -302,10 +302,10 @@ export function LandingPage() {
       {/* Environmental Impact Statistics Section (Warm Beige Cards + Sage Badges) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <Badge variant="sage" dot pulse dotColor="bg-botanical-600" className="mb-2.5">
+          <Badge variant="sage" dot pulse dotColor="bg-[#2D6A4F]" className="mb-2.5">
             Verified Municipal Impact Telemetry
           </Badge>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-darkgreen-950 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#10241B] tracking-tight">
             Real-Time Community Outcomes
           </h2>
           <p className="text-sm text-charcoal-600 mt-2 leading-relaxed font-medium">
@@ -318,43 +318,43 @@ export function LandingPage() {
             <div className="w-12 h-12 rounded-2xl bg-sage-100 text-darkgreen-800 flex items-center justify-center mx-auto mb-3.5 border border-sage-300 shadow-xs transition-transform duration-300 group-hover:scale-110">
               <Layers className="w-6 h-6" />
             </div>
-            <div className="text-3xl sm:text-4xl font-black text-darkgreen-950 tracking-tight font-mono">
+            <div className="text-3xl sm:text-4xl font-serif font-bold text-[#10241B] tracking-tight">
               {formatNumber(metrics?.totalReportsLogged || 469)}
             </div>
-            <p className="text-xs font-bold text-darkgreen-900 mt-1">Pollution Incidents Logged</p>
-            <p className="text-[11px] text-sage-600 font-bold mt-0.5 font-mono">+14% MoM Civic Volume</p>
+            <p className="text-xs font-bold text-[#10241B] mt-1">Pollution Incidents Logged</p>
+            <p className="text-[11px] text-[#556E55] font-bold mt-0.5 font-mono">+14% MoM Civic Volume</p>
           </Card>
 
-          <Card hover className="p-6 text-center group border-beige-300/90 shadow-soft">
+          <Card hover className="p-6 text-center group">
             <div className="w-12 h-12 rounded-2xl bg-botanical-100 text-botanical-900 flex items-center justify-center mx-auto mb-3.5 border border-botanical-300 shadow-xs transition-transform duration-300 group-hover:scale-110">
               <CheckCircle2 className="w-6 h-6" />
             </div>
-            <div className="text-3xl sm:text-4xl font-black text-darkgreen-950 tracking-tight font-mono">
+            <div className="text-3xl sm:text-4xl font-serif font-bold text-[#10241B] tracking-tight">
               {formatNumber(metrics?.completedCleanups || 391)}
             </div>
-            <p className="text-xs font-bold text-darkgreen-900 mt-1">Certified Cleanups</p>
-            <p className="text-[11px] text-botanical-700 font-bold mt-0.5 font-mono">83.3% Full Resolution</p>
+            <p className="text-xs font-bold text-[#10241B] mt-1">Certified Cleanups</p>
+            <p className="text-[11px] text-[#2D6A4F] font-bold mt-0.5 font-mono">83.3% Full Resolution</p>
           </Card>
 
-          <Card hover className="p-6 text-center group border-beige-300/90 shadow-soft">
-            <div className="w-12 h-12 rounded-2xl bg-beige-200 text-darkgreen-900 flex items-center justify-center mx-auto mb-3.5 border border-beige-300 shadow-xs transition-transform duration-300 group-hover:scale-110">
+          <Card hover className="p-6 text-center group">
+            <div className="w-12 h-12 rounded-2xl bg-[#EFE3D5] text-[#10241B] flex items-center justify-center mx-auto mb-3.5 border border-[#D3BCA6] shadow-xs transition-transform duration-300 group-hover:scale-110">
               <TrendingDown className="w-6 h-6" />
             </div>
-            <div className="text-3xl sm:text-4xl font-black text-darkgreen-950 tracking-tight font-mono">
+            <div className="text-3xl sm:text-4xl font-serif font-bold text-[#10241B] tracking-tight">
               {formatNumber(metrics?.totalWasteCollectedKg || 4280)} <span className="text-lg font-bold">kg</span>
             </div>
-            <p className="text-xs font-bold text-darkgreen-900 mt-1">Litter Diverted from Waters</p>
-            <p className="text-[11px] text-sage-600 font-bold mt-0.5 font-mono">~2.4 Tons CO₂ Offset</p>
+            <p className="text-xs font-bold text-[#10241B] mt-1">Litter Diverted from Waters</p>
+            <p className="text-[11px] text-[#556E55] font-bold mt-0.5 font-mono">~2.4 Tons CO₂ Offset</p>
           </Card>
 
-          <Card hover className="p-6 text-center group border-beige-300/90 shadow-soft">
+          <Card hover className="p-6 text-center group">
             <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-900 flex items-center justify-center mx-auto mb-3.5 border border-amber-300 shadow-xs transition-transform duration-300 group-hover:scale-110">
               <Flame className="w-6 h-6" />
             </div>
-            <div className="text-3xl sm:text-4xl font-black text-darkgreen-950 tracking-tight font-mono">
+            <div className="text-3xl sm:text-4xl font-serif font-bold text-[#10241B] tracking-tight">
               {metrics?.activeHotspotsTracked || 6}
             </div>
-            <p className="text-xs font-bold text-darkgreen-900 mt-1">Active Clusters Mapped</p>
+            <p className="text-xs font-bold text-[#10241B] mt-1">Active Clusters Mapped</p>
             <p className="text-[11px] text-amber-700 font-bold mt-0.5 font-mono">Targeted for Remediation</p>
           </Card>
         </div>
@@ -367,7 +367,7 @@ export function LandingPage() {
             <Badge variant="sage" className="mb-2.5">
               Structured Operations
             </Badge>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-darkgreen-950 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#10241B] tracking-tight">
               The Civic-to-Municipal Pipeline
             </h2>
             <p className="text-sm text-charcoal-600 mt-2 font-medium">
@@ -377,12 +377,12 @@ export function LandingPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
             {/* Step 1 */}
-            <div className="relative group space-y-3.5 p-5 rounded-2xl bg-beige-50 border border-beige-300 hover:border-darkgreen-600 transition-all duration-300 hover:shadow-soft-md">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-darkgreen-900 to-darkgreen-800 text-limeaccent-300 flex items-center justify-center font-black text-lg shadow-soft-sm group-hover:scale-105 transition-transform">
+            <div className="relative group space-y-3.5 p-5 rounded-2xl bg-[#FFFDF9] border border-beige-300 hover:border-pista-400 transition-all duration-300 hover:shadow-soft-md">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#092421] to-[#123632] text-[#74D7CB] border border-[#27403C] flex items-center justify-center font-black text-lg shadow-soft-sm group-hover:scale-105 transition-transform">
                 01
               </div>
               <h3 className="font-bold text-base text-darkgreen-950">Capture & Geotag</h3>
-              <p className="text-xs text-charcoal-600 leading-relaxed font-medium">
+              <p className="text-xs text-charcoal-700 leading-relaxed font-medium">
                 Citizens submit photographic evidence. Accurate coordinates are tagged using Leaflet interactive pins or mobile GPS.
               </p>
               <div className="pt-2 text-[11px] font-mono font-bold text-sage-600">
@@ -391,12 +391,12 @@ export function LandingPage() {
             </div>
 
             {/* Step 2 */}
-            <div className="relative group space-y-3.5 p-5 rounded-2xl bg-beige-50 border border-beige-300 hover:border-darkgreen-600 transition-all duration-300 hover:shadow-soft-md">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-darkgreen-900 to-darkgreen-800 text-limeaccent-300 flex items-center justify-center font-black text-lg shadow-soft-sm group-hover:scale-105 transition-transform">
+            <div className="relative group space-y-3.5 p-5 rounded-2xl bg-[#FFFDF9] border border-beige-300 hover:border-pista-400 transition-all duration-300 hover:shadow-soft-md">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#092421] to-[#123632] text-[#74D7CB] border border-[#27403C] flex items-center justify-center font-black text-lg shadow-soft-sm group-hover:scale-105 transition-transform">
                 02
               </div>
               <h3 className="font-bold text-base text-darkgreen-950">Hotspot Clustering</h3>
-              <p className="text-xs text-charcoal-600 leading-relaxed font-medium">
+              <p className="text-xs text-charcoal-700 leading-relaxed font-medium">
                 Geospatial algorithms aggregate reports to detect repeat dump zones and calculate multi-factor priority scores.
               </p>
               <div className="pt-2 text-[11px] font-mono font-bold text-sage-600">
@@ -405,12 +405,12 @@ export function LandingPage() {
             </div>
 
             {/* Step 3 */}
-            <div className="relative group space-y-3.5 p-5 rounded-2xl bg-beige-50 border border-beige-300 hover:border-darkgreen-600 transition-all duration-300 hover:shadow-soft-md">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-darkgreen-900 to-darkgreen-800 text-limeaccent-300 flex items-center justify-center font-black text-lg shadow-soft-sm group-hover:scale-105 transition-transform">
+            <div className="relative group space-y-3.5 p-5 rounded-2xl bg-[#FFFDF9] border border-beige-300 hover:border-pista-400 transition-all duration-300 hover:shadow-soft-md">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#092421] to-[#123632] text-[#74D7CB] border border-[#27403C] flex items-center justify-center font-black text-lg shadow-soft-sm group-hover:scale-105 transition-transform">
                 03
               </div>
               <h3 className="font-bold text-base text-darkgreen-950">Municipal Dispatch</h3>
-              <p className="text-xs text-charcoal-600 leading-relaxed font-medium">
+              <p className="text-xs text-charcoal-700 leading-relaxed font-medium">
                 Sanitation authorities allocate prioritized work orders to specialized cleanup crews with volume estimates.
               </p>
               <div className="pt-2 text-[11px] font-mono font-bold text-sage-600">
@@ -419,12 +419,12 @@ export function LandingPage() {
             </div>
 
             {/* Step 4 */}
-            <div className="relative group space-y-3.5 p-5 rounded-2xl bg-beige-50 border border-beige-300 hover:border-darkgreen-600 transition-all duration-300 hover:shadow-soft-md">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-darkgreen-900 to-darkgreen-800 text-limeaccent-300 flex items-center justify-center font-black text-lg shadow-soft-sm group-hover:scale-105 transition-transform">
+            <div className="relative group space-y-3.5 p-5 rounded-2xl bg-[#FFFDF9] border border-beige-300 hover:border-pista-400 transition-all duration-300 hover:shadow-soft-md">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#092421] to-[#123632] text-[#74D7CB] border border-[#27403C] flex items-center justify-center font-black text-lg shadow-soft-sm group-hover:scale-105 transition-transform">
                 04
               </div>
               <h3 className="font-bold text-base text-darkgreen-950">Photographic Audit</h3>
-              <p className="text-xs text-charcoal-600 leading-relaxed font-medium">
+              <p className="text-xs text-charcoal-700 leading-relaxed font-medium">
                 Field teams upload post-remediation photographs for side-by-side verification and civic transparency.
               </p>
               <div className="pt-2 text-[11px] font-mono font-bold text-sage-600">
@@ -440,7 +440,7 @@ export function LandingPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-5 space-y-4">
             <Badge variant="sage">Intelligent Paradigm Shift</Badge>
-            <h2 className="text-3xl font-extrabold text-darkgreen-950 tracking-tight leading-snug">
+            <h2 className="text-3xl font-serif font-bold text-[#10241B] tracking-tight leading-snug">
               Why Cities Choose EcoWatch AI Over Manual Audits
             </h2>
             <p className="text-sm text-charcoal-600 leading-relaxed font-medium">
@@ -516,25 +516,28 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* Call to Action Banner (Dark Green + Warm Beige Accent) */}
+      {/* Call to Action Banner (Nocturnal Deep Spruce #092421 & Luminous Pista #74D7CB) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl p-8 sm:p-14 text-beige-100 text-center overflow-hidden bg-gradient-to-br from-darkgreen-950 via-darkgreen-900 to-darkgreen-950 border border-darkgreen-800 shadow-soft-xl">
-          <div className="relative z-10 max-w-2xl mx-auto space-y-4">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-darkgreen-800/80 border border-darkgreen-700 text-sage-200 font-mono text-xs font-semibold">
-              <Sparkles className="w-3.5 h-3.5 text-limeaccent-400" /> Start Safeguarding Your Community
+        <div className="relative rounded-[2.5rem] p-8 sm:p-14 text-white text-center overflow-hidden bg-[#092421] border-2 border-[#74D7CB]/40 shadow-[0_20px_50px_rgba(9,36,33,0.35)]">
+          {/* Subtle ambient lighting orb inside dark banner */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-48 bg-[#74D7CB]/15 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 max-w-2xl mx-auto space-y-5">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#123632] border border-[#74D7CB]/40 text-[#74D7CB] font-mono text-xs font-bold shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-[#74D7CB]" /> Start Safeguarding Your Community
             </span>
 
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold tracking-tight text-white leading-tight">
               Ready to Protect Your Local Environment with Precision AI?
             </h2>
 
-            <p className="text-beige-200 text-sm leading-relaxed font-medium">
+            <p className="text-[#E0F2EE] text-sm sm:text-base leading-relaxed max-w-xl mx-auto font-normal">
               Join active civic reporters, municipal sanitation managers, and environmental teams mapping public pollution and accelerating cleanups.
             </p>
 
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link to="/report">
-                <Button variant="primary" size="lg" icon={Camera} glow className="shadow-lg bg-beige-100 hover:bg-white text-darkgreen-950 border-white font-extrabold">
+                <Button variant="pista" size="lg" icon={Camera} glow className="shadow-lg font-black text-sm px-7 py-3 rounded-full hover:scale-105 active:scale-95 transition-all">
                   Submit a Litter Report Now
                 </Button>
               </Link>
@@ -543,7 +546,7 @@ export function LandingPage() {
                   variant="outline"
                   size="lg"
                   icon={Compass}
-                  className="border-darkgreen-700 text-beige-100 bg-darkgreen-800/80 hover:bg-darkgreen-800 hover:text-white"
+                  className="border-[#74D7CB]/50 text-white bg-[#123632] hover:bg-[#1B4A45] hover:text-[#74D7CB] rounded-full px-7 py-3 font-bold"
                 >
                   Explore Live Pollution Map
                 </Button>

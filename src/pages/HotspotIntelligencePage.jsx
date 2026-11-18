@@ -58,16 +58,16 @@ export function HotspotIntelligencePage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 font-sans">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-beige-300/80">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-[#1B4332]/10">
         <div>
           <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-rose-100 text-rose-900 mb-2 border border-rose-200 shadow-xs">
             <Flame className="w-3.5 h-3.5 text-rose-600 animate-pulse" />
             <span>Algorithmic Hotspot Clustering Engine</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-darkgreen-950 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#10241B] tracking-tight">
             Hotspot Intelligence & Priority Ranking
           </h1>
-          <p className="text-xs sm:text-sm text-sage-700 mt-1 max-w-2xl leading-relaxed font-medium">
+          <p className="text-xs sm:text-sm text-[#556E55] mt-1 max-w-2xl leading-relaxed font-medium">
             Automated geospatial recurrence clustering. High-frequency dumping corridors ranked by dynamic multi-parameter Cleanup Priority Score.
           </p>
         </div>
@@ -75,23 +75,23 @@ export function HotspotIntelligencePage() {
         <div className="flex flex-wrap items-center gap-3">
           <button
             onClick={() => setSimulationActive(!simulationActive)}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-2 border shadow-xs ${
+            className={`px-4 py-2 rounded-full text-xs font-bold transition-all inline-flex items-center gap-2 border shadow-xs ${
               simulationActive
-                ? 'bg-sage-200 text-darkgreen-950 border-sage-400 ring-2 ring-sage-400/40'
-                : 'bg-beige-50 text-charcoal-700 border-beige-300 hover:bg-beige-100'
+                ? 'bg-[#DEF5F1] text-[#092421] border-[#74D7CB] ring-2 ring-[#74D7CB]/40'
+                : 'bg-white text-[#242D2B] border-[#1B4332]/15 hover:bg-[#FAF8F3]'
             }`}
           >
-            <Zap className={`w-3.5 h-3.5 ${simulationActive ? 'text-darkgreen-900' : 'text-amber-500'}`} />
+            <Zap className={`w-3.5 h-3.5 ${simulationActive ? 'text-[#10241B]' : 'text-amber-500'}`} />
             <span>Remediation Simulator {simulationActive ? 'ACTIVE' : 'OFF'}</span>
           </button>
 
           <Link to="/map">
-            <Button variant="outline" size="sm" icon={Compass}>
+            <Button variant="outline" size="sm" icon={Compass} className="rounded-full px-4 py-2 font-bold">
               View on GIS Map
             </Button>
           </Link>
           <Link to="/cleanups">
-            <Button variant="primary" size="sm" icon={ShieldAlert} glow>
+            <Button variant="pista" size="sm" icon={ShieldAlert} glow className="rounded-full px-4 py-2 font-black">
               Dispatch Squads
             </Button>
           </Link>
@@ -99,25 +99,25 @@ export function HotspotIntelligencePage() {
       </div>
 
       {/* Algorithmic Methodology Banner */}
-      <div className="relative rounded-3xl p-6 sm:p-7 bg-gradient-to-r from-forest-950 via-forest-900 to-forest-950 text-white shadow-soft-lg overflow-hidden border border-forest-800">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-limeaccent-400/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="relative rounded-3xl p-6 sm:p-7 bg-gradient-to-r from-[#092421] via-[#123632] to-[#092421] text-white shadow-soft-lg overflow-hidden border border-[#27403C]">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-pista-400/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
           <div className="space-y-2 max-w-3xl text-xs">
-            <span className="font-extrabold text-limeaccent-300 text-sm flex items-center gap-2 font-mono">
-              <Layers className="w-4 h-4 text-limeaccent-400" />
+            <span className="font-extrabold text-[#74D7CB] text-sm flex items-center gap-2 font-mono">
+              <Layers className="w-4 h-4 text-[#74D7CB]" />
               PRIORITY SCORING METRIC (0 - 100 NORMALIZED SCALE)
             </span>
-            <p className="text-sage-200 leading-relaxed text-xs">
-              Autonomous score weighting: <code className="bg-forest-950/90 px-2 py-0.5 rounded text-limeaccent-300 font-mono text-[11px] border border-forest-800">Score = (Recurrence × 3.5) + (Material Hazard × 2.0) + (Waterway Runoff Buffer × 1.5)</code>.
+            <p className="text-pista-100/90 leading-relaxed text-xs">
+              Autonomous score weighting: <code className="bg-[#051412] px-2 py-0.5 rounded text-[#74D7CB] font-mono text-[11px] border border-[#27403C]">Score = (Recurrence × 3.5) + (Material Hazard × 2.0) + (Waterway Runoff Buffer × 1.5)</code>.
               Clusters with scores $\ge 80$ automatically trigger mandatory municipal contractor dispatch.
             </p>
           </div>
 
-          <div className="flex items-center gap-3 bg-forest-900/90 px-4 py-2.5 rounded-2xl border border-forest-700 text-xs text-sage-200 shrink-0 shadow-soft-xs">
+          <div className="flex items-center gap-3 bg-[#123632] px-4 py-2.5 rounded-2xl border border-[#27403C] text-xs text-pista-200 shrink-0 shadow-soft-xs">
             <Flame className="w-5 h-5 text-rose-400 animate-pulse" />
             <div>
-              <span className="text-[10px] uppercase font-bold text-sage-300 block">Critical Action Threshold</span>
+              <span className="text-[10px] uppercase font-bold text-pista-300 block">Critical Action Threshold</span>
               <span className="text-sm font-extrabold text-white">
                 {hotspots.filter((h) => h.priorityScore >= 80).length} High-Risk Corridors
               </span>
@@ -167,13 +167,13 @@ export function HotspotIntelligencePage() {
         <div className="flex items-center gap-2 text-xs font-semibold text-charcoal-700 shrink-0">
           <ArrowUpDown className="w-3.5 h-3.5 text-forest-700" />
           <span className="text-[11px] text-charcoal-400">Sort:</span>
-          <div className="inline-flex rounded-xl border border-sage-300 bg-white p-0.5 shadow-xs">
+          <div className="inline-flex rounded-xl border border-sage-300 bg-beige-50 p-0.5 shadow-xs">
             <button
               onClick={() => setSortBy('priority')}
               className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
                 sortBy === 'priority'
-                  ? 'bg-forest text-white'
-                  : 'text-charcoal-600 hover:text-forest-900'
+                  ? 'bg-[#092421] text-[#74D7CB] shadow-xs'
+                  : 'text-charcoal-700 hover:text-darkgreen-950'
               }`}
             >
               Priority
@@ -182,8 +182,8 @@ export function HotspotIntelligencePage() {
               onClick={() => setSortBy('recurrence')}
               className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
                 sortBy === 'recurrence'
-                  ? 'bg-forest text-white'
-                  : 'text-charcoal-600 hover:text-forest-900'
+                  ? 'bg-[#092421] text-[#74D7CB] shadow-xs'
+                  : 'text-charcoal-700 hover:text-darkgreen-950'
               }`}
             >
               Recurrence
@@ -192,8 +192,8 @@ export function HotspotIntelligencePage() {
               onClick={() => setSortBy('date')}
               className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
                 sortBy === 'date'
-                  ? 'bg-forest text-white'
-                  : 'text-charcoal-600 hover:text-forest-900'
+                  ? 'bg-[#092421] text-[#74D7CB] shadow-xs'
+                  : 'text-charcoal-700 hover:text-darkgreen-950'
               }`}
             >
               Recent

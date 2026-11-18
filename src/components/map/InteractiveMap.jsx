@@ -1,14 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet';
-import { createSeverityIcon } from './mapIcons';
+import { createSeverityIcon, createUserLocationIcon } from './mapIcons';
 import { getSeverityBadgeProps, getStatusBadgeProps, getCategoryLabel } from '../../utils/formatters';
 import { formatDate } from '../../utils/dateUtils';
-import { MapPin, Calendar, Scale, ExternalLink, Layers, Eye, Compass, Flame, ShieldAlert } from 'lucide-react';
+import {
+  MapPin,
+  Calendar,
+  Scale,
+  ExternalLink,
+  Layers,
+  Eye,
+  Compass,
+  Flame,
+  ShieldAlert,
+  Navigation,
+  Crosshair,
+  Radio,
+  CheckCircle2,
+} from 'lucide-react';
 import { Button } from '../common/Button';
 
-// Map Controller for programmatically resetting view
-function MapViewResetter({ center, zoom }) {
+// Map Controller for programmatically flying/panning view
+function MapPanController({ target }) {
   const map = useMap();
+  useEffect(() => {
+    if (target && target.lat && target.lng) {
+      map.flyTo([target.lat, target.lng], target.zoom || 15, {
+        duration: 1.4,
+        easeLinearity: 0.25,
+      });
+    }
+  }, [target, map]);
   return null;
 }
 
@@ -20,8 +42,91 @@ export function InteractiveMap({
   height = '620px',
   showHotspotOverlays = true,
   onSelectReport,
+  autoLocate = true,
 }) {
   const [mapStyle, setMapStyle] = useState('osm'); // 'osm' | 'light' | 'satellite'
+  const [userLocation, setUserLocation] = useState(null);
+  const [isLocating, setIsLocating] = useState(false);
+  const [geoError, setGeoError] = useState(null);
+  const [isTrackingLive, setIsTrackingLive] = useState(false);
+  const [flyTarget, setFlyTarget] = useState(null);
+  const watchIdRef = useRef(null);
+
+  // Auto-locate real-time location on component mount
+  useEffect(() => {
+    if (autoLocate) {
+      requestLiveLocation(true);
+    }
+
+    return () => {
+      if (watchIdRef.current !== null && navigator.geolocation) {
+        navigator.geolocation.clearWatch(watchIdRef.current);
+      }
+    };
+  }, [autoLocate]);
+
+  const requestLiveLocation = (shouldFly = true) => {
+    if (!navigator.geolocation) {
+      setGeoError('Geolocation is not supported by your browser.');
+      return;
+    }
+
+    setIsLocating(true);
+    setGeoError(null);
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setIsLocating(false);
+        const lat = Number(position.coords.latitude.toFixed(6));
+        const lng = Number(position.coords.longitude.toFixed(6));
+        const accuracy = Math.round(position.coords.accuracy || 20);
+
+        const newLoc = { lat, lng, accuracy, timestamp: Date.now() };
+        setUserLocation(newLoc);
+
+        if (shouldFly) {
+          setFlyTarget({ lat, lng, zoom: 15, id: Date.now() });
+        }
+      },
+      (error) => {
+        setIsLocating(false);
+        let msg = 'Could not access GPS coordinates.';
+        if (error.code === 1) msg = 'Location permission was denied by user.';
+        else if (error.code === 2) msg = 'GPS position unavailable.';
+        else if (error.code === 3) msg = 'Location request timed out.';
+        setGeoError(msg);
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+    );
+  };
+
+  const toggleLiveTracking = () => {
+    if (isTrackingLive) {
+      if (watchIdRef.current !== null && navigator.geolocation) {
+        navigator.geolocation.clearWatch(watchIdRef.current);
+        watchIdRef.current = null;
+      }
+      setIsTrackingLive(false);
+    } else {
+      if (!navigator.geolocation) {
+        setGeoError('Geolocation unsupported.');
+        return;
+      }
+      setIsTrackingLive(true);
+      requestLiveLocation(true);
+
+      watchIdRef.current = navigator.geolocation.watchPosition(
+        (position) => {
+          const lat = Number(position.coords.latitude.toFixed(6));
+          const lng = Number(position.coords.longitude.toFixed(6));
+          const accuracy = Math.round(position.coords.accuracy || 20);
+          setUserLocation({ lat, lng, accuracy, timestamp: Date.now() });
+        },
+        (err) => console.warn('Watch position error:', err),
+        { enableHighAccuracy: true, timeout: 12000, maximumAge: 1000 }
+      );
+    }
+  };
 
   const tileLayers = {
     osm: {
@@ -41,65 +146,96 @@ export function InteractiveMap({
   const highSeverityCount = reports.filter(r => r.severity === 'high' || r.severity === 'critical').length;
   const totalKg = reports.reduce((acc, r) => acc + (r.estimatedKg || 0), 0);
 
+  const userBeaconIcon = createUserLocationIcon();
+
   return (
     <div
       style={{ height }}
-      className="w-full rounded-3xl overflow-hidden border border-sage-300 shadow-soft-lg relative z-0 group"
+      className="w-full rounded-[2rem] overflow-hidden border border-[#1B4332]/20 shadow-soft-xl relative z-0 group"
     >
       {/* Floating Map HUD Top Bar */}
       <div className="absolute top-4 left-4 right-4 z-[1000] flex flex-wrap items-center justify-between gap-3 pointer-events-none">
         {/* Left Telemetry Capsule */}
-        <div className="pointer-events-auto bg-white/90 backdrop-blur-md px-3.5 py-1.5 rounded-2xl border border-sage-200/90 shadow-soft flex items-center gap-4 text-xs font-mono">
-          <div className="flex items-center gap-1.5 text-forest-900 font-bold">
-            <span className="w-2 h-2 rounded-full bg-limeaccent-500 animate-pulse" />
-            <span>{reports.length} Incidents</span>
+        <div className="pointer-events-auto bg-[#092421]/95 text-white backdrop-blur-md px-4 py-2 rounded-full border border-[#74D7CB]/40 shadow-soft flex items-center gap-4 text-xs font-mono">
+          <div className="flex items-center gap-2 text-white font-bold">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#74D7CB] animate-ping" />
+            <span className="text-[#74D7CB] font-black">{reports.length} Incidents</span>
           </div>
+
+          {userLocation && (
+            <div className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-[#74D7CB] border-l border-[#27403C] pl-3">
+              <Crosshair className="w-3.5 h-3.5 text-[#74D7CB]" />
+              <span className="text-white font-medium">GPS: {userLocation.lat.toFixed(4)}°, {userLocation.lng.toFixed(4)}°</span>
+            </div>
+          )}
+
           {highSeverityCount > 0 && (
-            <div className="flex items-center gap-1.5 text-rose-700 font-bold">
-              <Flame className="w-3.5 h-3.5" />
+            <div className="flex items-center gap-1.5 text-rose-400 font-bold border-l border-[#27403C] pl-3">
+              <Flame className="w-3.5 h-3.5 text-rose-500" />
               <span>{highSeverityCount} Critical</span>
             </div>
           )}
-          <div className="hidden sm:flex items-center gap-1 text-charcoal-500">
-            <Scale className="w-3.5 h-3.5 text-forest-700" />
-            <span>~{totalKg.toFixed(0)} kg Est. Litter</span>
-          </div>
         </div>
 
-        {/* Right Map Layer Mode Switcher */}
-        <div className="pointer-events-auto bg-white/90 backdrop-blur-md p-1 rounded-2xl border border-sage-200/90 shadow-soft flex items-center gap-1 text-xs">
+        {/* Right Real-time GPS & Map Layer Switcher */}
+        <div className="pointer-events-auto flex items-center gap-2">
+          {/* Real-time Locate Me Button */}
           <button
-            onClick={() => setMapStyle('osm')}
-            className={`px-2.5 py-1 rounded-xl font-bold transition-all ${
-              mapStyle === 'osm'
-                ? 'bg-forest-800 text-white shadow-xs'
-                : 'text-charcoal-600 hover:text-forest-900 hover:bg-sage-100'
+            onClick={() => requestLiveLocation(true)}
+            disabled={isLocating}
+            className={`px-3.5 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-2 shadow-soft backdrop-blur-md border ${
+              userLocation
+                ? 'bg-[#102D27] text-[#74D7CB] border-[#74D7CB]/60 hover:bg-[#1B4A45]'
+                : 'bg-white/95 text-[#092421] border-[#1B4332]/20 hover:bg-[#FAF8F3]'
             }`}
+            title="Recenter on your real-time current location"
           >
-            GIS Standard
+            <Navigation className={`w-3.5 h-3.5 ${isLocating ? 'animate-spin text-[#74D7CB]' : userLocation ? 'text-[#74D7CB]' : 'text-[#092421]'}`} />
+            <span>{isLocating ? 'Acquiring GPS...' : userLocation ? 'Live Location' : 'Locate Me'}</span>
           </button>
-          <button
-            onClick={() => setMapStyle('light')}
-            className={`px-2.5 py-1 rounded-xl font-bold transition-all ${
-              mapStyle === 'light'
-                ? 'bg-forest-800 text-white shadow-xs'
-                : 'text-charcoal-600 hover:text-forest-900 hover:bg-sage-100'
-            }`}
-          >
-            Clean Canvas
-          </button>
-          <button
-            onClick={() => setMapStyle('satellite')}
-            className={`px-2.5 py-1 rounded-xl font-bold transition-all ${
-              mapStyle === 'satellite'
-                ? 'bg-forest-800 text-white shadow-xs'
-                : 'text-charcoal-600 hover:text-forest-900 hover:bg-sage-100'
-            }`}
-          >
-            Satellite
-          </button>
+
+          {/* Map Layer Mode Switcher */}
+          <div className="bg-[#092421]/95 backdrop-blur-md p-1 rounded-full border border-[#74D7CB]/40 shadow-soft flex items-center gap-1 text-xs">
+            <button
+              onClick={() => setMapStyle('osm')}
+              className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${
+                mapStyle === 'osm'
+                  ? 'bg-[#74D7CB] text-[#092421] shadow-xs font-black'
+                  : 'text-white hover:text-[#74D7CB]'
+              }`}
+            >
+              GIS Standard
+            </button>
+            <button
+              onClick={() => setMapStyle('light')}
+              className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${
+                mapStyle === 'light'
+                  ? 'bg-[#74D7CB] text-[#092421] shadow-xs font-black'
+                  : 'text-white hover:text-[#74D7CB]'
+              }`}
+            >
+              Clean Canvas
+            </button>
+            <button
+              onClick={() => setMapStyle('satellite')}
+              className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${
+                mapStyle === 'satellite'
+                  ? 'bg-[#74D7CB] text-[#092421] shadow-xs font-black'
+                  : 'text-white hover:text-[#74D7CB]'
+              }`}
+            >
+              Satellite
+            </button>
+          </div>
         </div>
       </div>
+
+      {geoError && (
+        <div className="absolute top-16 left-4 right-4 z-[1000] pointer-events-auto p-2.5 rounded-2xl bg-amber-500/90 backdrop-blur-md border border-amber-300 text-white text-xs font-bold flex items-center justify-between shadow-lg max-w-md mx-auto">
+          <span>{geoError}</span>
+          <button onClick={() => setGeoError(null)} className="ml-2 hover:opacity-75">✕</button>
+        </div>
+      )}
 
       <MapContainer
         center={center}
@@ -107,11 +243,48 @@ export function InteractiveMap({
         scrollWheelZoom={true}
         style={{ height: '100%', width: '100%' }}
       >
+        <MapPanController target={flyTarget} />
+
         <TileLayer
           key={mapStyle}
           attribution={tileLayers[mapStyle].attribution}
           url={tileLayers[mapStyle].url}
         />
+
+        {/* Real-time User Live Location Beacon */}
+        {userLocation && (
+          <>
+            <Circle
+              center={[userLocation.lat, userLocation.lng]}
+              radius={Math.max(userLocation.accuracy, 40)}
+              pathOptions={{
+                color: '#74D7CB',
+                fillColor: '#74D7CB',
+                fillOpacity: 0.15,
+                weight: 1.5,
+              }}
+            />
+            <Marker
+              position={[userLocation.lat, userLocation.lng]}
+              icon={userBeaconIcon}
+            >
+              <Popup>
+                <div className="p-3 text-xs font-sans text-left space-y-1.5">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#74D7CB] animate-ping" />
+                    <span className="font-extrabold text-sm text-[#092421]">Your Live Location</span>
+                  </div>
+                  <p className="font-mono text-[11px] text-[#556E55]">
+                    {userLocation.lat.toFixed(6)}°, {userLocation.lng.toFixed(6)}°
+                  </p>
+                  <div className="text-[10px] text-[#1B4332] font-semibold bg-[#DEF5F1] px-2 py-0.5 rounded-md inline-block">
+                    Real-time GPS Precision (~{userLocation.accuracy}m)
+                  </div>
+                </div>
+              </Popup>
+            </Marker>
+          </>
+        )}
 
         {/* Hotspot density buffer zones */}
         {showHotspotOverlays &&

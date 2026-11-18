@@ -16,12 +16,9 @@ export function Card({
       onClick={onClick}
       className={twMerge(
         clsx(
-          'rounded-2xl transition-all duration-300 relative overflow-hidden font-sans',
-          glass
-            ? 'glass-panel'
-            : 'bg-[#FAF8F5] border border-beige-300/90 shadow-soft',
-          hover && 'glass-card-hover cursor-pointer hover:border-sage-400',
-          accent && 'before:absolute before:top-0 before:left-0 before:right-0 before:h-1 before:bg-gradient-to-r before:from-darkgreen-700 before:via-botanical-500 before:to-sage-500',
+          'card-paper rounded-[1.75rem] transition-all duration-300 relative overflow-hidden font-sans',
+          hover && 'cursor-pointer hover:-translate-y-1 hover:shadow-soft-lg',
+          accent && 'before:absolute before:top-0 before:left-0 before:right-0 before:h-1.5 before:bg-gradient-to-r before:from-[#10241B] before:via-[#2D6A4F] before:to-[#74D7CB] before:z-10',
           className
         )
       )}
@@ -34,17 +31,17 @@ export function Card({
 
 export function CardHeader({ children, className, title, subtitle, icon: Icon, action }) {
   return (
-    <div className={twMerge(clsx('p-5 sm:p-6 border-b border-beige-200/80 flex items-center justify-between gap-4', className))}>
+    <div className={twMerge(clsx('p-5 sm:p-6 border-b border-[#1B4332]/10 flex items-center justify-between gap-4', className))}>
       {title ? (
         <div className="flex items-center gap-3">
           {Icon && (
-            <div className="w-9 h-9 rounded-xl bg-sage-100 border border-sage-200 text-darkgreen-800 flex items-center justify-center shrink-0">
-              <Icon className="w-4 h-4" />
+            <div className="w-10 h-10 rounded-2xl bg-[#DEF5F1] border border-[#98E0D5] text-[#10241B] flex items-center justify-center shrink-0 shadow-xs">
+              <Icon className="w-5 h-5 text-[#1B4A45]" />
             </div>
           )}
           <div>
-            <h3 className="text-base font-extrabold text-darkgreen-950 tracking-tight">{title}</h3>
-            {subtitle && <p className="text-xs text-sage-600 mt-0.5 font-medium">{subtitle}</p>}
+            <h3 className="text-base font-extrabold text-[#10241B] tracking-tight">{title}</h3>
+            {subtitle && <p className="text-xs text-[#556E55] mt-0.5 font-medium">{subtitle}</p>}
           </div>
         </div>
       ) : (
@@ -61,7 +58,7 @@ export function CardBody({ children, className }) {
 
 export function CardFooter({ children, className }) {
   return (
-    <div className={twMerge(clsx('px-5 sm:px-6 py-4 bg-beige-100/90 border-t border-beige-200/80 text-xs text-sage-600 flex items-center justify-between font-medium', className))}>
+    <div className={twMerge(clsx('px-5 sm:px-6 py-4 bg-[#F7EFE6]/70 border-t border-[#1B4332]/10 text-xs text-[#556E55] flex items-center justify-between font-medium', className))}>
       {children}
     </div>
   );

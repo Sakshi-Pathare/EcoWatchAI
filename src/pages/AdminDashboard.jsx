@@ -117,26 +117,26 @@ export function AdminDashboard() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 font-sans">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-beige-300/80">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-[#1B4332]/10">
         <div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-sage-100 text-darkgreen-900 mb-2 border border-sage-300 shadow-xs">
-            <ShieldCheck className="w-3.5 h-3.5 text-darkgreen-700" />
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-[#DEF5F1] text-[#092421] mb-2 border border-[#98E0D5] shadow-xs">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#1B4A45]" />
             <span>Municipal Sanitation Command Center</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-darkgreen-950 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#10241B] tracking-tight">
             City Environmental Intelligence Overview
           </h1>
-          <p className="text-xs sm:text-sm text-sage-700 mt-1 max-w-xl font-medium">
+          <p className="text-xs sm:text-sm text-[#556E55] mt-1 max-w-xl font-medium">
             Supervise incoming litter reports, verify photographic evidence, monitor algorithmic recurrence corridors, and dispatch sanitation squads.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
-          <Button variant="outline" size="sm" icon={RefreshCw} onClick={loadAllData} className="shadow-xs font-bold">
+          <Button variant="outline" size="sm" icon={RefreshCw} onClick={loadAllData} className="shadow-xs font-bold rounded-full px-4 py-2">
             Refresh Telemetry
           </Button>
           <Link to="/hotspots">
-            <Button variant="primary" size="sm" icon={Flame} glow className="shadow-md">
+            <Button variant="pista" size="sm" icon={Flame} glow className="shadow-lg font-black rounded-full px-4 py-2">
               Hotspot Hub
             </Button>
           </Link>
@@ -200,12 +200,12 @@ export function AdminDashboard() {
                   <AreaChart data={trends} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                     <defs>
                       <linearGradient id="colorReports" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#183D2B" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="#183D2B" stopOpacity={0.05} />
+                        <stop offset="5%" stopColor="#092421" stopOpacity={0.85} />
+                        <stop offset="95%" stopColor="#092421" stopOpacity={0.05} />
                       </linearGradient>
                       <linearGradient id="colorResolved" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#2B774C" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="#2B774C" stopOpacity={0.05} />
+                        <stop offset="5%" stopColor="#74D7CB" stopOpacity={0.85} />
+                        <stop offset="95%" stopColor="#74D7CB" stopOpacity={0.05} />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#DFD5C4" />
@@ -217,16 +217,16 @@ export function AdminDashboard() {
                         borderColor: '#DFD5C4',
                         borderRadius: '0.75rem',
                         fontSize: '12px',
-                        boxShadow: '0 10px 25px -5px rgba(24,61,43,0.1)',
+                        boxShadow: '0 10px 25px -5px rgba(9,36,33,0.1)',
                         fontWeight: 600,
-                        color: '#122B1E',
+                        color: '#092421',
                       }}
                     />
                     <Area
                       type="monotone"
                       dataKey="reports"
                       name="Reports Logged"
-                      stroke="#183D2B"
+                      stroke="#092421"
                       strokeWidth={2.5}
                       fillOpacity={1}
                       fill="url(#colorReports)"
@@ -235,7 +235,7 @@ export function AdminDashboard() {
                       type="monotone"
                       dataKey="resolved"
                       name="Cleaned Sites"
-                      stroke="#2B774C"
+                      stroke="#74D7CB"
                       strokeWidth={2.5}
                       fillOpacity={1}
                       fill="url(#colorResolved)"
@@ -246,11 +246,11 @@ export function AdminDashboard() {
 
               <div className="flex items-center justify-center gap-6 mt-4 pt-3 border-t border-beige-200 text-xs font-bold text-darkgreen-950">
                 <div className="flex items-center gap-2">
-                  <span className="w-3.5 h-3.5 rounded bg-darkgreen-800 shadow-xs" />
+                  <span className="w-3.5 h-3.5 rounded bg-[#092421] shadow-xs" />
                   <span>Public Litter Reports Logged</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="w-3.5 h-3.5 rounded bg-botanical-600 shadow-xs" />
+                  <span className="w-3.5 h-3.5 rounded bg-[#74D7CB] shadow-xs" />
                   <span>Verified Cleanups Completed</span>
                 </div>
               </div>
@@ -428,12 +428,12 @@ export function AdminDashboard() {
             ))}
           </div>
 
-          <div className="p-5 rounded-2xl bg-gradient-to-br from-forest-950 to-forest-900 text-offwhite-100 space-y-2 border border-forest-800 shadow-soft">
-            <h4 className="font-bold text-xs text-limeaccent-300 flex items-center gap-1.5 font-mono">
-              <Sparkles className="w-3.5 h-3.5 text-limeaccent-400" />
+          <div className="p-5 rounded-2xl bg-gradient-to-br from-[#092421] to-[#051412] text-pista-100 space-y-2 border border-[#27403C] shadow-soft">
+            <h4 className="font-bold text-xs text-[#74D7CB] flex items-center gap-1.5 font-mono">
+              <Sparkles className="w-3.5 h-3.5 text-[#74D7CB]" />
               FASTAPI & POSTGIS SPATIAL TABLES
             </h4>
-            <p className="text-[11px] text-sage-200 leading-relaxed">
+            <p className="text-[11px] text-pista-200/90 leading-relaxed font-medium">
               In Phase 2, this command HUD integrates directly with PostgreSQL PostGIS spatial tables for automated DBSCAN cluster computation and polygon heatmaps.
             </p>
           </div>

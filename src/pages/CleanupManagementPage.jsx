@@ -95,16 +95,16 @@ export function CleanupManagementPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 font-sans">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-beige-300/80">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-[#1B4332]/10">
         <div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-sage-100 text-darkgreen-900 mb-2 border border-sage-300 shadow-xs">
-            <Truck className="w-3.5 h-3.5 text-darkgreen-700" />
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-[#DEF5F1] text-[#092421] mb-2 border border-[#98E0D5] shadow-xs">
+            <Truck className="w-3.5 h-3.5 text-[#1B4A45]" />
             <span>Municipal Dispatch Command</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-darkgreen-950 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#10241B] tracking-tight">
             Cleanup Operations & Verification
           </h1>
-          <p className="text-xs sm:text-sm text-sage-700 mt-1 max-w-2xl leading-relaxed font-medium">
+          <p className="text-xs sm:text-sm text-[#556E55] mt-1 max-w-2xl leading-relaxed font-medium">
             Coordinate municipal contractor squads, inspect work orders, and certify public space clearance using interactive before-and-after audit comparisons.
           </p>
         </div>
@@ -114,7 +114,7 @@ export function CleanupManagementPage() {
             variant="outline"
             size="sm"
             onClick={loadCleanups}
-            className="shadow-xs"
+            className="shadow-xs rounded-full px-4 py-2 font-bold"
           >
             Refresh Queue
           </Button>
@@ -122,33 +122,33 @@ export function CleanupManagementPage() {
       </div>
 
       {statusNotification && (
-        <div className="p-4 rounded-2xl bg-sage-50 border border-sage-300 text-darkgreen-950 text-xs font-bold flex items-center gap-2.5 shadow-soft animate-fadeIn">
-          <CheckCircle className="w-4 h-4 text-botanical-600 shrink-0" />
+        <div className="p-4 rounded-2xl bg-[#DEF5F1] border border-[#74D7CB] text-[#092421] text-xs font-bold flex items-center gap-2.5 shadow-soft animate-fadeIn">
+          <CheckCircle className="w-4 h-4 text-[#2D6A4F] shrink-0" />
           <span>{statusNotification}</span>
         </div>
       )}
 
       {/* Top Operations KPI Strip */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-4 rounded-2xl bg-beige-50/90 border border-beige-300 shadow-soft">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-charcoal-400 block">Total Work Orders</span>
-          <span className="text-2xl font-black text-darkgreen-950 font-mono mt-0.5 block">{totalTasks}</span>
-          <span className="text-[11px] text-sage-700 font-medium">In municipal registry</span>
+        <div className="p-5 rounded-[1.75rem] card-paper shadow-soft">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#556E55] block">Total Work Orders</span>
+          <span className="text-2xl font-black text-[#10241B] font-serif mt-0.5 block">{totalTasks}</span>
+          <span className="text-[11px] text-[#556E55] font-medium">In municipal registry</span>
         </div>
-        <div className="p-4 rounded-2xl bg-beige-50/90 border border-beige-300 shadow-soft">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-charcoal-400 block">Awaiting Dispatch</span>
-          <span className="text-2xl font-black text-amber-600 font-mono mt-0.5 block">{pendingTasks}</span>
+        <div className="p-5 rounded-[1.75rem] card-paper shadow-soft">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 block">Awaiting Dispatch</span>
+          <span className="text-2xl font-black text-amber-700 font-serif mt-0.5 block">{pendingTasks}</span>
           <span className="text-[11px] text-amber-700 font-medium">Crew unassigned</span>
         </div>
-        <div className="p-4 rounded-2xl bg-beige-50/90 border border-beige-300 shadow-soft">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-charcoal-400 block">Squads Deployed</span>
-          <span className="text-2xl font-black text-blue-600 font-mono mt-0.5 block">{inProgressTasks}</span>
+        <div className="p-5 rounded-[1.75rem] card-paper shadow-soft">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700 block">Squads Deployed</span>
+          <span className="text-2xl font-black text-blue-700 font-serif mt-0.5 block">{inProgressTasks}</span>
           <span className="text-[11px] text-blue-700 font-medium">Active remediation</span>
         </div>
-        <div className="p-4 rounded-2xl bg-beige-50/90 border border-beige-300 shadow-soft">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-charcoal-400 block">Restored & Audited</span>
-          <span className="text-2xl font-black text-botanical-700 font-mono mt-0.5 block">{completedTasks}</span>
-          <span className="text-[11px] text-botanical-700 font-medium">Photographically certified</span>
+        <div className="p-5 rounded-[1.75rem] card-paper shadow-soft">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#2D6A4F] block">Restored & Audited</span>
+          <span className="text-2xl font-black text-[#2D6A4F] font-serif mt-0.5 block">{completedTasks}</span>
+          <span className="text-[11px] text-[#2D6A4F] font-medium">Photographically certified</span>
         </div>
       </div>
 
@@ -166,7 +166,7 @@ export function CleanupManagementPage() {
               onClick={() => setActiveTab(tab.id)}
               className={`py-3.5 px-3.5 text-xs sm:text-sm font-bold border-b-2 transition-all cursor-pointer ${
                 activeTab === tab.id
-                  ? 'border-forest text-forest-950 font-black'
+                  ? 'border-[#74D7CB] text-[#092421] font-black'
                   : 'border-transparent text-charcoal-500 hover:text-charcoal-800'
               }`}
             >

@@ -9,14 +9,14 @@ export function getSeverityBadgeProps(severity) {
     case 'critical':
       return {
         label: 'Critical Priority',
-        bg: 'bg-rose-50 text-rose-700 border-rose-200',
-        dot: 'bg-rose-500',
+        bg: 'bg-rose-50 text-rose-900 border-rose-300 font-bold',
+        dot: 'bg-rose-600',
         colorHex: '#E11D48',
       };
     case 'medium':
       return {
         label: 'Moderate Impact',
-        bg: 'bg-amber-50 text-amber-700 border-amber-200',
+        bg: 'bg-amber-50 text-amber-950 border-amber-300 font-bold',
         dot: 'bg-amber-500',
         colorHex: '#D97706',
       };
@@ -24,9 +24,9 @@ export function getSeverityBadgeProps(severity) {
     default:
       return {
         label: 'Low Impact',
-        bg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-        dot: 'bg-emerald-500',
-        colorHex: '#059669',
+        bg: 'bg-[#DEF5F1] text-[#092421] border-[#74D7CB]/50 font-bold',
+        dot: 'bg-[#2F665F]',
+        colorHex: '#74D7CB',
       };
   }
 }
@@ -38,29 +38,29 @@ export function getStatusBadgeProps(status) {
     case 'completed':
       return {
         label: 'Cleaned & Verified',
-        bg: 'bg-forest-50 text-forest-700 border-forest-200',
-        dot: 'bg-forest-600',
+        bg: 'bg-[#DEF5F1] text-[#092421] border-[#74D7CB]/60 font-bold',
+        dot: 'bg-[#2F665F]',
       };
     case 'scheduled':
     case 'in_progress':
     case 'in progress':
       return {
         label: 'Cleanup Scheduled',
-        bg: 'bg-blue-50 text-blue-700 border-blue-200',
+        bg: 'bg-blue-50 text-blue-950 border-blue-300 font-bold',
         dot: 'bg-blue-600',
       };
     case 'verified':
       return {
         label: 'Verified by Admin',
-        bg: 'bg-amber-50 text-amber-800 border-amber-200',
+        bg: 'bg-amber-50 text-amber-950 border-amber-300 font-bold',
         dot: 'bg-amber-500',
       };
     case 'pending':
     default:
       return {
         label: 'Under Review',
-        bg: 'bg-slate-100 text-slate-700 border-slate-200',
-        dot: 'bg-slate-400',
+        bg: 'bg-beige-200 text-[#092421] border-beige-300 font-bold',
+        dot: 'bg-[#27403C]',
       };
   }
 }

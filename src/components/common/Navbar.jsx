@@ -41,54 +41,54 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 transition-all font-sans">
-      {/* Top Telemetry Ticker Strip (Dark Green + Warm Beige + Sage accents) */}
-      <div className="bg-gradient-to-r from-darkgreen-950 via-darkgreen-900 to-darkgreen-950 text-beige-100 text-[11px] py-1.5 px-4 border-b border-darkgreen-800/80">
+      {/* Top Telemetry Ticker Strip (Deepest Spruce #051412 & High-Contrast Pista Text) */}
+      <div className="bg-[#051412] text-white text-[11px] py-1.5 px-4 border-b border-[#1B4A45]/80">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1.5 font-mono text-[10px] text-limeaccent-300 font-bold uppercase tracking-wider">
-              <span className="w-2 h-2 rounded-full bg-limeaccent-400 animate-ping" />
+            <span className="flex items-center gap-1.5 font-mono text-[10px] text-[#74D7CB] font-black uppercase tracking-wider">
+              <span className="w-2 h-2 rounded-full bg-[#74D7CB] animate-ping" />
               Live GIS Telemetry
             </span>
-            <span className="hidden md:inline text-sage-400">•</span>
-            <span className="hidden md:inline text-sage-200">
+            <span className="hidden md:inline text-[#428078]">•</span>
+            <span className="hidden md:inline text-[#E0F2EE] font-medium">
               San Francisco Municipal Grid • 469 Incidents Monitored
             </span>
           </div>
 
-          <div className="flex items-center gap-4 text-[10px] text-sage-300 font-mono">
-            <span className="hidden sm:inline text-beige-200">DENSITY RADAR: NORMAL</span>
-            <span className="text-limeaccent-400 font-bold">94.2% RESOLUTION RATE</span>
+          <div className="flex items-center gap-4 text-[10px] font-mono">
+            <span className="hidden sm:inline text-[#C4EAE2]">DENSITY RADAR: NORMAL</span>
+            <span className="text-[#74D7CB] font-black tracking-wide">94.2% RESOLUTION RATE</span>
           </div>
         </div>
       </div>
 
-      {/* Main Glassmorphic Navigation Bar (Beige Canvas + Sage & Dark Green) */}
-      <div className="bg-beige-50/90 backdrop-blur-xl border-b border-beige-300/80 shadow-[0_4px_20px_-4px_rgba(24,61,43,0.06)]">
+      {/* Main Navigation Bar (Nocturnal Spruce #092421 + Luminous Pista #74D7CB Bottom Stripe) */}
+      <div className="bg-[#092421] border-b-2 border-[#74D7CB] shadow-[0_4px_24px_rgba(116,215,203,0.18)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Brand Logo with Dark Green & Sage glow */}
+            {/* Brand Logo with Editorial Serif & Luminous Pista Mint Glow */}
             <Link to="/" className="flex items-center gap-3 group">
-              <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-br from-darkgreen-900 via-darkgreen-800 to-darkgreen-950 flex items-center justify-center text-white shadow-soft transition-all duration-300 group-hover:scale-105 group-hover:shadow-glow-forest border border-sage-600/40">
-                <Leaf className="w-5 h-5 text-limeaccent-300 transition-transform duration-300 group-hover:rotate-12" />
-                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-limeaccent-400 border-2 border-beige-50" />
+              <div className="relative w-10 h-10 rounded-2xl bg-[#123632] flex items-center justify-center text-white shadow-soft transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(116,215,203,0.4)] border border-[#27403C]">
+                <Leaf className="w-5 h-5 text-[#74D7CB] transition-transform duration-300 group-hover:rotate-12" />
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-[#74D7CB] border-2 border-[#092421]" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-extrabold text-xl tracking-tight text-darkgreen-950 font-sans">
+                  <span className="font-serif font-bold text-2xl tracking-normal text-white">
                     EcoWatch
                   </span>
-                  <span className="text-[10px] font-black tracking-wider px-1.5 py-0.5 rounded-md bg-sage-200 text-darkgreen-900 border border-sage-300 uppercase shadow-xs">
+                  <span className="text-[10px] font-black tracking-wider px-2 py-0.5 rounded-full bg-[#1B4A45] text-[#74D7CB] border border-[#74D7CB]/50 uppercase shadow-xs">
                     AI
                   </span>
                 </div>
-                <p className="text-[10px] text-sage-600 font-semibold tracking-wider uppercase -mt-1 hidden sm:block">
-                  Environmental Intelligence
+                <p className="text-[10px] text-[#A3D9CE] font-bold tracking-widest uppercase -mt-0.5 hidden sm:block">
+                  Civic Environmental Intelligence
                 </p>
               </div>
             </Link>
 
-            {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center p-1 bg-beige-200/70 rounded-2xl border border-beige-300/80 backdrop-blur-sm">
+            {/* Desktop Navigation Links (Prakrushti High-Contrast Rounded-Full Pill Dock) */}
+            <nav className="hidden lg:flex items-center p-1.5 bg-[#102D27] rounded-full border border-[#23584E] shadow-inner space-x-1">
               {navLinks.map((link) => {
                 const Icon = link.icon;
                 const active = isActive(link.path);
@@ -97,16 +97,16 @@ export function Navbar() {
                     key={link.name}
                     to={link.path}
                     className={clsx(
-                      'px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 flex items-center gap-2 relative',
+                      'px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-200 flex items-center gap-2 relative',
                       active
-                        ? 'bg-white text-darkgreen-950 shadow-soft-sm font-extrabold border border-sage-200/80'
-                        : 'text-charcoal-600 hover:text-darkgreen-900 hover:bg-white/60'
+                        ? 'bg-gradient-to-r from-[#1E5247] to-[#16433A] text-[#74D7CB] shadow-sm border border-[#74D7CB]/60'
+                        : 'text-white hover:text-[#74D7CB] hover:bg-white/10'
                     )}
                   >
-                    <Icon className={clsx('w-3.5 h-3.5', active ? 'text-darkgreen-800' : 'text-sage-500')} />
-                    <span>{link.name}</span>
+                    <Icon className={clsx('w-3.5 h-3.5', active ? 'text-[#74D7CB]' : 'text-[#A3D9CE]')} />
+                    <span className={clsx(active ? 'text-[#74D7CB] font-black' : 'text-white font-semibold')}>{link.name}</span>
                     {active && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-botanical-600 absolute bottom-0.5 left-1/2 -translate-x-1/2" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#74D7CB] shadow-[0_0_6px_#74D7CB] absolute bottom-0.5 left-1/2 -translate-x-1/2" />
                     )}
                   </Link>
                 );
@@ -117,11 +117,11 @@ export function Navbar() {
             <div className="hidden sm:flex items-center gap-3">
               <Link to="/report">
                 <Button
-                  variant="primary"
+                  variant="pista"
                   size="sm"
                   icon={Camera}
                   glow
-                  className="shadow-soft hover:shadow-glow-forest bg-darkgreen-800 hover:bg-darkgreen-900 text-beige-50 border border-darkgreen-700 font-bold"
+                  className="rounded-full px-4 py-2 font-black shadow-lg shadow-[#74D7CB]/25 hover:scale-105 active:scale-95 transition-all duration-200"
                 >
                   Report Litter
                 </Button>
@@ -129,15 +129,15 @@ export function Navbar() {
 
               <Link
                 to="/dashboard"
-                className="group relative flex items-center gap-2.5 pl-2 pr-3 py-1 rounded-full bg-beige-200/90 hover:bg-white border border-beige-300 transition-all duration-200 shadow-soft-xs hover:shadow-soft"
+                className="group relative flex items-center gap-2.5 pl-2 pr-3.5 py-1 rounded-full bg-[#102D27] hover:bg-[#1B4A45] border border-[#23584E] hover:border-[#74D7CB]/60 transition-all duration-200 shadow-soft-xs"
                 title="Active Reporter Profile"
               >
-                <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-darkgreen-800 to-darkgreen-600 text-beige-50 flex items-center justify-center font-bold text-xs shadow-xs border border-white">
+                <div className="w-7 h-7 rounded-full bg-[#74D7CB] text-[#092421] flex items-center justify-center font-black text-xs shadow-xs border border-[#98E0D5]">
                   AM
                 </div>
                 <div className="text-left hidden xl:block">
-                  <div className="text-[11px] font-bold text-charcoal-900 leading-none">Alex M.</div>
-                  <div className="text-[9px] font-semibold text-sage-600">Level 2 Eco</div>
+                  <div className="text-[11px] font-black text-white leading-none">Alex M.</div>
+                  <div className="text-[9px] font-bold text-[#A3D9CE]">Level 2 Eco</div>
                 </div>
               </Link>
             </div>
@@ -145,15 +145,15 @@ export function Navbar() {
             {/* Mobile hamburger button */}
             <div className="flex lg:hidden items-center gap-2">
               <Link to="/report">
-                <Button variant="primary" size="xs" icon={Camera} className="bg-darkgreen-800 text-beige-50">
+                <Button variant="pista" size="xs" icon={Camera}>
                   Report
                 </Button>
               </Link>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-xl text-charcoal-700 hover:text-darkgreen-900 hover:bg-beige-200 focus:outline-none transition-colors border border-beige-300"
+                className="p-2 rounded-xl text-white hover:text-[#74D7CB] hover:bg-[#1B4A45] focus:outline-none transition-colors border border-[#27403C]"
               >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {mobileMenuOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
               </button>
             </div>
           </div>
@@ -161,13 +161,13 @@ export function Navbar() {
 
         {/* Mobile Menu Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-b border-beige-300 bg-beige-50/95 backdrop-blur-xl px-4 pt-3 pb-6 space-y-1.5 animate-fadeIn">
-            <div className="p-2.5 rounded-xl bg-sage-100 border border-sage-200 flex items-center justify-between mb-3">
+          <div className="lg:hidden border-t border-[#27403C] bg-[#092421]/98 backdrop-blur-xl px-4 pt-3 pb-6 space-y-1.5 animate-fadeIn">
+            <div className="p-2.5 rounded-xl bg-[#123632] border border-[#27403C] flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-botanical-600 animate-ping" />
-                <span className="text-xs font-bold text-darkgreen-900">GIS Telemetry Active</span>
+                <div className="w-2 h-2 rounded-full bg-[#74D7CB] animate-ping" />
+                <span className="text-xs font-bold text-white">GIS Telemetry Active</span>
               </div>
-              <span className="text-[10px] font-mono text-sage-700 font-bold">SF BAY REGION</span>
+              <span className="text-[10px] font-mono text-[#74D7CB] font-bold">SF BAY REGION</span>
             </div>
 
             {navLinks.map((link) => {
@@ -179,17 +179,17 @@ export function Navbar() {
                   to={link.path}
                   onClick={() => setMobileMenuOpen(false)}
                   className={clsx(
-                    'px-3.5 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between transition-colors',
+                    'px-3.5 py-2.5 rounded-xl text-sm font-bold flex items-center justify-between transition-colors',
                     active
-                      ? 'bg-white text-darkgreen-950 font-bold border border-sage-300 shadow-xs'
-                      : 'text-charcoal-600 hover:text-darkgreen-900 hover:bg-beige-200'
+                      ? 'bg-[#1D4A42] text-[#74D7CB] border border-[#74D7CB]/50 shadow-xs'
+                      : 'text-white hover:text-[#74D7CB] hover:bg-[#123632]'
                   )}
                 >
                   <div className="flex items-center gap-3">
-                    <Icon className={clsx('w-4 h-4', active ? 'text-darkgreen-800' : 'text-sage-500')} />
-                    <span>{link.name}</span>
+                    <Icon className={clsx('w-4 h-4', active ? 'text-[#74D7CB]' : 'text-[#A3D9CE]')} />
+                    <span className={active ? 'text-[#74D7CB]' : 'text-white'}>{link.name}</span>
                   </div>
-                  {active && <span className="text-xs font-mono text-darkgreen-800 font-bold">ACTIVE</span>}
+                  {active && <span className="text-xs font-mono text-[#74D7CB] font-black">ACTIVE</span>}
                 </Link>
               );
             })}

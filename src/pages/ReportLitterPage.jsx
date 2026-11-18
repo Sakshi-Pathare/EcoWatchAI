@@ -168,32 +168,32 @@ export function ReportLitterPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 space-y-8 font-sans">
       {/* Header */}
-      <div className="text-center sm:text-left space-y-2 pb-6 border-b border-sage-200">
-        <Badge variant="lime" dot pulse dotColor="bg-forest-900">
+      <div className="text-center sm:text-left space-y-2 pb-6 border-b border-[#1B4332]/10">
+        <Badge variant="pista" dot pulse dotColor="bg-[#092421]">
           Civic Sanitation Pipeline
         </Badge>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-charcoal-900 tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#10241B] tracking-tight">
           Report Public Litter Incident
         </h1>
-        <p className="text-xs sm:text-sm text-charcoal-500 max-w-2xl leading-relaxed">
+        <p className="text-xs sm:text-sm text-[#556E55] max-w-2xl leading-relaxed font-medium">
           Submit photographic evidence and geocoded coordinates to alert municipal sanitation squads and feed the algorithmic hotspot recurrence engine.
         </p>
       </div>
 
       {/* Progress Steps Indicator */}
-      <div className="grid grid-cols-3 gap-3 p-2 bg-beige-200/80 rounded-2xl border border-beige-300/90 text-xs font-semibold">
-        <div className={`p-2.5 rounded-xl flex items-center gap-2 transition-all ${
-          imagePreview ? 'bg-darkgreen-900 text-beige-50 shadow-xs' : 'bg-beige-50 text-darkgreen-950 font-bold border border-beige-300/60'
+      <div className="grid grid-cols-3 gap-3 p-2 bg-[#102D27] rounded-full border border-[#23584E] shadow-inner text-xs font-semibold">
+        <div className={`p-2.5 rounded-full flex items-center justify-center gap-2 transition-all ${
+          imagePreview ? 'bg-[#74D7CB] text-[#092421] shadow-xs font-black' : 'bg-white/10 text-white font-bold'
         }`}>
-          <Camera className="w-4 h-4 shrink-0 text-limeaccent-300" />
+          <Camera className="w-4 h-4 shrink-0" />
           <span className="truncate">1. Photo Evidence</span>
         </div>
-        <div className="p-2.5 rounded-xl flex items-center gap-2 bg-beige-50 text-darkgreen-950 font-bold shadow-xs border border-beige-300/60">
-          <MapPin className="w-4 h-4 shrink-0 text-botanical-700" />
+        <div className="p-2.5 rounded-full flex items-center justify-center gap-2 bg-white/10 text-white font-bold shadow-xs">
+          <MapPin className="w-4 h-4 shrink-0 text-[#74D7CB]" />
           <span className="truncate">2. Location Pin</span>
         </div>
-        <div className="p-2.5 rounded-xl flex items-center gap-2 bg-beige-50 text-darkgreen-950 font-bold shadow-xs border border-beige-300/60">
-          <Layers className="w-4 h-4 shrink-0 text-botanical-700" />
+        <div className="p-2.5 rounded-full flex items-center justify-center gap-2 bg-white/10 text-white font-bold shadow-xs">
+          <Layers className="w-4 h-4 shrink-0 text-[#74D7CB]" />
           <span className="truncate">3. Classification</span>
         </div>
       </div>
@@ -235,16 +235,16 @@ export function ReportLitterPage() {
             />
 
             {/* AI Staging Notice Card */}
-            <div className="p-4 rounded-2xl bg-gradient-to-r from-beige-100 via-sage-50 to-beige-100 border border-sage-300 flex items-start gap-3.5 shadow-xs">
-              <div className="w-8 h-8 rounded-xl bg-darkgreen-900 text-limeaccent-300 flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
-                <Sparkles className="w-4 h-4" />
+            <div className="p-4 rounded-2xl bg-gradient-to-r from-beige-100 via-pista-50/70 to-beige-100 border border-pista-300 flex items-start gap-3.5 shadow-xs">
+              <div className="w-8 h-8 rounded-xl bg-[#092421] text-[#74D7CB] flex items-center justify-center shrink-0 mt-0.5 shadow-xs border border-[#27403C]">
+                <Sparkles className="w-4 h-4 text-[#74D7CB]" />
               </div>
               <div className="text-xs space-y-1">
                 <div className="flex items-center gap-2">
                   <span className="font-extrabold text-darkgreen-950">
                     Computer Vision Inference Pipeline (Phase 2 Preview)
                   </span>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-sage-200 text-darkgreen-900 font-bold border border-sage-300">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-pista-100 text-[#092421] font-bold border border-pista-300">
                     YOLOv8 Ready
                   </span>
                 </div>

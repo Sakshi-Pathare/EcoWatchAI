@@ -37,6 +37,13 @@ export function LocationPickerMap({
   const currentLat = latitude || 37.7749;
   const currentLng = longitude || -122.4194;
 
+  // Auto-detect current real-time GPS location on mount
+  useEffect(() => {
+    if (navigator.geolocation && (!latitude || latitude === 37.7749)) {
+      handleGetCurrentLocation();
+    }
+  }, []);
+
   const handleLocationSelect = (lat, lng) => {
     onChange(Number(lat.toFixed(6)), Number(lng.toFixed(6)));
   };
@@ -112,31 +119,31 @@ export function LocationPickerMap({
         {/* Floating Geo Button */}
         <div className="absolute top-3 right-3 z-[1000] flex items-center gap-2">
           {geoSuccess && (
-            <span className="bg-forest-800 text-white text-[11px] font-semibold px-2.5 py-1 rounded-lg shadow-md flex items-center gap-1 animate-fade-in">
-              <CheckCircle2 className="w-3.5 h-3.5 text-limeaccent-300" />
-              <span>Location Locked</span>
+            <span className="bg-[#092421] text-[#74D7CB] border border-[#74D7CB]/60 text-[11px] font-bold px-3 py-1 rounded-full shadow-md flex items-center gap-1.5 animate-fadeIn">
+              <CheckCircle2 className="w-3.5 h-3.5 text-[#74D7CB]" />
+              <span>GPS Locked</span>
             </span>
           )}
           <Button
             type="button"
-            variant="outline"
+            variant="pista"
             size="sm"
             icon={Navigation}
             loading={geoLoading}
             onClick={handleGetCurrentLocation}
-            className="bg-white/95 shadow-md text-xs py-1.5"
+            className="shadow-md text-xs py-1.5 px-3.5 rounded-full font-black"
           >
             Locate Me
           </Button>
         </div>
 
         {/* Instructions banner */}
-        <div className="absolute bottom-3 left-3 right-3 z-[1000] bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-sage-200 text-xs text-charcoal-700 flex items-center justify-between shadow-soft">
+        <div className="absolute bottom-3 left-3 right-3 z-[1000] bg-[#092421]/90 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[#74D7CB]/30 text-xs text-white flex items-center justify-between shadow-soft">
           <div className="flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5 text-forest-700" />
-            <span>Click map or drag pin to adjust report location</span>
+            <MapPin className="w-3.5 h-3.5 text-[#74D7CB]" />
+            <span className="text-white text-[11px]">Click or drag pin to adjust location</span>
           </div>
-          <span className="font-mono text-[11px] font-semibold text-forest-800">
+          <span className="font-mono text-[11px] font-bold text-[#74D7CB]">
             {currentLat.toFixed(4)}°, {currentLng.toFixed(4)}°
           </span>
         </div>
