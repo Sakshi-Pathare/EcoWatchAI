@@ -38,8 +38,8 @@ export function PollutionMapPage() {
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState('map'); // 'map' | 'list'
   const [selectedReport, setSelectedReport] = useState(null);
-  const [mapCenter, setMapCenter] = useState([37.7749, -122.4194]);
-  const [activeCity, setActiveCity] = useState('sf');
+  const [mapCenter, setMapCenter] = useState([18.5204, 73.8567]);
+  const [activeCity, setActiveCity] = useState('pune');
 
   // Filters
   const [searchTerm, setSearchTerm] = useState('');
@@ -75,18 +75,24 @@ export function PollutionMapPage() {
 
   const handleCitySwitch = async (cityKey) => {
     setActiveCity(cityKey);
-    let coords = [37.7749, -122.4194];
+    let coords = [18.5204, 73.8567];
     let presetHotspots = initialMockHotspots;
 
     if (cityKey === 'pune') {
       coords = [18.5204, 73.8567];
-      presetHotspots = cityPresets.pune;
+      presetHotspots = cityPresets.pune || initialMockHotspots;
     } else if (cityKey === 'mumbai') {
       coords = [19.0760, 72.8777];
-      presetHotspots = cityPresets.mumbai;
+      presetHotspots = cityPresets.mumbai || initialMockHotspots;
+    } else if (cityKey === 'nagpur') {
+      coords = [21.1458, 79.0882];
+      presetHotspots = cityPresets.nagpur || initialMockHotspots;
+    } else if (cityKey === 'nashik') {
+      coords = [19.9975, 73.7898];
+      presetHotspots = cityPresets.nashik || initialMockHotspots;
     } else if (cityKey === 'delhi') {
       coords = [28.6139, 77.2090];
-      presetHotspots = cityPresets.delhi;
+      presetHotspots = cityPresets.delhi || initialMockHotspots;
     }
 
     setMapCenter(coords);
@@ -265,10 +271,11 @@ export function PollutionMapPage() {
             </div>
             <div className="flex flex-wrap items-center gap-1.5 font-semibold">
               {[
-                { id: 'pune', name: 'Pune, India' },
-                { id: 'mumbai', name: 'Mumbai, India' },
-                { id: 'delhi', name: 'Delhi, India' },
-                { id: 'sf', name: 'San Francisco, USA' },
+                { id: 'pune', name: 'Pune, MH' },
+                { id: 'mumbai', name: 'Mumbai, MH' },
+                { id: 'nagpur', name: 'Nagpur, MH' },
+                { id: 'nashik', name: 'Nashik, MH' },
+                { id: 'delhi', name: 'Delhi NCR' },
               ].map((city) => (
                 <button
                   key={city.id}

@@ -1,6 +1,6 @@
 import { initialMockHotspots } from '../data/mockHotspots.js';
 
-const STORAGE_KEY = 'ecowatch_hotspots_v1';
+const STORAGE_KEY = 'vasundhara_hotspots_v2_mh';
 
 function loadStoredHotspots() {
   try {
@@ -9,7 +9,13 @@ function loadStoredHotspots() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(initialMockHotspots));
       return initialMockHotspots;
     }
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    // If old cached data is from foreign coordinates (e.g. lat > 30 or lng < 0), auto-migrate to Maharashtra India
+    if (Array.isArray(parsed) && parsed.some(h => h.latitude > 30 || h.longitude < 0)) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(initialMockHotspots));
+      return initialMockHotspots;
+    }
+    return parsed;
   } catch (e) {
     console.error('Failed to parse stored hotspots', e);
     return initialMockHotspots;

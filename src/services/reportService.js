@@ -5,7 +5,7 @@ import {
   deleteImageFromIndexedDB,
 } from '../utils/imageStorage.js';
 
-const STORAGE_KEY = 'ecowatch_reports_v1';
+const STORAGE_KEY = 'vasundhara_reports_v2_mh';
 
 function loadStoredReports() {
   try {
@@ -14,7 +14,13 @@ function loadStoredReports() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(initialMockReports));
       return initialMockReports;
     }
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    // If old cached data is from foreign coordinates (e.g. San Francisco lat > 30 or lng < 0), auto-migrate to Maharashtra India
+    if (Array.isArray(parsed) && parsed.some(r => r.latitude > 30 || r.longitude < 0)) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(initialMockReports));
+      return initialMockReports;
+    }
+    return parsed;
   } catch (e) {
     console.error('Failed to parse stored reports', e);
     return initialMockReports;
@@ -111,14 +117,14 @@ export const reportService = {
       id: reportId,
       title: reportData.title || 'Untitled Litter Submission',
       description: reportData.description || 'Litter reported via mobile/web client.',
-      latitude: Number(reportData.latitude) || 37.7749,
-      longitude: Number(reportData.longitude) || -122.4194,
-      address: reportData.address || 'San Francisco, CA',
+      latitude: Number(reportData.latitude) || 18.5204,
+      longitude: Number(reportData.longitude) || 73.8567,
+      address: reportData.address || 'Pune, Maharashtra',
       category: reportData.category || 'mixed',
       severity: reportData.severity || 'medium',
       status: 'pending',
       reportedAt: new Date().toISOString(),
-      reporterName: reportData.reporterName || 'Alex Mercer',
+      reporterName: reportData.reporterName || 'Pooja Kulkarni',
       reporterId: 'usr_current',
       estimatedKg: Number(reportData.estimatedKg) || 4.0,
       imageUrl: reportData.imageUrl || 'https://images.unsplash.com/photo-1605600659908-0ef719419d41?auto=format&fit=crop&w=800&q=80',

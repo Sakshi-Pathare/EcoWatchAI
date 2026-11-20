@@ -80,10 +80,11 @@ export function HotspotIntelligencePage() {
     setActiveCityPreset(cityKey);
     setLoading(true);
     let targetList = initialMockHotspots;
-    if (cityKey === 'pune') targetList = cityPresets.pune;
-    else if (cityKey === 'mumbai') targetList = cityPresets.mumbai;
-    else if (cityKey === 'delhi') targetList = cityPresets.delhi;
-    else if (cityKey === 'sf') targetList = initialMockHotspots;
+    if (cityKey === 'pune') targetList = cityPresets.pune || initialMockHotspots;
+    else if (cityKey === 'mumbai') targetList = cityPresets.mumbai || initialMockHotspots;
+    else if (cityKey === 'nagpur') targetList = cityPresets.nagpur || initialMockHotspots;
+    else if (cityKey === 'nashik') targetList = cityPresets.nashik || initialMockHotspots;
+    else if (cityKey === 'delhi') targetList = cityPresets.delhi || initialMockHotspots;
 
     await hotspotService.loadPreset(targetList);
     setHotspots(targetList);
@@ -255,10 +256,11 @@ export function HotspotIntelligencePage() {
 
         <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
           {[
-            { id: 'pune', name: 'Pune, India' },
-            { id: 'mumbai', name: 'Mumbai, India' },
-            { id: 'delhi', name: 'Delhi, India' },
-            { id: 'sf', name: 'San Francisco, USA' },
+            { id: 'pune', name: 'Pune, MH' },
+            { id: 'mumbai', name: 'Mumbai, MH' },
+            { id: 'nagpur', name: 'Nagpur, MH' },
+            { id: 'nashik', name: 'Nashik, MH' },
+            { id: 'delhi', name: 'Delhi NCR' },
           ].map((city) => (
             <button
               key={city.id}

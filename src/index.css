@@ -19,6 +19,17 @@
   }
 }
 
+/* Indian Government Smart-City Environmental Hero */
+.hero {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.30),
+                    rgba(255, 255, 255, 0.30)),
+    url('/images/vasundhara-theme-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 /* Prakrushti Tactile Card-Paper System */
 .card-paper {
   -webkit-backdrop-filter: blur(18px) saturate(140%);
