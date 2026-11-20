@@ -38,14 +38,14 @@ export function LandingPage() {
 
   return (
     <div className="space-y-24 sm:space-y-32 pb-24 font-sans">
-      {/* Hero Section with Warm Beige + Sage + Dark Green Mesh */}
-      <section className="relative pt-12 sm:pt-20 pb-20 sm:pb-28 overflow-hidden bg-gradient-to-b from-beige-100 via-beige-50 to-beige-100 border-b border-beige-300/80 bg-grid-pattern">
-        {/* Ambient lighting spheres in sage & warm sand */}
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-gradient-to-tr from-sage-200/40 via-beige-200/30 to-transparent rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -top-20 -left-20 w-80 h-80 bg-darkgreen-200/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute top-1/2 -right-20 w-96 h-96 bg-sage-300/20 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Hero Section with Premium Indian Government Smart-City Environmental Background */}
+      <section
+        className="relative pt-12 sm:pt-20 pb-20 sm:pb-32 overflow-hidden border-b border-[#1B4332]/15 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.32)), url('/images/vasundhara-theme-bg.png')",
+        }}
+      >
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
             {/* Left Column: Heading, Telemetry Pill & CTAs */}
             <div className="lg:col-span-7 space-y-6 sm:space-y-7 text-left">
@@ -74,11 +74,9 @@ export function LandingPage() {
               </div>
 
               {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-[#10241B] tracking-tight leading-[1.1]">
-                Turn Public Litter into{' '}
-                <span className="text-gradient-forest underline decoration-[#74D7CB] decoration-wavy decoration-2">
-                  Actionable Hotspot
-                </span>{' '}
+              <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-serif font-bold text-[#10241B] tracking-tight leading-[1.14]">
+                Turn Public Litter into <br className="hidden sm:inline" />
+                Actionable Hotspot <br className="hidden sm:inline" />
                 Intelligence.
               </h1>
 
@@ -88,14 +86,13 @@ export function LandingPage() {
               </p>
 
               {/* Action Buttons */}
-              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <Link to="/report">
                   <Button
                     variant="primary"
                     size="lg"
                     icon={Camera}
-                    glow
-                    className="w-full sm:w-auto shadow-md bg-darkgreen-800 hover:bg-darkgreen-900 text-beige-50"
+                    className="w-full sm:w-auto shadow-md bg-[#092421] hover:bg-[#123632] text-white rounded-xl px-5 py-3 font-bold border border-[#27403C]"
                   >
                     Report Litter Incident
                   </Button>
@@ -105,10 +102,13 @@ export function LandingPage() {
                     variant="outline"
                     size="lg"
                     icon={Compass}
-                    className="w-full sm:w-auto hover:bg-white"
+                    className="w-full sm:w-auto bg-white/95 hover:bg-white text-[#10241B] border border-sage-300 rounded-xl px-5 py-3 font-bold shadow-xs"
                   >
-                    Explore Pollution GIS Map
+                    Explore GIS Map
                   </Button>
+                </Link>
+                <Link to="/login" className="text-xs sm:text-sm font-bold text-[#10241B] hover:text-[#2D6A4F] py-2.5 px-3">
+                  Sign In / Register →
                 </Link>
               </div>
 
@@ -138,10 +138,7 @@ export function LandingPage() {
             {/* Right Column: Interactive Telemetry HUD Card */}
             <div className="lg:col-span-5">
               <div className="relative mx-auto max-w-md lg:max-w-none">
-                {/* Visual glow backdrop in darkgreen & sage */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-darkgreen-800 via-botanical-600 to-sage-600 rounded-3xl blur-xl opacity-25 group-hover:opacity-50 transition duration-1000 animate-pulse-subtle" />
-
-                <div className="relative bg-[#FFFDF9] rounded-3xl border border-beige-300 shadow-soft-xl overflow-hidden backdrop-blur-xl">
+                <div className="relative bg-[#FFFDF9]/95 rounded-3xl border border-beige-300 shadow-soft-xl overflow-hidden backdrop-blur-md">
                   {/* Card Telemetry Header (Deep Dark Spruce #092421 + Pista #74D7CB) */}
                   <div className="px-5 py-3.5 bg-[#092421] text-beige-100 flex items-center justify-between text-xs border-b border-[#27403C]">
                     <div className="flex items-center gap-2">
@@ -151,7 +148,7 @@ export function LandingPage() {
                       </span>
                     </div>
                     <span className="text-[10px] font-mono text-[#74D7CB] font-bold bg-[#123632] px-2 py-0.5 rounded-full border border-[#27403C]">
-                      GRID: SF-37.77N
+                      GRID: MH-PUNE-18.52N
                     </span>
                   </div>
 
@@ -201,14 +198,14 @@ export function LandingPage() {
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center justify-between gap-1">
                               <h4 className="text-xs font-extrabold text-rose-950 truncate">
-                                Mission Creek Drainage Corridor
+                                Mutha Riverbed Drainage Corridor
                               </h4>
                               <span className="text-[10px] font-mono font-black px-1.5 py-0.5 rounded bg-rose-200 text-rose-900 shrink-0">
                                 SCORE 94
                               </span>
                             </div>
                             <p className="text-[11px] text-rose-800 mt-0.5 leading-snug font-medium">
-                              24 recurring dumps. Critical plastic runoff risk to marine buffer.
+                              24 recurring dumps. Critical plastic runoff risk to river buffer.
                             </p>
                           </div>
                         </div>
@@ -221,14 +218,14 @@ export function LandingPage() {
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center justify-between gap-1">
                               <h4 className="text-xs font-extrabold text-amber-950 truncate">
-                                Civic Center Plaza Pedestrian Zone
+                                FC Road Deccan Gymkhana Zone
                               </h4>
                               <span className="text-[10px] font-mono font-black px-1.5 py-0.5 rounded bg-amber-200 text-amber-900 shrink-0">
                                 SCORE 89
                               </span>
                             </div>
                             <p className="text-[11px] text-amber-800 mt-0.5 leading-snug font-medium">
-                              19 incidents recorded. Overflowing pedestrian bins along corridor.
+                              19 incidents recorded. Overflowing pedestrian bins along commercial corridor.
                             </p>
                           </div>
                         </div>
@@ -276,7 +273,7 @@ export function LandingPage() {
                             <span className="text-blue-700 font-bold">In Transit</span>
                           </div>
                           <p className="text-[11px] text-blue-800 font-medium">
-                            Destination: Buena Vista Park Lawn • ETA: 18 mins • Work Order #CLN-803
+                            Destination: Sambhaji Park Perimeter • ETA: 18 mins • Work Order #PMC-803
                           </p>
                         </div>
                         <p className="text-[11px] text-sage-700 leading-snug font-medium">
@@ -286,19 +283,22 @@ export function LandingPage() {
                     )}
 
                     {/* Bottom Response Metrics Strip */}
-                    <div className="p-3.5 rounded-2xl bg-sage-100/90 border border-sage-300 flex items-center justify-between">
+                    <div className="p-3.5 rounded-2xl bg-[#EAF7F4] border border-[#B2E6DC] flex items-center justify-between">
                       <div>
-                        <span className="text-[11px] text-sage-600 font-bold block">
+                        <span className="text-[10px] text-[#2D6A4F] font-bold block uppercase tracking-wider">
                           District Response Efficiency
                         </span>
-                        <p className="text-lg font-black text-darkgreen-950 font-mono">
+                        <p className="text-xl font-black text-[#092421] font-mono leading-tight">
                           94.2% within 24h
                         </p>
                       </div>
                       <Link to="/hotspots">
-                        <Button variant="primary" size="xs" icon={ArrowRight} iconPosition="right" className="bg-darkgreen-800 text-beige-50">
-                          Intel Hub
-                        </Button>
+                        <button
+                          type="button"
+                          className="px-4 py-2 rounded-xl bg-[#092421] text-white hover:bg-[#123632] text-xs font-bold inline-flex items-center gap-1 shadow-xs transition-colors"
+                        >
+                          Intel Hub →
+                        </button>
                       </Link>
                     </div>
                   </div>
@@ -545,10 +545,19 @@ export function LandingPage() {
               Join active civic reporters, municipal sanitation managers, and environmental teams mapping public pollution and accelerating cleanups.
             </p>
 
-            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link to="/report">
                 <Button variant="pista" size="lg" icon={Camera} glow className="shadow-lg font-black text-sm px-7 py-3 rounded-full hover:scale-105 active:scale-95 transition-all">
                   Submit a Litter Report Now
+                </Button>
+              </Link>
+              <Link to="/login">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-[#74D7CB]/50 text-white bg-[#123632] hover:bg-[#1B4A45] hover:text-[#74D7CB] rounded-full px-6 py-3 font-bold text-sm"
+                >
+                  Join as Civic Steward
                 </Button>
               </Link>
               <Link to="/map">
@@ -556,9 +565,9 @@ export function LandingPage() {
                   variant="outline"
                   size="lg"
                   icon={Compass}
-                  className="border-[#74D7CB]/50 text-white bg-[#123632] hover:bg-[#1B4A45] hover:text-[#74D7CB] rounded-full px-7 py-3 font-bold"
+                  className="border-[#74D7CB]/30 text-[#A3D9CE] bg-transparent hover:bg-white/10 hover:text-white rounded-full px-6 py-3 font-bold text-sm"
                 >
-                  Explore Live Pollution Map
+                  Explore Live Map
                 </Button>
               </Link>
             </div>

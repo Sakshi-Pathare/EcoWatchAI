@@ -37,7 +37,7 @@ function MapPanController({ target }) {
 export function InteractiveMap({
   reports = [],
   hotspots = [],
-  center = [37.7749, -122.4194],
+  center = [18.5204, 73.8567],
   zoom = 13,
   height = '620px',
   showHotspotOverlays = true,

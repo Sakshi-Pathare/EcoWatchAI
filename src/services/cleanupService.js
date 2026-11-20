@@ -1,7 +1,7 @@
 import { initialMockCleanups } from '../data/mockCleanups.js';
 import { reportService } from './reportService.js';
 
-const STORAGE_KEY = 'ecowatch_cleanups_v1';
+const STORAGE_KEY = 'vasundhara_cleanups_v2_mh';
 
 function loadStoredCleanups() {
   try {
@@ -10,7 +10,13 @@ function loadStoredCleanups() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(initialMockCleanups));
       return initialMockCleanups;
     }
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    // If old cached data contains legacy US addresses, auto-migrate to Maharashtra India
+    if (Array.isArray(parsed) && parsed.some(c => c.location && c.location.includes('McAllister'))) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(initialMockCleanups));
+      return initialMockCleanups;
+    }
+    return parsed;
   } catch (e) {
     console.error('Failed to parse stored cleanups', e);
     return initialMockCleanups;

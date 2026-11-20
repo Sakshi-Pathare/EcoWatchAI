@@ -34,12 +34,12 @@ export function LocationPickerMap({
   const [geoSuccess, setGeoSuccess] = useState(false);
   const [flyTarget, setFlyTarget] = useState(null);
 
-  const currentLat = latitude || 37.7749;
-  const currentLng = longitude || -122.4194;
+  const currentLat = latitude || 18.5204;
+  const currentLng = longitude || 73.8567;
 
   // Auto-detect current real-time GPS location on mount
   useEffect(() => {
-    if (navigator.geolocation && (!latitude || latitude === 37.7749)) {
+    if (navigator.geolocation && (!latitude || latitude === 37.7749 || latitude === 18.5204)) {
       handleGetCurrentLocation();
     }
   }, []);

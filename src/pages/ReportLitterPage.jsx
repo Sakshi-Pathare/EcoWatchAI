@@ -32,9 +32,9 @@ export function ReportLitterPage() {
     category: 'plastic',
     severity: 'medium',
     estimatedKg: 5,
-    address: 'Near Civic Center Plaza, San Francisco, CA',
-    latitude: 37.7749,
-    longitude: -122.4194,
+    address: 'Near FC Road, Deccan Gymkhana, Pune, Maharashtra 411004',
+    latitude: 18.5222,
+    longitude: 73.8415,
   });
 
   const [imagePreview, setImagePreview] = useState(null);
@@ -282,7 +282,7 @@ export function ReportLitterPage() {
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                     className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-sage-300 focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white font-medium"
-                    placeholder="e.g. Near Civic Center Plaza fountain bench"
+                    placeholder="e.g. Near Deccan Gymkhana bus stop or FC Road fountain"
                   />
                 </div>
               </div>

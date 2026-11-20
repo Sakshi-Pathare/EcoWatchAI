@@ -23,10 +23,12 @@ import { StatWidget } from '../components/common/StatWidget';
 import { EmptyState } from '../components/common/EmptyState';
 import { LoadingSkeleton } from '../components/common/LoadingSkeleton';
 import { reportService } from '../services/reportService';
+import { useAuth } from '../contexts/AuthContext';
 import { getSeverityBadgeProps, getStatusBadgeProps, getCategoryLabel } from '../utils/formatters';
 import { formatRelativeTime } from '../utils/dateUtils';
 
 export function UserDashboard() {
+  const { user } = useAuth();
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -93,13 +95,15 @@ export function UserDashboard() {
       <div className="card-paper p-6 sm:p-7 rounded-[2rem] border border-[#1B4332]/15 shadow-soft flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
         <div className="space-y-1.5">
           <div className="flex items-center gap-2.5">
-            <span className="font-serif font-bold text-xl text-[#10241B]">Alex Mercer</span>
+            <span className="font-serif font-bold text-xl text-[#10241B]">
+              {user?.name || 'Alex Morgan'}
+            </span>
             <span className="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-[#74D7CB] text-[#092421] border border-[#51C4B5] shadow-xs">
-              ECO SENTINEL
+              {user?.badge || 'ECO SENTINEL'}
             </span>
           </div>
           <p className="text-xs text-[#242D2B] font-medium">
-            You are in the <b className="text-[#10241B]">top 8%</b> of civic reporters in the San Francisco Municipal District.
+            Active steward in <b className="text-[#10241B]">{user?.municipalityName || 'Pune Municipal Corporation'}</b>. Ranked in top 8% of civic contributors.
           </p>
           <div className="pt-2 flex items-center gap-4 text-xs font-mono">
             <span className="text-[#10241B] font-bold">{ecoPoints} Eco Points</span>
@@ -296,7 +300,7 @@ export function UserDashboard() {
                 <span className="font-serif font-bold text-base">Nearby Priority Hotspot Alert</span>
               </div>
               <p className="text-xs text-[#242D2B] leading-relaxed font-medium">
-                <b className="text-[#10241B]">Mission Creek Drainage Corridor</b> is currently registering elevated plastic accumulation. Extra volunteer reporting is requested.
+                <b className="text-[#10241B]">Mutha Riverbed Drainage Corridor</b> is currently registering elevated plastic accumulation. Extra volunteer reporting is requested.
               </p>
               <Link to="/hotspots" className="block pt-1">
                 <span className="text-xs font-bold text-[#10241B] hover:text-[#2D6A4F] inline-flex items-center gap-1">

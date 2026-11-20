@@ -17,12 +17,20 @@ import {
   CheckCircle2,
   Sliders,
   ChevronRight,
+  Plus,
+  Navigation,
+  Trash2,
+  Globe,
+  Building2,
+  Check,
 } from 'lucide-react';
 import { Button } from '../components/common/Button';
 import { Card, CardHeader, CardBody } from '../components/common/Card';
 import { Badge } from '../components/common/Badge';
+import { Modal } from '../components/common/Modal';
 import { LoadingSkeleton } from '../components/common/LoadingSkeleton';
 import { hotspotService } from '../services/hotspotService';
+import { cityPresets, initialMockHotspots } from '../data/mockHotspots';
 import { getSeverityBadgeProps, getCategoryLabel } from '../utils/formatters';
 import { formatDate, formatRelativeTime } from '../utils/dateUtils';
 
@@ -32,6 +40,25 @@ export function HotspotIntelligencePage() {
   const [loading, setLoading] = useState(true);
   const [simulationActive, setSimulationActive] = useState(false);
   const [filterMode, setFilterMode] = useState('all'); // 'all' | 'critical' | 'waterway'
+  const [activeCityPreset, setActiveCityPreset] = useState('current');
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [successToast, setSuccessToast] = useState(null);
+  const [geoLocating, setGeoLocating] = useState(false);
+
+  // New Hotspot Form State
+  const [formData, setFormData] = useState({
+    name: '',
+    district: '',
+    latitude: 18.5204,
+    longitude: 73.8567,
+    radiusMeters: 250,
+    recurrenceCount: 15,
+    severity: 'high',
+    priorityScore: 88,
+    dominantCategory: 'plastic',
+    environmentalRisk: 'High-density plastic accumulation along local waterway and pedestrian corridor',
+    suggestedAction: 'Deploy high-capacity solar compactors and weekly municipal sanitation sweeps',
+  });
 
   useEffect(() => {
     loadHotspots();
@@ -49,9 +76,113 @@ export function HotspotIntelligencePage() {
     }
   };
 
+  const handleCityPresetChange = async (cityKey) => {
+    setActiveCityPreset(cityKey);
+    setLoading(true);
+    let targetList = initialMockHotspots;
+    if (cityKey === 'pune') targetList = cityPresets.pune || initialMockHotspots;
+    else if (cityKey === 'mumbai') targetList = cityPresets.mumbai || initialMockHotspots;
+    else if (cityKey === 'nagpur') targetList = cityPresets.nagpur || initialMockHotspots;
+    else if (cityKey === 'nashik') targetList = cityPresets.nashik || initialMockHotspots;
+    else if (cityKey === 'delhi') targetList = cityPresets.delhi || initialMockHotspots;
+
+    await hotspotService.loadPreset(targetList);
+    setHotspots(targetList);
+    setLoading(false);
+    showNotification(`Loaded ${targetList.length} real hotspots for ${cityKey.toUpperCase()}!`);
+  };
+
+  const handleGetLiveLocation = () => {
+    if (!navigator.geolocation) {
+      alert('Geolocation is not supported by your browser.');
+      return;
+    }
+    setGeoLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        setGeoLocating(false);
+        const lat = Number(pos.coords.latitude.toFixed(6));
+        const lng = Number(pos.coords.longitude.toFixed(6));
+        setFormData((prev) => ({
+          ...prev,
+          latitude: lat,
+          longitude: lng,
+        }));
+
+        try {
+          const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=14`);
+          if (res.ok) {
+            const data = await res.json();
+            const districtName = data.address?.suburb || data.address?.city_district || data.address?.city || 'Local Municipal Ward';
+            setFormData((prev) => ({
+              ...prev,
+              district: districtName,
+              name: prev.name || `${districtName} Waste Zone`,
+            }));
+          }
+        } catch (e) {
+          // Fallback to coordinates
+        }
+        showNotification('Acquired your exact GPS coordinates!');
+      },
+      (err) => {
+        setGeoLocating(false);
+        alert('Could not retrieve your location. Please enter coordinates manually.');
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  };
+
+  const handleCreateHotspot = async (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.latitude || !formData.longitude) {
+      alert('Please provide a name, latitude, and longitude for the hotspot.');
+      return;
+    }
+
+    try {
+      const created = await hotspotService.createHotspot(formData);
+      setIsAddModalOpen(false);
+      loadHotspots();
+      showNotification(`Created Hotspot: ${created.name}`);
+      // Reset form
+      setFormData({
+        name: '',
+        district: '',
+        latitude: 18.5204,
+        longitude: 73.8567,
+        radiusMeters: 250,
+        recurrenceCount: 15,
+        severity: 'high',
+        priorityScore: 88,
+        dominantCategory: 'plastic',
+        environmentalRisk: 'High-density plastic accumulation along local waterway and pedestrian corridor',
+        suggestedAction: 'Deploy high-capacity solar compactors and weekly municipal sanitation sweeps',
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleDeleteHotspot = async (id, name) => {
+    if (!window.confirm(`Are you sure you want to remove ${name} (${id})?`)) return;
+    try {
+      await hotspotService.deleteHotspot(id);
+      loadHotspots();
+      showNotification(`Removed hotspot ${id}`);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const showNotification = (msg) => {
+    setSuccessToast(msg);
+    setTimeout(() => setSuccessToast(null), 3500);
+  };
+
   const filteredHotspots = hotspots.filter((h) => {
     if (filterMode === 'critical') return h.priorityScore >= 80;
-    if (filterMode === 'waterway') return h.environmentalRisk?.toLowerCase().includes('waterway') || h.environmentalRisk?.toLowerCase().includes('bay');
+    if (filterMode === 'waterway') return h.environmentalRisk?.toLowerCase().includes('waterway') || h.environmentalRisk?.toLowerCase().includes('bay') || h.environmentalRisk?.toLowerCase().includes('river');
     return true;
   });
 
@@ -73,6 +204,17 @@ export function HotspotIntelligencePage() {
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
+          <Button
+            variant="pista"
+            size="sm"
+            icon={Plus}
+            glow
+            onClick={() => setIsAddModalOpen(true)}
+            className="rounded-full px-4 py-2 font-black shadow-md"
+          >
+            Add Real Hotspot
+          </Button>
+
           <button
             onClick={() => setSimulationActive(!simulationActive)}
             className={`px-4 py-2 rounded-full text-xs font-bold transition-all inline-flex items-center gap-2 border shadow-xs ${
@@ -91,10 +233,47 @@ export function HotspotIntelligencePage() {
             </Button>
           </Link>
           <Link to="/cleanups">
-            <Button variant="pista" size="sm" icon={ShieldAlert} glow className="rounded-full px-4 py-2 font-black">
+            <Button variant="primary" size="sm" icon={ShieldAlert} className="rounded-full px-4 py-2 font-bold">
               Dispatch Squads
             </Button>
           </Link>
+        </div>
+      </div>
+
+      {successToast && (
+        <div className="p-3.5 rounded-2xl bg-[#DEF5F1] border border-[#74D7CB] text-[#092421] text-xs font-bold flex items-center gap-2.5 shadow-soft animate-fadeIn">
+          <CheckCircle2 className="w-4 h-4 text-[#2D6A4F] shrink-0" />
+          <span>{successToast}</span>
+        </div>
+      )}
+
+      {/* Regional City Presets Quick Bar */}
+      <div className="card-paper p-3 sm:p-4 rounded-[1.75rem] border border-[#1B4332]/15 flex flex-wrap items-center justify-between gap-3 shadow-soft">
+        <div className="flex items-center gap-2 text-xs font-bold text-[#10241B]">
+          <Globe className="w-4 h-4 text-[#2D6A4F]" />
+          <span>Real-World Regional Datasets:</span>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
+          {[
+            { id: 'pune', name: 'Pune, MH' },
+            { id: 'mumbai', name: 'Mumbai, MH' },
+            { id: 'nagpur', name: 'Nagpur, MH' },
+            { id: 'nashik', name: 'Nashik, MH' },
+            { id: 'delhi', name: 'Delhi NCR' },
+          ].map((city) => (
+            <button
+              key={city.id}
+              onClick={() => handleCityPresetChange(city.id)}
+              className={`px-3 py-1.5 rounded-full text-xs transition-all ${
+                activeCityPreset === city.id
+                  ? 'bg-[#102D27] text-[#74D7CB] border border-[#74D7CB]/60 font-bold shadow-xs'
+                  : 'bg-white/80 text-[#242D2B] border border-[#1B4332]/15 hover:bg-white'
+              }`}
+            >
+              {city.name}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -309,18 +488,194 @@ export function HotspotIntelligencePage() {
                     Last logged: {formatDate(hotspot.lastReportedDate)}
                   </span>
 
-                  <Link
-                    to="/map"
-                    className="text-forest-800 hover:text-forest-950 font-bold inline-flex items-center gap-1 transition-colors text-xs"
-                  >
-                    Locate on GIS Map <ChevronRight className="w-3.5 h-3.5" />
-                  </Link>
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => handleDeleteHotspot(hotspot.id, hotspot.name)}
+                      className="p-1 rounded-lg text-rose-500 hover:text-rose-700 hover:bg-rose-50 transition-colors"
+                      title="Delete Hotspot"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+
+                    <Link
+                      to="/map"
+                      className="text-forest-800 hover:text-forest-950 font-bold inline-flex items-center gap-1 transition-colors text-xs"
+                    >
+                      Locate on GIS Map <ChevronRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
                 </div>
               </Card>
             );
           })}
         </div>
       )}
+
+      {/* Add Real Hotspot Modal */}
+      <Modal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        title="Register Real-World Pollution Hotspot"
+        maxWidth="max-w-2xl"
+      >
+        <form onSubmit={handleCreateHotspot} className="space-y-4 text-xs font-sans">
+          <div className="p-3 bg-[#DEF5F1] rounded-xl border border-[#98E0D5] text-[#092421] flex items-center justify-between">
+            <span className="font-semibold">Quickly pinpoint real locations:</span>
+            <Button
+              type="button"
+              variant="pista"
+              size="xs"
+              icon={Navigation}
+              loading={geoLocating}
+              onClick={handleGetLiveLocation}
+              className="rounded-full shadow-xs font-black text-xs"
+            >
+              Auto-Fill Live GPS Coordinates
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-bold text-[#10241B] mb-1">Hotspot Name *</label>
+              <input
+                type="text"
+                required
+                placeholder="e.g. Mithi River Drainage Basin"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className="w-full px-3 py-2 text-xs rounded-xl border border-[#1B4332]/20 bg-[#FAF8F3] text-[#12181A] font-medium focus:ring-2 focus:ring-[#74D7CB] outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-[#10241B] mb-1">District / Ward / Neighborhood</label>
+              <input
+                type="text"
+                placeholder="e.g. Shivajinagar Ward 4"
+                value={formData.district}
+                onChange={(e) => setFormData({ ...formData, district: e.target.value })}
+                className="w-full px-3 py-2 text-xs rounded-xl border border-[#1B4332]/20 bg-[#FAF8F3] text-[#12181A] font-medium focus:ring-2 focus:ring-[#74D7CB] outline-none"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div>
+              <label className="block text-xs font-bold text-[#10241B] mb-1">Latitude *</label>
+              <input
+                type="number"
+                step="any"
+                required
+                value={formData.latitude}
+                onChange={(e) => setFormData({ ...formData, latitude: Number(e.target.value) })}
+                className="w-full px-3 py-2 text-xs rounded-xl border border-[#1B4332]/20 bg-[#FAF8F3] text-[#12181A] font-mono font-bold focus:ring-2 focus:ring-[#74D7CB] outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-[#10241B] mb-1">Longitude *</label>
+              <input
+                type="number"
+                step="any"
+                required
+                value={formData.longitude}
+                onChange={(e) => setFormData({ ...formData, longitude: Number(e.target.value) })}
+                className="w-full px-3 py-2 text-xs rounded-xl border border-[#1B4332]/20 bg-[#FAF8F3] text-[#12181A] font-mono font-bold focus:ring-2 focus:ring-[#74D7CB] outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-[#10241B] mb-1">Buffer Radius (m)</label>
+              <input
+                type="number"
+                min="50"
+                max="2000"
+                value={formData.radiusMeters}
+                onChange={(e) => setFormData({ ...formData, radiusMeters: Number(e.target.value) })}
+                className="w-full px-3 py-2 text-xs rounded-xl border border-[#1B4332]/20 bg-[#FAF8F3] text-[#12181A] font-mono focus:ring-2 focus:ring-[#74D7CB] outline-none"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label className="block text-xs font-bold text-[#10241B] mb-1">Dominant Material</label>
+              <select
+                value={formData.dominantCategory}
+                onChange={(e) => setFormData({ ...formData, dominantCategory: e.target.value })}
+                className="w-full px-3 py-2 text-xs rounded-xl border border-[#1B4332]/20 bg-[#FAF8F3] text-[#12181A] font-medium outline-none"
+              >
+                <option value="plastic">Plastics & Packaging</option>
+                <option value="glass">Glass & Bottles</option>
+                <option value="metal">Metal & Scrap</option>
+                <option value="hazardous">Hazardous / E-Waste</option>
+                <option value="mixed">Mixed Waste</option>
+                <option value="paper">Paper & Cardboard</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-[#10241B] mb-1">Severity Rating</label>
+              <select
+                value={formData.severity}
+                onChange={(e) => setFormData({ ...formData, severity: e.target.value })}
+                className="w-full px-3 py-2 text-xs rounded-xl border border-[#1B4332]/20 bg-[#FAF8F3] text-[#12181A] font-medium outline-none"
+              >
+                <option value="high">Critical (Tier 1)</option>
+                <option value="medium">Moderate (Tier 2)</option>
+                <option value="low">Low Impact (Tier 3)</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-[#10241B] mb-1">Priority Score (0-100)</label>
+              <input
+                type="number"
+                min="10"
+                max="100"
+                value={formData.priorityScore}
+                onChange={(e) => setFormData({ ...formData, priorityScore: Number(e.target.value) })}
+                className="w-full px-3 py-2 text-xs rounded-xl border border-[#1B4332]/20 bg-[#FAF8F3] text-[#12181A] font-mono font-bold outline-none"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold text-[#10241B] mb-1">Ecological Vulnerability / Environmental Risk</label>
+            <textarea
+              rows="2"
+              value={formData.environmentalRisk}
+              onChange={(e) => setFormData({ ...formData, environmentalRisk: e.target.value })}
+              className="w-full px-3 py-2 text-xs rounded-xl border border-[#1B4332]/20 bg-[#FAF8F3] text-[#12181A] font-medium outline-none resize-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold text-[#10241B] mb-1">Recommended Municipal Action</label>
+            <textarea
+              rows="2"
+              value={formData.suggestedAction}
+              onChange={(e) => setFormData({ ...formData, suggestedAction: e.target.value })}
+              className="w-full px-3 py-2 text-xs rounded-xl border border-[#1B4332]/20 bg-[#FAF8F3] text-[#12181A] font-medium outline-none resize-none"
+            />
+          </div>
+
+          <div className="pt-2 flex justify-end gap-3">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => setIsAddModalOpen(false)}
+              className="rounded-full px-4 py-2"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              variant="pista"
+              size="sm"
+              className="rounded-full px-5 py-2 font-black shadow-md"
+            >
+              Save Hotspot to Live Map
+            </Button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 }
