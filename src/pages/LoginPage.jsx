@@ -394,8 +394,8 @@ export function LoginPage() {
                       >
                         <option value="Pune Municipal Corporation">Pune Municipal Corporation (PMC)</option>
                         <option value="Brihanmumbai Municipal Corporation">Brihanmumbai Municipal Corporation (BMC)</option>
-                        <option value="Municipal Corporation of Delhi">Municipal Corporation of Delhi (MCD)</option>
-                        <option value="San Francisco Department of the Environment">SF Dept. of the Environment (SF Environment)</option>
+                        <option value="Pimpri Chinchwad Municipal Corporation">Pimpri Chinchwad Municipal Corporation (PCMC)</option>
+                        <option value="Thane Municipal Corporation">Thane Municipal Corporation (TMC)</option>
                       </select>
                     </div>
                   </div>

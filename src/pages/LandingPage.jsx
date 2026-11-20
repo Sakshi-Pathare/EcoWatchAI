@@ -1,579 +1,62 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import {
-  MapPin,
-  Camera,
-  Layers,
-  ArrowRight,
-  ShieldCheck,
-  Flame,
-  CheckCircle2,
-  TrendingDown,
-  BarChart3,
-  Sparkles,
-  Users,
-  Compass,
-  Radio,
-  Zap,
-  Activity,
-  Award,
-  Globe2,
-  Cpu,
-  Clock,
-  Eye,
-} from 'lucide-react';
-import { Button } from '../components/common/Button';
-import { Card, CardBody } from '../components/common/Card';
-import { Badge } from '../components/common/Badge';
 import { analyticsService } from '../services/analyticsService';
-import { formatNumber } from '../utils/formatters';
+import { HeroSection } from '../components/landing/HeroSection';
+import { ProblemSection } from '../components/landing/ProblemSection';
+import { SolutionSection } from '../components/landing/SolutionSection';
+import { CapabilitiesSection } from '../components/landing/CapabilitiesSection';
+import { WorkflowSection } from '../components/landing/WorkflowSection';
+import { GISIntelligenceSection } from '../components/landing/GISIntelligenceSection';
+import { HotspotSection } from '../components/landing/HotspotSection';
+import { MunicipalActionSection } from '../components/landing/MunicipalActionSection';
+import { TechnologySection } from '../components/landing/TechnologySection';
+import { ImpactSection } from '../components/landing/ImpactSection';
+import { PlatformPreviewSection } from '../components/landing/PlatformPreviewSection';
+import { FinalCTASection } from '../components/landing/FinalCTASection';
 
 export function LandingPage() {
   const [metrics, setMetrics] = useState(null);
-  const [activeTelemetryTab, setActiveTelemetryTab] = useState('hotspot'); // 'hotspot' | 'detection' | 'dispatch'
 
   useEffect(() => {
-    analyticsService.getDashboardMetrics().then(setMetrics);
+    analyticsService.getDashboardMetrics().then(setMetrics).catch(() => {});
   }, []);
 
   return (
-    <div className="space-y-24 sm:space-y-32 pb-24 font-sans">
-      {/* Hero Section with Premium Indian Government Smart-City Environmental Background */}
-      <section
-        className="relative pt-12 sm:pt-20 pb-20 sm:pb-32 overflow-hidden border-b border-[#1B4332]/15 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.32)), url('/images/vasundhara-theme-bg.png')",
-        }}
-      >
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
-            {/* Left Column: Heading, Telemetry Pill & CTAs */}
-            <div className="lg:col-span-7 space-y-6 sm:space-y-7 text-left">
-              {/* Prominent Vasundhara AI Brand Badge with Official Logo */}
-              <div className="inline-flex items-center gap-3.5 p-2 sm:p-2.5 pr-5 rounded-2xl bg-white/95 border border-sage-300 shadow-soft-xs backdrop-blur-md">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-beige-50 border border-sage-200/80 p-1 flex items-center justify-center overflow-hidden shrink-0 shadow-xs">
-                  <img
-                    src="/images/vasundhara-ai-logo.png"
-                    alt="Vasundhara AI environmental sustainability logo"
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-serif font-bold text-lg sm:text-xl text-darkgreen-950 tracking-tight">
-                      Vasundhara AI
-                    </span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sage-100 text-darkgreen-900 font-bold border border-sage-200">
-                      v2.4 GIS
-                    </span>
-                  </div>
-                  <p className="text-xs text-charcoal-600 font-medium tracking-tight">
-                    Smart Environmental Monitoring for a Cleaner Tomorrow
-                  </p>
-                </div>
-              </div>
+    <div className="min-h-screen bg-[#FAF8F3] text-[#12181A] font-sans selection:bg-[#102F24] selection:text-[#FAF8F3]">
+      {/* SECTION 01 — HERO */}
+      <HeroSection metrics={metrics} />
 
-              {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-serif font-bold text-[#10241B] tracking-tight leading-[1.14]">
-                Turn Public Litter into <br className="hidden sm:inline" />
-                Actionable Hotspot <br className="hidden sm:inline" />
-                Intelligence.
-              </h1>
+      {/* SECTION 02 — THE PROBLEM */}
+      <ProblemSection />
 
-              {/* Subtext */}
-              <p className="text-base sm:text-lg text-charcoal-700 leading-relaxed max-w-2xl font-medium">
-                Vasundhara AI equips municipal sanitation crews and civic volunteers with crowdsourced photographic reports, automated recurrence clustering, and verified before-and-after resolution audits.
-              </p>
+      {/* SECTION 03 — OUR SOLUTION */}
+      <SolutionSection />
 
-              {/* Action Buttons */}
-              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                <Link to="/report">
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    icon={Camera}
-                    className="w-full sm:w-auto shadow-md bg-[#092421] hover:bg-[#123632] text-white rounded-xl px-5 py-3 font-bold border border-[#27403C]"
-                  >
-                    Report Litter Incident
-                  </Button>
-                </Link>
-                <Link to="/map">
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    icon={Compass}
-                    className="w-full sm:w-auto bg-white/95 hover:bg-white text-[#10241B] border border-sage-300 rounded-xl px-5 py-3 font-bold shadow-xs"
-                  >
-                    Explore GIS Map
-                  </Button>
-                </Link>
-                <Link to="/login" className="text-xs sm:text-sm font-bold text-[#10241B] hover:text-[#2D6A4F] py-2.5 px-3">
-                  Sign In / Register →
-                </Link>
-              </div>
+      {/* SECTION 04 — PLATFORM CAPABILITIES */}
+      <CapabilitiesSection />
 
-              {/* Trust Indicators */}
-              <div className="pt-6 border-t border-beige-300 flex flex-wrap items-center gap-5 sm:gap-8 text-xs text-sage-700 font-medium">
-                <div className="flex items-center gap-2">
-                  <div className="w-5 h-5 rounded-full bg-sage-100 text-darkgreen-800 flex items-center justify-center shrink-0 border border-sage-200">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="font-bold text-darkgreen-950">100% Software Architecture</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-5 h-5 rounded-full bg-sage-100 text-darkgreen-800 flex items-center justify-center shrink-0 border border-sage-200">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="font-bold text-darkgreen-950">OpenStreetMap GIS Engine</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-5 h-5 rounded-full bg-sage-100 text-darkgreen-800 flex items-center justify-center shrink-0 border border-sage-200">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="font-bold text-darkgreen-950">FastAPI & YOLOv8 Ready</span>
-                </div>
-              </div>
-            </div>
+      {/* SECTION 05 — HOW IT WORKS */}
+      <WorkflowSection />
 
-            {/* Right Column: Interactive Telemetry HUD Card */}
-            <div className="lg:col-span-5">
-              <div className="relative mx-auto max-w-md lg:max-w-none">
-                <div className="relative bg-[#FFFDF9]/95 rounded-3xl border border-beige-300 shadow-soft-xl overflow-hidden backdrop-blur-md">
-                  {/* Card Telemetry Header (Deep Dark Spruce #092421 + Pista #74D7CB) */}
-                  <div className="px-5 py-3.5 bg-[#092421] text-beige-100 flex items-center justify-between text-xs border-b border-[#27403C]">
-                    <div className="flex items-center gap-2">
-                      <Radio className="w-3.5 h-3.5 text-[#74D7CB] animate-pulse" />
-                      <span className="font-bold tracking-wide uppercase font-mono text-[11px] text-white">
-                        Live Municipal Telemetry
-                      </span>
-                    </div>
-                    <span className="text-[10px] font-mono text-[#74D7CB] font-bold bg-[#123632] px-2 py-0.5 rounded-full border border-[#27403C]">
-                      GRID: MH-PUNE-18.52N
-                    </span>
-                  </div>
+      {/* SECTION 06 — GIS INTELLIGENCE */}
+      <GISIntelligenceSection />
 
-                  {/* Telemetry Tabs (Warm Skin-Beige Container) */}
-                  <div className="grid grid-cols-3 bg-beige-200/90 p-1 border-b border-beige-300 text-xs font-bold">
-                    <button
-                      onClick={() => setActiveTelemetryTab('hotspot')}
-                      className={`py-1.5 px-2 rounded-xl text-[11px] transition-all ${
-                        activeTelemetryTab === 'hotspot'
-                          ? 'bg-[#092421] text-[#74D7CB] shadow-xs font-extrabold'
-                          : 'text-sage-700 hover:text-darkgreen-900'
-                      }`}
-                    >
-                      Hotspot Radar
-                    </button>
-                    <button
-                      onClick={() => setActiveTelemetryTab('detection')}
-                      className={`py-1.5 px-2 rounded-xl text-[11px] transition-all ${
-                        activeTelemetryTab === 'detection'
-                          ? 'bg-[#092421] text-[#74D7CB] shadow-xs font-extrabold'
-                          : 'text-sage-700 hover:text-darkgreen-900'
-                      }`}
-                    >
-                      AI Vision
-                    </button>
-                    <button
-                      onClick={() => setActiveTelemetryTab('dispatch')}
-                      className={`py-1.5 px-2 rounded-xl text-[11px] transition-all ${
-                        activeTelemetryTab === 'dispatch'
-                          ? 'bg-[#092421] text-[#74D7CB] shadow-xs font-extrabold'
-                          : 'text-sage-700 hover:text-darkgreen-900'
-                      }`}
-                    >
-                      Squad Dispatch
-                    </button>
-                  </div>
+      {/* SECTION 07 — HOTSPOT INTELLIGENCE */}
+      <HotspotSection />
 
-                  {/* Tab Body Content */}
-                  <div className="p-5 space-y-4">
-                    {activeTelemetryTab === 'hotspot' && (
-                      <div className="space-y-3 animate-fadeIn">
-                        {/* High Priority Cluster */}
-                        <div className="p-3.5 rounded-2xl bg-rose-50/90 border border-rose-200 flex items-start gap-3 shadow-xs">
-                          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-rose-600 to-rose-700 text-white flex items-center justify-center shrink-0 shadow-sm">
-                            <Flame className="w-5 h-5 text-rose-100" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center justify-between gap-1">
-                              <h4 className="text-xs font-extrabold text-rose-950 truncate">
-                                Mutha Riverbed Drainage Corridor
-                              </h4>
-                              <span className="text-[10px] font-mono font-black px-1.5 py-0.5 rounded bg-rose-200 text-rose-900 shrink-0">
-                                SCORE 94
-                              </span>
-                            </div>
-                            <p className="text-[11px] text-rose-800 mt-0.5 leading-snug font-medium">
-                              24 recurring dumps. Critical plastic runoff risk to river buffer.
-                            </p>
-                          </div>
-                        </div>
+      {/* SECTION 08 — MUNICIPAL OPERATIONS */}
+      <MunicipalActionSection />
 
-                        {/* Moderate Cluster */}
-                        <div className="p-3.5 rounded-2xl bg-amber-50/90 border border-amber-200 flex items-start gap-3 shadow-xs">
-                          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 text-white flex items-center justify-center shrink-0 shadow-sm">
-                            <MapPin className="w-5 h-5 text-amber-100" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center justify-between gap-1">
-                              <h4 className="text-xs font-extrabold text-amber-950 truncate">
-                                FC Road Deccan Gymkhana Zone
-                              </h4>
-                              <span className="text-[10px] font-mono font-black px-1.5 py-0.5 rounded bg-amber-200 text-amber-900 shrink-0">
-                                SCORE 89
-                              </span>
-                            </div>
-                            <p className="text-[11px] text-amber-800 mt-0.5 leading-snug font-medium">
-                              19 incidents recorded. Overflowing pedestrian bins along commercial corridor.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    )}
+      {/* SECTION 09 — TECHNOLOGY BEHIND VASUNDHARA */}
+      <TechnologySection />
 
-                    {activeTelemetryTab === 'detection' && (
-                      <div className="space-y-3 animate-fadeIn text-xs">
-                        <div className="p-3.5 rounded-2xl bg-sage-100/80 border border-sage-300 space-y-2">
-                          <div className="flex items-center justify-between font-mono text-[11px]">
-                            <span className="font-bold text-darkgreen-950 flex items-center gap-1.5">
-                              <Cpu className="w-3.5 h-3.5 text-botanical-600" />
-                              YOLOv8 Inference Pipeline (Staged)
-                            </span>
-                            <span className="text-darkgreen-800 font-bold">98.4% Conf</span>
-                          </div>
-                          <div className="space-y-1.5 text-[11px] text-charcoal-700">
-                            <div className="flex justify-between font-medium">
-                              <span>PET Beverage Plastics:</span>
-                              <span className="font-bold font-mono text-darkgreen-900">14 Items (82%)</span>
-                            </div>
-                            <div className="flex justify-between font-medium">
-                              <span>Aluminum Scrap / Cans:</span>
-                              <span className="font-bold font-mono text-darkgreen-900">6 Items (18%)</span>
-                            </div>
-                            <div className="w-full h-1.5 bg-sage-200 rounded-full overflow-hidden">
-                              <div className="h-full bg-darkgreen-700 rounded-full w-[82%]" />
-                            </div>
-                          </div>
-                        </div>
-                        <p className="text-[11px] text-sage-700 leading-snug font-medium">
-                          Autonomous material classification triggers in Phase 2 upon photo upload.
-                        </p>
-                      </div>
-                    )}
+      {/* SECTION 10 — IMPACT AND BENEFITS */}
+      <ImpactSection />
 
-                    {activeTelemetryTab === 'dispatch' && (
-                      <div className="space-y-3 animate-fadeIn text-xs">
-                        <div className="p-3.5 rounded-2xl bg-blue-50 border border-blue-200 space-y-2">
-                          <div className="flex items-center justify-between font-mono text-[11px]">
-                            <span className="font-bold text-blue-950 flex items-center gap-1.5">
-                              <Activity className="w-3.5 h-3.5 text-blue-600" />
-                              Squad Alpha Active Deployment
-                            </span>
-                            <span className="text-blue-700 font-bold">In Transit</span>
-                          </div>
-                          <p className="text-[11px] text-blue-800 font-medium">
-                            Destination: Sambhaji Park Perimeter • ETA: 18 mins • Work Order #PMC-803
-                          </p>
-                        </div>
-                        <p className="text-[11px] text-sage-700 leading-snug font-medium">
-                          Automated work orders dispatched with verified GPS navigation coordinates.
-                        </p>
-                      </div>
-                    )}
+      {/* SECTION 11 — PLATFORM PREVIEW */}
+      <PlatformPreviewSection />
 
-                    {/* Bottom Response Metrics Strip */}
-                    <div className="p-3.5 rounded-2xl bg-[#EAF7F4] border border-[#B2E6DC] flex items-center justify-between">
-                      <div>
-                        <span className="text-[10px] text-[#2D6A4F] font-bold block uppercase tracking-wider">
-                          District Response Efficiency
-                        </span>
-                        <p className="text-xl font-black text-[#092421] font-mono leading-tight">
-                          94.2% within 24h
-                        </p>
-                      </div>
-                      <Link to="/hotspots">
-                        <button
-                          type="button"
-                          className="px-4 py-2 rounded-xl bg-[#092421] text-white hover:bg-[#123632] text-xs font-bold inline-flex items-center gap-1 shadow-xs transition-colors"
-                        >
-                          Intel Hub →
-                        </button>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Environmental Impact Statistics Section (Warm Beige Cards + Sage Badges) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <Badge variant="sage" dot pulse dotColor="bg-[#2D6A4F]" className="mb-2.5">
-            Verified Municipal Impact Telemetry
-          </Badge>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#10241B] tracking-tight">
-            Real-Time Community Outcomes
-          </h2>
-          <p className="text-sm text-charcoal-600 mt-2 leading-relaxed font-medium">
-            Every submission directly updates municipal sanitation priority scores, ensuring crews are deployed where ecological risk is highest.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          <Card hover className="p-6 text-center group border-beige-300/90 shadow-soft">
-            <div className="w-12 h-12 rounded-2xl bg-sage-100 text-darkgreen-800 flex items-center justify-center mx-auto mb-3.5 border border-sage-300 shadow-xs transition-transform duration-300 group-hover:scale-110">
-              <Layers className="w-6 h-6" />
-            </div>
-            <div className="text-3xl sm:text-4xl font-serif font-bold text-[#10241B] tracking-tight">
-              {formatNumber(metrics?.totalReportsLogged || 469)}
-            </div>
-            <p className="text-xs font-bold text-[#10241B] mt-1">Pollution Incidents Logged</p>
-            <p className="text-[11px] text-[#556E55] font-bold mt-0.5 font-mono">+14% MoM Civic Volume</p>
-          </Card>
-
-          <Card hover className="p-6 text-center group">
-            <div className="w-12 h-12 rounded-2xl bg-botanical-100 text-botanical-900 flex items-center justify-center mx-auto mb-3.5 border border-botanical-300 shadow-xs transition-transform duration-300 group-hover:scale-110">
-              <CheckCircle2 className="w-6 h-6" />
-            </div>
-            <div className="text-3xl sm:text-4xl font-serif font-bold text-[#10241B] tracking-tight">
-              {formatNumber(metrics?.completedCleanups || 391)}
-            </div>
-            <p className="text-xs font-bold text-[#10241B] mt-1">Certified Cleanups</p>
-            <p className="text-[11px] text-[#2D6A4F] font-bold mt-0.5 font-mono">83.3% Full Resolution</p>
-          </Card>
-
-          <Card hover className="p-6 text-center group">
-            <div className="w-12 h-12 rounded-2xl bg-[#EFE3D5] text-[#10241B] flex items-center justify-center mx-auto mb-3.5 border border-[#D3BCA6] shadow-xs transition-transform duration-300 group-hover:scale-110">
-              <TrendingDown className="w-6 h-6" />
-            </div>
-            <div className="text-3xl sm:text-4xl font-serif font-bold text-[#10241B] tracking-tight">
-              {formatNumber(metrics?.totalWasteCollectedKg || 4280)} <span className="text-lg font-bold">kg</span>
-            </div>
-            <p className="text-xs font-bold text-[#10241B] mt-1">Litter Diverted from Waters</p>
-            <p className="text-[11px] text-[#556E55] font-bold mt-0.5 font-mono">~2.4 Tons CO₂ Offset</p>
-          </Card>
-
-          <Card hover className="p-6 text-center group">
-            <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-900 flex items-center justify-center mx-auto mb-3.5 border border-amber-300 shadow-xs transition-transform duration-300 group-hover:scale-110">
-              <Flame className="w-6 h-6" />
-            </div>
-            <div className="text-3xl sm:text-4xl font-serif font-bold text-[#10241B] tracking-tight">
-              {metrics?.activeHotspotsTracked || 6}
-            </div>
-            <p className="text-xs font-bold text-[#10241B] mt-1">Active Clusters Mapped</p>
-            <p className="text-[11px] text-amber-700 font-bold mt-0.5 font-mono">Targeted for Remediation</p>
-          </Card>
-        </div>
-      </section>
-
-      {/* 4-Step Operational Workflow (Beige Canvas + Dark Green & Sage) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#FAF8F5] rounded-3xl border border-beige-300/90 p-8 sm:p-12 lg:p-16 shadow-soft relative overflow-hidden">
-          <div className="text-center max-w-2xl mx-auto mb-14 relative z-10">
-            <Badge variant="sage" className="mb-2.5">
-              Structured Operations
-            </Badge>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#10241B] tracking-tight">
-              The Civic-to-Municipal Pipeline
-            </h2>
-            <p className="text-sm text-charcoal-600 mt-2 font-medium">
-              From civic capture to certified photographic completion in four systematic steps.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
-            {/* Step 1 */}
-            <div className="relative group space-y-3.5 p-5 rounded-2xl bg-[#FFFDF9] border border-beige-300 hover:border-pista-400 transition-all duration-300 hover:shadow-soft-md">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#092421] to-[#123632] text-[#74D7CB] border border-[#27403C] flex items-center justify-center font-black text-lg shadow-soft-sm group-hover:scale-105 transition-transform">
-                01
-              </div>
-              <h3 className="font-bold text-base text-darkgreen-950">Capture & Geotag</h3>
-              <p className="text-xs text-charcoal-700 leading-relaxed font-medium">
-                Citizens submit photographic evidence. Accurate coordinates are tagged using Leaflet interactive pins or mobile GPS.
-              </p>
-              <div className="pt-2 text-[11px] font-mono font-bold text-sage-600">
-                EXIF GPS Sync
-              </div>
-            </div>
-
-            {/* Step 2 */}
-            <div className="relative group space-y-3.5 p-5 rounded-2xl bg-[#FFFDF9] border border-beige-300 hover:border-pista-400 transition-all duration-300 hover:shadow-soft-md">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#092421] to-[#123632] text-[#74D7CB] border border-[#27403C] flex items-center justify-center font-black text-lg shadow-soft-sm group-hover:scale-105 transition-transform">
-                02
-              </div>
-              <h3 className="font-bold text-base text-darkgreen-950">Hotspot Clustering</h3>
-              <p className="text-xs text-charcoal-700 leading-relaxed font-medium">
-                Geospatial algorithms aggregate reports to detect repeat dump zones and calculate multi-factor priority scores.
-              </p>
-              <div className="pt-2 text-[11px] font-mono font-bold text-sage-600">
-                DBSCAN Density Engine
-              </div>
-            </div>
-
-            {/* Step 3 */}
-            <div className="relative group space-y-3.5 p-5 rounded-2xl bg-[#FFFDF9] border border-beige-300 hover:border-pista-400 transition-all duration-300 hover:shadow-soft-md">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#092421] to-[#123632] text-[#74D7CB] border border-[#27403C] flex items-center justify-center font-black text-lg shadow-soft-sm group-hover:scale-105 transition-transform">
-                03
-              </div>
-              <h3 className="font-bold text-base text-darkgreen-950">Municipal Dispatch</h3>
-              <p className="text-xs text-charcoal-700 leading-relaxed font-medium">
-                Sanitation authorities allocate prioritized work orders to specialized cleanup crews with volume estimates.
-              </p>
-              <div className="pt-2 text-[11px] font-mono font-bold text-sage-600">
-                Contractor Work Orders
-              </div>
-            </div>
-
-            {/* Step 4 */}
-            <div className="relative group space-y-3.5 p-5 rounded-2xl bg-[#FFFDF9] border border-beige-300 hover:border-pista-400 transition-all duration-300 hover:shadow-soft-md">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#092421] to-[#123632] text-[#74D7CB] border border-[#27403C] flex items-center justify-center font-black text-lg shadow-soft-sm group-hover:scale-105 transition-transform">
-                04
-              </div>
-              <h3 className="font-bold text-base text-darkgreen-950">Photographic Audit</h3>
-              <p className="text-xs text-charcoal-700 leading-relaxed font-medium">
-                Field teams upload post-remediation photographs for side-by-side verification and civic transparency.
-              </p>
-              <div className="pt-2 text-[11px] font-mono font-bold text-sage-600">
-                Before/After Verified
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Comparison: Traditional vs Vasundhara AI */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div className="lg:col-span-5 space-y-4">
-            <Badge variant="sage">Intelligent Paradigm Shift</Badge>
-            <h2 className="text-3xl font-serif font-bold text-[#10241B] tracking-tight leading-snug">
-              Why Cities Choose Vasundhara AI Over Manual Audits
-            </h2>
-            <p className="text-sm text-charcoal-600 leading-relaxed font-medium">
-              Traditional municipal street maintenance relies on delayed telephone hotlines and scheduled sweeps that miss chronic illegal dumping. Vasundhara AI provides autonomous spatial recurrence intelligence.
-            </p>
-            <div className="pt-2">
-              <Link to="/hotspots">
-                <Button variant="outline" size="sm" icon={Flame}>
-                  Explore Hotspot Scoring Formula
-                </Button>
-              </Link>
-            </div>
-          </div>
-
-          <div className="lg:col-span-7">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Legacy Approach */}
-              <div className="p-6 rounded-2xl bg-white border border-rose-200/90 shadow-soft space-y-3">
-                <div className="w-8 h-8 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-xs">
-                  ✕
-                </div>
-                <h4 className="font-bold text-base text-rose-950">Traditional City Operations</h4>
-                <ul className="space-y-2 text-xs text-charcoal-600 font-medium">
-                  <li className="flex items-start gap-2">
-                    <span className="text-rose-600 font-bold">•</span>
-                    <span>Random patrol sweeps without density data</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-rose-600 font-bold">•</span>
-                    <span>Slow 5-10 day phone reporting latency</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-rose-600 font-bold">•</span>
-                    <span>Zero photographic verification audits</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-rose-600 font-bold">•</span>
-                    <span>Repeat dump sites go unmonitored</span>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Vasundhara AI Approach */}
-              <div className="p-6 rounded-2xl bg-[#FAF8F5] border-2 border-darkgreen-700 shadow-soft-md space-y-3 relative overflow-hidden">
-                <span className="absolute top-3 right-3 text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-sage-200 text-darkgreen-900 border border-sage-300">
-                  RECOMMENDED
-                </span>
-                <div className="w-8 h-8 rounded-lg bg-darkgreen-800 text-beige-100 flex items-center justify-center font-bold text-xs">
-                  ✓
-                </div>
-                <h4 className="font-bold text-base text-darkgreen-950">Vasundhara AI Platform</h4>
-                <ul className="space-y-2 text-xs text-charcoal-700 font-medium">
-                  <li className="flex items-start gap-2">
-                    <span className="text-darkgreen-800 font-bold">✓</span>
-                    <span>Automated hotspot density clustering</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-darkgreen-800 font-bold">✓</span>
-                    <span>Under 24-hour dispatch resolution rate</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-darkgreen-800 font-bold">✓</span>
-                    <span>Side-by-side photographic certification</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-darkgreen-800 font-bold">✓</span>
-                    <span>Multi-factor priority score algorithm</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Call to Action Banner (Nocturnal Deep Spruce #092421 & Luminous Pista #74D7CB) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-[2.5rem] p-8 sm:p-14 text-white text-center overflow-hidden bg-[#092421] border-2 border-[#74D7CB]/40 shadow-[0_20px_50px_rgba(9,36,33,0.35)]">
-          {/* Subtle ambient lighting orb inside dark banner */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-48 bg-[#74D7CB]/15 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="relative z-10 max-w-2xl mx-auto space-y-5">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#123632] border border-[#74D7CB]/40 text-[#74D7CB] font-mono text-xs font-bold shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-[#74D7CB]" /> Start Safeguarding Your Community
-            </span>
-
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold tracking-tight text-white leading-tight">
-              Ready to Protect Your Local Environment with Precision AI?
-            </h2>
-
-            <p className="text-[#E0F2EE] text-sm sm:text-base leading-relaxed max-w-xl mx-auto font-normal">
-              Join active civic reporters, municipal sanitation managers, and environmental teams mapping public pollution and accelerating cleanups.
-            </p>
-
-            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link to="/report">
-                <Button variant="pista" size="lg" icon={Camera} glow className="shadow-lg font-black text-sm px-7 py-3 rounded-full hover:scale-105 active:scale-95 transition-all">
-                  Submit a Litter Report Now
-                </Button>
-              </Link>
-              <Link to="/login">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="border-[#74D7CB]/50 text-white bg-[#123632] hover:bg-[#1B4A45] hover:text-[#74D7CB] rounded-full px-6 py-3 font-bold text-sm"
-                >
-                  Join as Civic Steward
-                </Button>
-              </Link>
-              <Link to="/map">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  icon={Compass}
-                  className="border-[#74D7CB]/30 text-[#A3D9CE] bg-transparent hover:bg-white/10 hover:text-white rounded-full px-6 py-3 font-bold text-sm"
-                >
-                  Explore Live Map
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* SECTION 12 — FINAL CALL TO ACTION */}
+      <FinalCTASection />
     </div>
   );
 }

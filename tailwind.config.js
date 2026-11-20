@@ -134,6 +134,16 @@ export default {
           900: '#16433D',
           DEFAULT: '#74D7CB',
         },
+        // Specific Government & Editorial Palette requested
+        gov: {
+          deep: '#102F24',      // Deep Forest Green
+          green: '#183D2B',     // Government Green
+          sage: '#A9C7AE',      // Sage Green
+          ivory: '#F8F6F0',     // Warm Ivory
+          beige: '#EFE9DD',     // Soft Beige
+          charcoal: '#17251E',  // Charcoal
+          saffron: '#E99A43',   // Restrained Saffron
+        },
         paper: '#FAF8F3',
         brand: {
           dark: '#10241B',
@@ -144,9 +154,9 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'Manrope', 'system-ui', '-apple-system', 'sans-serif'],
-        serif: ['Fraunces', 'Source Serif 4', 'Georgia', 'serif'],
-        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        sans: ['Manrope', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        serif: ['"DM Serif Display"', 'Fraunces', 'Source Serif 4', 'Georgia', 'serif'],
+        mono: ['"IBM Plex Mono"', 'JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       boxShadow: {
         'soft-xs': '0 1px 2px 0 rgba(24, 61, 43, 0.04)',

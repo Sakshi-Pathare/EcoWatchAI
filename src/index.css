@@ -11,7 +11,7 @@
     color: #12181A;
     background-color: #FAF8F3; /* Warm Natural Paper / Skin-Beige */
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Manrope', 'Inter', system-ui, -apple-system, sans-serif;
   }
 
   h1, h2, h3, h4 {
@@ -195,3 +195,108 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #90A88E;
 }
+
+/* ==========================================================
+   PREMIUM MOTION, TRANSITIONS & CINEMATIC UI EFFECTS
+   ========================================================== */
+
+/* 1. Scroll-triggered reveal states */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-active {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.reveal-delay-1 { transition-delay: 100ms; }
+.reveal-delay-2 { transition-delay: 200ms; }
+.reveal-delay-3 { transition-delay: 300ms; }
+.reveal-delay-4 { transition-delay: 450ms; }
+
+/* 2. Shimmer & Sheen Effect on Hover */
+.hover-sheen {
+  position: relative;
+  overflow: hidden;
+}
+.hover-sheen::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+  transition: none;
+}
+.hover-sheen:hover::after {
+  left: 140%;
+  transition: left 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 3. Sonar Concentric Radar Pulse */
+@keyframes sonarRing {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  60% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+.sonar-ring {
+  animation: sonarRing 2.8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+/* 4. Fluid Card Lift & Atmospheric Glow */
+.card-lift {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.card-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px -6px rgba(16, 47, 36, 0.12), 0 4px 12px -2px rgba(16, 47, 36, 0.06);
+}
+
+/* 5. Flow Diagram Animated Energy Beam */
+@keyframes energyBeam {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+.flow-beam {
+  stroke-dasharray: 8 12;
+  animation: energyBeam 2.5s linear infinite;
+}
+
+/* 6. Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-init {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .sonar-ring,
+  .flow-beam,
+  .hover-sheen::after {
+    animation: none !important;
+  }
+}
+
