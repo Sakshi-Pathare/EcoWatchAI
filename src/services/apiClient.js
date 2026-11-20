@@ -1,5 +1,5 @@
 /**
- * API Client abstraction for EcoWatch AI.
+ * API Client abstraction for Vasundhara AI.
  * Currently serves data from local state/localStorage with simulated network latency,
  * structured for drop-in proxying to FastAPI backend (e.g., http://localhost:8000/api/v1).
  */

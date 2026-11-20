@@ -1,5 +1,5 @@
 /**
- * Image storage & compression utility for EcoWatch AI.
+ * Image storage & compression utility for Vasundhara AI.
  * Resolves localStorage QuotaExceededError by:
  * 1. Performing client-side HTML5 Canvas compression on uploaded images.
  * 2. Persisting full-resolution compressed images in browser IndexedDB.

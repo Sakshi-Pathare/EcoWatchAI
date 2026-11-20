@@ -9,14 +9,26 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand Info */}
           <div className="md:col-span-1 space-y-4">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-[#123632] border border-[#27403C] flex items-center justify-center text-[#74D7CB] shadow-xs">
-                <Leaf className="w-5 h-5 text-[#74D7CB]" />
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[#123632] border border-[#27403C] p-1 flex items-center justify-center text-[#74D7CB] shadow-xs overflow-hidden shrink-0">
+                <img
+                  src="/images/vasundhara-ai-logo.png"
+                  alt="Vasundhara AI environmental sustainability logo"
+                  className="w-full h-full object-contain"
+                />
               </div>
-              <span className="font-serif font-bold text-xl text-white">EcoWatch AI</span>
+              <div className="flex items-center gap-1.5">
+                <span className="font-serif font-bold text-xl text-white">Vasundhara</span>
+                <span className="text-[9px] font-black tracking-wider px-1.5 py-0.5 rounded-full bg-[#1B4A45] text-[#74D7CB] border border-[#74D7CB]/50 uppercase">
+                  AI
+                </span>
+              </div>
             </div>
             <p className="text-xs text-[#E2F7F2] leading-relaxed font-normal">
               Empowering municipal councils, environmental stewards, and civic volunteers with actionable geospatial pollution intelligence.
+            </p>
+            <p className="text-[11px] text-[#74D7CB] font-medium tracking-wide">
+              Smart Environmental Monitoring for a Cleaner Tomorrow
             </p>
             <div className="flex items-center gap-2 text-xs font-medium">
               <Shield className="w-4 h-4 text-[#74D7CB]" />
@@ -95,7 +107,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-[#1B4A45] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#A9DED3] font-medium">
-          <p className="text-white">© 2026 EcoWatch AI. Designed for sustainable civic intelligence.</p>
+          <p className="text-white">© 2026 Vasundhara AI. Designed for sustainable civic intelligence.</p>
           <div className="flex items-center gap-6">
             <span className="text-white">OpenStreetMap GIS</span>
             <span className="text-white">FastAPI-Ready Client</span>
