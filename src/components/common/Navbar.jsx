@@ -66,23 +66,26 @@ export function Navbar() {
       <div className="bg-[#092421] border-b-2 border-[#74D7CB] shadow-[0_4px_24px_rgba(116,215,203,0.18)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Brand Logo with Editorial Serif & Luminous Pista Mint Glow */}
+            {/* Brand Logo with Editorial Serif & Vasundhara AI Emblem */}
             <Link to="/" className="flex items-center gap-3 group">
-              <div className="relative w-10 h-10 rounded-2xl bg-[#123632] flex items-center justify-center text-white shadow-soft transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(116,215,203,0.4)] border border-[#27403C]">
-                <Leaf className="w-5 h-5 text-[#74D7CB] transition-transform duration-300 group-hover:rotate-12" />
-                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-[#74D7CB] border-2 border-[#092421]" />
+              <div className="relative w-10 h-10 rounded-2xl bg-[#123632] flex items-center justify-center p-0.5 text-white shadow-soft transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(116,215,203,0.4)] border border-[#27403C] overflow-hidden">
+                <img
+                  src="/images/vasundhara-ai-logo.png"
+                  alt="Vasundhara AI environmental sustainability logo"
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div>
                 <div className="flex items-center gap-2">
                   <span className="font-serif font-bold text-2xl tracking-normal text-white">
-                    EcoWatch
+                    Vasundhara
                   </span>
                   <span className="text-[10px] font-black tracking-wider px-2 py-0.5 rounded-full bg-[#1B4A45] text-[#74D7CB] border border-[#74D7CB]/50 uppercase shadow-xs">
                     AI
                   </span>
                 </div>
                 <p className="text-[10px] text-[#A3D9CE] font-bold tracking-widest uppercase -mt-0.5 hidden sm:block">
-                  Civic Environmental Intelligence
+                  Smart Environmental Monitoring
                 </p>
               </div>
             </Link>
@@ -164,8 +167,12 @@ export function Navbar() {
           <div className="lg:hidden border-t border-[#27403C] bg-[#092421]/98 backdrop-blur-xl px-4 pt-3 pb-6 space-y-1.5 animate-fadeIn">
             <div className="p-2.5 rounded-xl bg-[#123632] border border-[#27403C] flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-[#74D7CB] animate-ping" />
-                <span className="text-xs font-bold text-white">GIS Telemetry Active</span>
+                <img
+                  src="/images/vasundhara-ai-logo.png"
+                  alt="Vasundhara AI environmental sustainability logo"
+                  className="w-5 h-5 object-contain"
+                />
+                <span className="text-xs font-bold text-white">Vasundhara GIS Active</span>
               </div>
               <span className="text-[10px] font-mono text-[#74D7CB] font-bold">SF BAY REGION</span>
             </div>

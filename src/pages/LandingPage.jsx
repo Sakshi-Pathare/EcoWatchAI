@@ -49,18 +49,28 @@ export function LandingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
             {/* Left Column: Heading, Telemetry Pill & CTAs */}
             <div className="lg:col-span-7 space-y-6 sm:space-y-7 text-left">
-              {/* Telemetry pill */}
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/95 border border-sage-300 shadow-soft-xs backdrop-blur-md">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-botanical-500 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-botanical-600" />
-                </span>
-                <span className="text-xs font-bold text-darkgreen-950 tracking-tight">
-                  Civic Environmental Intelligence & Hotspot Cartography
-                </span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sage-100 text-darkgreen-900 font-bold hidden sm:inline">
-                  v2.4 GIS
-                </span>
+              {/* Prominent Vasundhara AI Brand Badge with Official Logo */}
+              <div className="inline-flex items-center gap-3.5 p-2 sm:p-2.5 pr-5 rounded-2xl bg-white/95 border border-sage-300 shadow-soft-xs backdrop-blur-md">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-beige-50 border border-sage-200/80 p-1 flex items-center justify-center overflow-hidden shrink-0 shadow-xs">
+                  <img
+                    src="/images/vasundhara-ai-logo.png"
+                    alt="Vasundhara AI environmental sustainability logo"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-serif font-bold text-lg sm:text-xl text-darkgreen-950 tracking-tight">
+                      Vasundhara AI
+                    </span>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sage-100 text-darkgreen-900 font-bold border border-sage-200">
+                      v2.4 GIS
+                    </span>
+                  </div>
+                  <p className="text-xs text-charcoal-600 font-medium tracking-tight">
+                    Smart Environmental Monitoring for a Cleaner Tomorrow
+                  </p>
+                </div>
               </div>
 
               {/* Main Headline */}
@@ -74,7 +84,7 @@ export function LandingPage() {
 
               {/* Subtext */}
               <p className="text-base sm:text-lg text-charcoal-700 leading-relaxed max-w-2xl font-medium">
-                EcoWatch AI equips municipal sanitation crews and civic volunteers with crowdsourced photographic reports, automated recurrence clustering, and verified before-and-after resolution audits.
+                Vasundhara AI equips municipal sanitation crews and civic volunteers with crowdsourced photographic reports, automated recurrence clustering, and verified before-and-after resolution audits.
               </p>
 
               {/* Action Buttons */}
@@ -435,16 +445,16 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* Comparison: Traditional vs EcoWatch AI */}
+      {/* Comparison: Traditional vs Vasundhara AI */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-5 space-y-4">
             <Badge variant="sage">Intelligent Paradigm Shift</Badge>
             <h2 className="text-3xl font-serif font-bold text-[#10241B] tracking-tight leading-snug">
-              Why Cities Choose EcoWatch AI Over Manual Audits
+              Why Cities Choose Vasundhara AI Over Manual Audits
             </h2>
             <p className="text-sm text-charcoal-600 leading-relaxed font-medium">
-              Traditional municipal street maintenance relies on delayed telephone hotlines and scheduled sweeps that miss chronic illegal dumping. EcoWatch AI provides autonomous spatial recurrence intelligence.
+              Traditional municipal street maintenance relies on delayed telephone hotlines and scheduled sweeps that miss chronic illegal dumping. Vasundhara AI provides autonomous spatial recurrence intelligence.
             </p>
             <div className="pt-2">
               <Link to="/hotspots">
@@ -483,7 +493,7 @@ export function LandingPage() {
                 </ul>
               </div>
 
-              {/* EcoWatch AI Approach */}
+              {/* Vasundhara AI Approach */}
               <div className="p-6 rounded-2xl bg-[#FAF8F5] border-2 border-darkgreen-700 shadow-soft-md space-y-3 relative overflow-hidden">
                 <span className="absolute top-3 right-3 text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-sage-200 text-darkgreen-900 border border-sage-300">
                   RECOMMENDED
@@ -491,7 +501,7 @@ export function LandingPage() {
                 <div className="w-8 h-8 rounded-lg bg-darkgreen-800 text-beige-100 flex items-center justify-center font-bold text-xs">
                   ✓
                 </div>
-                <h4 className="font-bold text-base text-darkgreen-950">EcoWatch AI Platform</h4>
+                <h4 className="font-bold text-base text-darkgreen-950">Vasundhara AI Platform</h4>
                 <ul className="space-y-2 text-xs text-charcoal-700 font-medium">
                   <li className="flex items-start gap-2">
                     <span className="text-darkgreen-800 font-bold">✓</span>
