@@ -1,6 +1,6 @@
-# EcoWatch AI — Pollution Hotspot Intelligence Platform
+# Vasundhara AI — Smart Environmental Monitoring for a Cleaner Tomorrow
 
-EcoWatch AI is an environmental intelligence web application that identifies public litter, records precise geographical coordinates, clusters recurring pollution hotspots, and prioritizes municipal cleanup activities.
+Vasundhara AI is an environmental intelligence web application that identifies public litter, records precise geographical coordinates, clusters recurring pollution hotspots, and prioritizes municipal cleanup activities.
 
 Built as a pure software solution without physical sensors, the platform combines OpenStreetMap GIS mapping, a persistent FastAPI backend, data visualization, and optional locally configured YOLO inference.
 
@@ -11,7 +11,7 @@ Built as a pure software solution without physical sensors, the platform combine
 The application includes the following core platform interfaces:
 
 1. **Landing Page (`/`)**:
-   - Executive overview of EcoWatch AI's mission and civic methodology.
+   - Executive overview of Vasundhara AI's mission and civic methodology.
    - Primary and secondary CTAs (*"Report Litter"*, *"Explore Pollution Map"*).
    - Database-backed counters for reports, completed cleanups, estimated collected waste, and recurring hotspots.
    - 4-step civic-to-municipal operational workflow.
@@ -77,7 +77,7 @@ Authentication is role-based: citizen reporting and personal history require a c
 
 ## 2. Design System & Aesthetic Direction
 
-EcoWatch AI implements a professional, light-themed environmental technology design system:
+Vasundhara AI implements a professional, light-themed environmental technology design system:
 - **Primary Color:** Deep Forest Green (`#184730`)
 - **Backgrounds:** Warm off-white (`#FAFBF7`, `#F4F5ED`)
 - **Secondary Colors:** Muted Sage Green (`#758F71`, `#E8EDE7`)

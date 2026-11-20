@@ -1,4 +1,4 @@
-# EcoWatch AI — Complete Project Readiness & Technical Audit
+# Vasundhara AI (formerly EcoWatch AI) — Complete Project Readiness & Technical Audit
 
 > **Audit Date:** November 12, 2026  
 > **Repository:** [Sakshi-Pathare/EcoWatchAI](https://github.com/Sakshi-Pathare/EcoWatchAI)  

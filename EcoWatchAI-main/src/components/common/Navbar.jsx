@@ -64,15 +64,19 @@ export function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 rounded-xl bg-forest-50 flex items-center justify-center text-forest-800 border border-forest-100 transition-colors group-hover:bg-forest-100">
-                <Leaf className="w-5 h-5" />
+              <div className="w-10 h-10 rounded-xl bg-forest-50 flex items-center justify-center p-0.5 border border-forest-100 transition-colors group-hover:bg-forest-100 overflow-hidden">
+                <img
+                  src="/images/vasundhara-ai-logo.png"
+                  alt="Vasundhara AI environmental sustainability logo"
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-serif font-bold text-xl tracking-normal text-charcoal-900">EcoWatch AI</span>
+                  <span className="font-serif font-bold text-xl tracking-normal text-charcoal-900">Vasundhara AI</span>
                 </div>
                 <p className="text-[10px] text-charcoal-500 font-semibold tracking-wide uppercase -mt-0.5 hidden sm:block">
-                  Civic Environmental Intelligence
+                  Smart Environmental Monitoring
                 </p>
               </div>
             </Link>

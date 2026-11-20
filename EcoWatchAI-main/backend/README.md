@@ -1,4 +1,4 @@
-# EcoWatch AI API
+# Vasundhara AI API
 
 FastAPI backend for persistent litter reports, cleanup work orders, derived hotspot clusters, analytics, and photo storage.
 

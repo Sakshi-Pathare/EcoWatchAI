@@ -142,7 +142,7 @@ def bootstrap_super_admin(db: Session) -> None:
         id=f"USR-{secrets.token_hex(12).upper()}",
         email=email,
         password_hash=hash_password(password),
-        name="EcoWatch Super Admin",
+        name="Vasundhara AI Super Admin",
         role="super_admin",
         permissions=["*"],
         active=True,

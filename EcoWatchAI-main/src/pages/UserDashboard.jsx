@@ -110,7 +110,7 @@ export function UserDashboard() {
             </span>
           </div>
           <p className="text-xs text-[#242D2B] font-medium">
-            Your submissions are linked securely to your EcoWatch AI account and are visible only to you and authorized municipal administrators.
+            Your submissions are linked securely to your Vasundhara AI account and are visible only to you and authorized municipal administrators.
           </p>
         </div>
         <div className="text-sm font-bold text-[#2D6A4F]">{totalReports} submitted reports</div>

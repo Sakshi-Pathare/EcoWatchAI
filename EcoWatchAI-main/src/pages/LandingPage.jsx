@@ -49,10 +49,16 @@ export function LandingPage() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
             <div className="lg:col-span-7 space-y-6 sm:space-y-7 text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-sage-200">
-                <span className="h-2 w-2 rounded-full bg-forest-700" />
-                <span className="text-xs font-semibold text-forest-900 tracking-tight">
-                  Civic Environmental Intelligence & Hotspot Cartography
+              <div className="inline-flex items-center gap-2.5 p-1.5 pr-4 rounded-full bg-white border border-sage-200 shadow-xs">
+                <div className="w-8 h-8 rounded-full bg-beige-50 border border-sage-200 p-0.5 flex items-center justify-center overflow-hidden shrink-0">
+                  <img
+                    src="/images/vasundhara-ai-logo.png"
+                    alt="Vasundhara AI environmental sustainability logo"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <span className="text-xs font-bold text-forest-900 tracking-tight">
+                  Vasundhara AI • Smart Environmental Monitoring
                 </span>
               </div>
 
@@ -66,7 +72,7 @@ export function LandingPage() {
 
               {/* Subtext */}
               <p className="text-base sm:text-lg text-charcoal-700 leading-relaxed max-w-2xl font-medium">
-                EcoWatch AI equips municipal sanitation crews and civic volunteers with crowdsourced photographic reports, automated recurrence clustering, and verified before-and-after resolution audits.
+                Vasundhara AI equips municipal sanitation crews and civic volunteers with crowdsourced photographic reports, automated recurrence clustering, and verified before-and-after resolution audits.
               </p>
 
               {/* Action Buttons */}
@@ -313,16 +319,16 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* Comparison: Traditional vs EcoWatch AI */}
+      {/* Comparison: Traditional vs Vasundhara AI */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-5 space-y-4">
             <Badge variant="sage">Intelligent Paradigm Shift</Badge>
             <h2 className="text-3xl font-serif font-bold text-[#10241B] tracking-tight leading-snug">
-              Why Cities Choose EcoWatch AI Over Manual Audits
+              Why Cities Choose Vasundhara AI Over Manual Audits
             </h2>
             <p className="text-sm text-charcoal-600 leading-relaxed font-medium">
-              Traditional municipal street maintenance relies on delayed telephone hotlines and scheduled sweeps that miss chronic illegal dumping. EcoWatch AI provides autonomous spatial recurrence intelligence.
+              Traditional municipal street maintenance relies on delayed telephone hotlines and scheduled sweeps that miss chronic illegal dumping. Vasundhara AI provides autonomous spatial recurrence intelligence.
             </p>
             <div className="pt-2">
               <Link to="/hotspots">
@@ -361,7 +367,7 @@ export function LandingPage() {
                 </ul>
               </div>
 
-              {/* EcoWatch AI Approach */}
+              {/* Vasundhara AI Approach */}
               <div className="p-6 rounded-2xl bg-[#FAF8F5] border-2 border-darkgreen-700 shadow-soft-md space-y-3 relative overflow-hidden">
                 <span className="absolute top-3 right-3 text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-sage-200 text-darkgreen-900 border border-sage-300">
                   RECOMMENDED
@@ -369,7 +375,7 @@ export function LandingPage() {
                 <div className="w-8 h-8 rounded-lg bg-darkgreen-800 text-beige-100 flex items-center justify-center font-bold text-xs">
                   ✓
                 </div>
-                <h4 className="font-bold text-base text-darkgreen-950">EcoWatch AI Platform</h4>
+                <h4 className="font-bold text-base text-darkgreen-950">Vasundhara AI Platform</h4>
                 <ul className="space-y-2 text-xs text-charcoal-700 font-medium">
                   <li className="flex items-start gap-2">
                     <span className="text-darkgreen-800 font-bold">✓</span>

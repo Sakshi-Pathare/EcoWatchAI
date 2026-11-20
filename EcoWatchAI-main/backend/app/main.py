@@ -20,7 +20,7 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(
-    title="EcoWatch AI API",
+    title="Vasundhara AI API",
     description="Municipality-routed litter reports, isolated municipal operations, cleanup workflows, and analytics.",
     version="2.0.0",
     lifespan=lifespan,
@@ -46,7 +46,7 @@ app.mount("/static/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
 @app.get("/health")
 def health_check():
-    return {"status": "ok", "service": "ecowatch-ai-api"}
+    return {"status": "ok", "service": "vasundhara-ai-api"}
 
 
 app.include_router(api)

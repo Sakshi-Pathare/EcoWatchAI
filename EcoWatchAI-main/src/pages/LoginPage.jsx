@@ -49,7 +49,7 @@ export function LoginPage() {
     <div className="max-w-xl mx-auto px-4 py-12 sm:py-16">
       <Card className="border-sage-200 shadow-soft-md">
         <CardHeader
-          title={mode === 'login' ? 'Sign in to EcoWatch AI' : 'Create a citizen account'}
+          title={mode === 'login' ? 'Sign in to Vasundhara AI' : 'Create a citizen account'}
           subtitle="Municipal access is assigned by a platform super administrator."
           icon={mode === 'login' ? ShieldCheck : Leaf}
         />

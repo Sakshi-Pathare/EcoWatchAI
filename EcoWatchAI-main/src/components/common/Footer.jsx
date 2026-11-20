@@ -10,10 +10,14 @@ export function Footer() {
           {/* Brand Info */}
           <div className="md:col-span-1 space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-white">
-                <Leaf className="w-5 h-5" />
+              <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/15 p-1 flex items-center justify-center text-white overflow-hidden">
+                <img
+                  src="/images/vasundhara-ai-logo.png"
+                  alt="Vasundhara AI environmental sustainability logo"
+                  className="w-full h-full object-contain"
+                />
               </div>
-              <span className="font-serif font-bold text-xl text-white">EcoWatch AI</span>
+              <span className="font-serif font-bold text-xl text-white">Vasundhara AI</span>
             </div>
             <p className="text-xs text-[#E2F7F2] leading-relaxed font-normal">
               Empowering municipal councils, environmental stewards, and civic volunteers with actionable geospatial pollution intelligence.
@@ -95,7 +99,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-white/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/75 font-medium">
-          <p className="text-white">© 2026 EcoWatch AI. Designed for sustainable civic intelligence.</p>
+          <p className="text-white">© 2026 Vasundhara AI. Designed for sustainable civic intelligence.</p>
           <div className="flex items-center gap-6">
             <span className="text-white">OpenStreetMap GIS</span>
             <span className="text-white">FastAPI + SQLite</span>

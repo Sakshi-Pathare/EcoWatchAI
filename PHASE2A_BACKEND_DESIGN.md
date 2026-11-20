@@ -1,4 +1,4 @@
-# EcoWatch AI — Phase 2A: Backend Foundation & Architecture Design
+# Vasundhara AI (formerly EcoWatch AI) — Phase 2A: Backend Foundation & Architecture Design
 
 > **Document:** `PHASE2A_BACKEND_DESIGN.md`  
 > **Date:** November 12, 2026  

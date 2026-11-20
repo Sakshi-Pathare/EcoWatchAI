@@ -1,4 +1,4 @@
-# EcoWatch AI — Phase 1 Stability & Completion Report
+# Vasundhara AI (formerly EcoWatch AI) — Phase 1 Stability & Completion Report
 
 > **Date:** November 12, 2026  
 > **Phase:** Phase 1 — Application Stability & Existing Feature Completion  
