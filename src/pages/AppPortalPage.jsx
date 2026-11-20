@@ -94,9 +94,9 @@ export function AppPortalPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAF8F3] text-[#17251E] font-sans pb-24">
+    <div className="min-h-screen bg-transparent text-[#17251E] font-sans pb-24">
       {/* Top Application Command Bar in Warm Skin Beige */}
-      <section className="bg-[#FAF5EF] text-[#17251E] pt-10 pb-12 border-b border-[#E4D2BF] relative overflow-hidden">
+      <section className="bg-[#FAF5EF]/90 backdrop-blur-[2px] text-[#17251E] pt-10 pb-12 border-b border-[#E4D2BF] relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-[#E4D2BF]">
             <div>

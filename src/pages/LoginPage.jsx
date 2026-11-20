@@ -177,7 +177,7 @@ export function LoginPage() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-120px)] bg-[#FAF8F3] py-10 px-4 sm:px-6 lg:px-8 flex flex-col justify-center relative overflow-hidden">
+    <div className="min-h-[calc(100vh-120px)] bg-transparent py-10 px-4 sm:px-6 lg:px-8 flex flex-col justify-center relative overflow-hidden">
       {/* Decorative ambient background accents */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-b from-[#74D7CB]/15 via-transparent to-transparent pointer-events-none blur-3xl -z-10" />
 
