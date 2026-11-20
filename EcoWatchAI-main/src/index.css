@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    color: #12181A;
+    background-color: #F6F8F5;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4 {
+    letter-spacing: -0.02em;
+  }
+}
+
+.card-paper {
+  background: #ffffff;
+  border: 1px solid #e1e8e1;
+  box-shadow: 0 1px 3px rgba(16, 32, 26, 0.06);
+  position: relative;
+}
+
+.card-paper:hover {
+  border-color: #cbd8cb;
+  box-shadow: 0 4px 12px rgba(16, 32, 26, 0.08);
+}
+
+/* Subtle Organic Noise Texture */
+.noise {
+  position: relative;
+}
+.noise::after {
+  content: "";
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.gradient-border {
+  border-color: #d7e1d7;
+}
+
+/* Navigation utility */
+.pill-dock {
+  background: #ffffff;
+  border: 1px solid #e1e8e1;
+  box-shadow: 0 1px 3px rgba(16, 32, 26, 0.06);
+}
+
+/* Atmospheric Botanical Mesh Gradients and Dot Grids */
+.bg-grid-pattern {
+  background-image: radial-gradient(#CCDCCC 1.2px, transparent 1.2px);
+  background-size: 20px 20px;
+}
+
+.bg-dot-pattern-dense {
+  background-image: radial-gradient(#BDECE4 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+/* Frosted glass utilities with warm skin-beige undertone */
+.glass-panel {
+  background: #ffffff;
+  border: 1px solid #e1e8e1;
+  box-shadow: 0 1px 3px rgba(16, 32, 26, 0.05);
+}
+
+.glass-panel-dark {
+  background: #183d2b;
+  border: 1px solid #2e5b42;
+  box-shadow: 0 2px 6px rgba(5, 20, 18, 0.12);
+}
+
+.glass-card-hover {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-card-hover:hover {
+  box-shadow: 0 4px 12px rgba(9, 36, 33, 0.08);
+  border-color: #cbd8cb;
+}
+
+/* Gradient text utilities */
+.text-gradient-forest {
+  background: linear-gradient(135deg, #051412 0%, #092421 45%, #27403C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-lime {
+  background: linear-gradient(135deg, #092421 0%, #27403C 45%, #74D7CB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-pista {
+  background: linear-gradient(135deg, #092421 0%, #2F665F 50%, #74D7CB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Leaflet map controls styling */
+.leaflet-container {
+  font-family: inherit;
+  z-index: 10;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 1rem;
+  padding: 0;
+  box-shadow: 0 20px 45px -10px rgba(10, 28, 19, 0.22), 0 8px 16px -4px rgba(10, 28, 19, 0.12);
+  border: 1px solid #D1DDD0;
+  overflow: hidden;
+  background: #FAF8F5;
+}
+
+.leaflet-popup-content {
+  margin: 0;
+  line-height: inherit;
+}
+
+.leaflet-bar {
+  border: 1px solid #D1DDD0 !important;
+  box-shadow: 0 4px 12px rgba(24, 61, 43, 0.08) !important;
+  border-radius: 0.65rem !important;
+  overflow: hidden;
+}
+
+.leaflet-bar a {
+  background-color: #FAF8F5 !important;
+  color: #183D2B !important;
+  border-bottom: 1px solid #E7ECE6 !important;
+}
+.leaflet-bar a:hover {
+  background-color: #E7ECE6 !important;
+  color: #0A1C13 !important;
+}
+
+/* Custom scrollbars with sage & beige tones */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #ECE5DA;
+}
+::-webkit-scrollbar-thumb {
+  background: #B3C5B1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #90A88E;
+}
