@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   MapPin,
   List,
@@ -26,8 +27,10 @@ import { EmptyState } from '../components/common/EmptyState';
 import { LoadingSkeleton } from '../components/common/LoadingSkeleton';
 import { reportService } from '../services/reportService';
 import { hotspotService } from '../services/hotspotService';
+import { cityPresets, initialMockHotspots } from '../data/mockHotspots';
 import { getSeverityBadgeProps, getStatusBadgeProps, getCategoryLabel } from '../utils/formatters';
 import { formatDate, formatRelativeTime } from '../utils/dateUtils';
+import { Globe, Plus } from 'lucide-react';
 
 export function PollutionMapPage() {
   const [reports, setReports] = useState([]);
@@ -35,6 +38,8 @@ export function PollutionMapPage() {
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState('map'); // 'map' | 'list'
   const [selectedReport, setSelectedReport] = useState(null);
+  const [mapCenter, setMapCenter] = useState([37.7749, -122.4194]);
+  const [activeCity, setActiveCity] = useState('sf');
 
   // Filters
   const [searchTerm, setSearchTerm] = useState('');
@@ -66,6 +71,27 @@ export function PollutionMapPage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleCitySwitch = async (cityKey) => {
+    setActiveCity(cityKey);
+    let coords = [37.7749, -122.4194];
+    let presetHotspots = initialMockHotspots;
+
+    if (cityKey === 'pune') {
+      coords = [18.5204, 73.8567];
+      presetHotspots = cityPresets.pune;
+    } else if (cityKey === 'mumbai') {
+      coords = [19.0760, 72.8777];
+      presetHotspots = cityPresets.mumbai;
+    } else if (cityKey === 'delhi') {
+      coords = [28.6139, 77.2090];
+      presetHotspots = cityPresets.delhi;
+    }
+
+    setMapCenter(coords);
+    await hotspotService.loadPreset(presetHotspots);
+    setHotspots(presetHotspots);
   };
 
   const highSeverityCount = reports.filter(r => r.severity === 'high' || r.severity === 'critical').length;
@@ -231,9 +257,43 @@ export function PollutionMapPage() {
       {/* Main Map / List View Container */}
       {viewMode === 'map' ? (
         <div className="space-y-4">
+          {/* City Regional Presets Toolbar */}
+          <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-white/70 backdrop-blur-md rounded-2xl border border-[#1B4332]/10 text-xs shadow-xs">
+            <div className="flex items-center gap-2">
+              <Globe className="w-4 h-4 text-[#2D6A4F]" />
+              <span className="font-bold text-[#10241B]">Regional Focus:</span>
+            </div>
+            <div className="flex flex-wrap items-center gap-1.5 font-semibold">
+              {[
+                { id: 'pune', name: 'Pune, India' },
+                { id: 'mumbai', name: 'Mumbai, India' },
+                { id: 'delhi', name: 'Delhi, India' },
+                { id: 'sf', name: 'San Francisco, USA' },
+              ].map((city) => (
+                <button
+                  key={city.id}
+                  onClick={() => handleCitySwitch(city.id)}
+                  className={`px-3 py-1 rounded-full text-xs transition-all ${
+                    activeCity === city.id
+                      ? 'bg-[#102D27] text-[#74D7CB] font-bold shadow-xs border border-[#74D7CB]/50'
+                      : 'bg-white text-[#242D2B] border border-[#1B4332]/15 hover:bg-[#FAF8F3]'
+                  }`}
+                >
+                  {city.name}
+                </button>
+              ))}
+            </div>
+            <Link to="/hotspots" className="text-[#2D6A4F] hover:text-[#10241B] font-bold text-xs inline-flex items-center gap-1">
+              <Plus className="w-3.5 h-3.5" /> Add New Hotspot
+            </Link>
+          </div>
+
           <InteractiveMap
+            key={`${mapCenter[0]}-${mapCenter[1]}`}
             reports={reports}
             hotspots={hotspots}
+            center={mapCenter}
+            zoom={13}
             height="640px"
             showHotspotOverlays={showHotspotLayers}
             onSelectReport={(r) => setSelectedReport(r)}
